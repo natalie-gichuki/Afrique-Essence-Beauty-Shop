@@ -15,7 +15,7 @@ cors = CORS()
 
 # Defines a function that takes in a configuration name ("development", "testing", etc.).
 # This function creates and configures the Flask app based on the provided configuration.
-def create_app(config_name):
+def create_app(config_name = "development"):
     # Creates a new Flask application instance.
     app = Flask(__name__)
     # Loads the configuration settings based on the config_name argument.
@@ -32,12 +32,12 @@ def create_app(config_name):
     # Initializes Flask-CORS to handle Cross-Origin Resource Sharing, allowing the app to accept requests from different origins.
     cors.init_app(app)
     
-    # Create the database tables if they don't exist.
-    with app.app_context():
-        # Import the routes and models to ensure they are registered with the app context.
-        from app import routes, models
+    from app.routes import auth_routes, user_routes
+    from app import models
        
 
-        # Register blueprints
+    # Register blueprints
+    app.register_blueprint(auth_routes.auth_bp, url_prefix='/auth')
+    app.register_blueprint(user_routes.bp, url_prefix='/users')
 
     return app
