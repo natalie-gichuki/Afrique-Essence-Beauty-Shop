@@ -3,8 +3,8 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.user import User
 from app.utils.auth_helpers import role_required
 
-user_bp = Blueprint('user', __name__)
-@user_bp.route('/users', methods=['GET'])
+bp = Blueprint('user_routes', __name__)
+@bp.route('/user', methods=['GET'])
 @jwt_required()
 @role_required('admin')
 def get_users():

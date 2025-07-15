@@ -12,12 +12,14 @@ def register():
     data = request.get_json()
     if User.query.filter_by(email=data['email']).first():
         return jsonify({"msg": "Email already exists"}), 400
+
+    role = data.get('role', 'customer')
     
     user = User(
         username = data['username'],
         email = data['email'],
         password_hash = generate_password_hash(data['password']),
-        role = 'customer'
+        role = role
     )
 
     if not user.username or not user.email or not user.password_hash:
