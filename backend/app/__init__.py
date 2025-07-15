@@ -3,8 +3,10 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
+# Imports the config class dictionary (config_by_name) from config.py to load environment-specific configs.
 from app.config import Config
 
+# Initialize extensions
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
