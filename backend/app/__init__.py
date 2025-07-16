@@ -1,4 +1,5 @@
 from flask import Flask
+
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -41,3 +42,4 @@ def create_app(config_name = "development"):
     app.register_blueprint(user_routes.bp, url_prefix='/users')
 
     return app
+

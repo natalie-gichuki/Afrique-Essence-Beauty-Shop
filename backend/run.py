@@ -1,5 +1,6 @@
 from app import create_app
 
+
 # This script is the entry point for running the Flask application.
 # app = create_app("development") => Initializes the Flask application with the "development" configuration.
 app = create_app("development")

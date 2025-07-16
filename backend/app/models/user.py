@@ -1,13 +1,16 @@
+
 from app import db
 from sqlalchemy.orm import validates
 import re
 
 # This module defines the User model for the application.
 # Create the users table with fields for id, username, email, password, and role.
+
 class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
+
     username = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
@@ -36,3 +39,4 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.username}>'
+

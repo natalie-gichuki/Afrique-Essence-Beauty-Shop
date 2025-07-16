@@ -1,5 +1,6 @@
 import os
 
+
 # Configuration settings for the Flask application
 #  Defines a base configuration class with default/shared settings.
 class Config:
@@ -43,5 +44,6 @@ config_by_name = {
     "testing": Testing,
     "production": Production
 }
+
 
 
