@@ -35,6 +35,9 @@ def login():
     user = User.query.filter_by(email=data['email']).first()
     if not user or not check_password_hash(user.password_hash, data['password']):
         return jsonify({"msg": "Invalid email or password"}), 401
+    
+    if user.role == 'disabled':
+        return jsonify({"msg": "User account is disabled"}), 403
 
     access_token = create_access_token(identity=user.id)
     return jsonify(access_token=access_token), 200
