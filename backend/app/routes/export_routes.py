@@ -2,10 +2,14 @@ from flask import Blueprint, request
 from app.models import Product, Order
 from app.utils.export_csv import generate_csv_response
 from app.models import db
+from flask_jwt_extended import jwt_required
+from app.utils.auth_helpers import role_required
 
 export_bp = Blueprint('export_bp', __name__, url_prefix='/export')
 
 @export_bp.route('/products')
+@jwt_required()
+@role_required('admin')
 def export_products():
     products = Product.query.all()
     data = [{
@@ -20,6 +24,8 @@ def export_products():
     return generate_csv_response(data, fieldnames, "products")
 
 @export_bp.route('/orders')
+@jwt_required()
+@role_required('admin')
 def export_orders():
     orders = Order.query.all()
     data = [{
