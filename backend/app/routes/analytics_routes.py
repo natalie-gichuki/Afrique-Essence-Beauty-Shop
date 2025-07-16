@@ -1,10 +1,14 @@
 from flask import Blueprint, jsonify
 from app.models import db, Product, Order, OrderItem
 from sqlalchemy import func
+from flask_jwt_extended import jwt_required
+from app.utils.auth_helpers import role_required
 
 analytics_bp = Blueprint('analytics', __name__, url_prefix='/analytics')
 
 @analytics_bp.route('/products')
+@jwt_required()
+@role_required('admin')
 def product_analytics():
     top_sellers = db.session.query(
         Product.name,
@@ -19,11 +23,13 @@ def product_analytics():
     })
 
 @analytics_bp.route('/orders')
+@jwt_required()
+@role_required('admin')
 def order_analytics():
     total_orders = db.session.query(func.count(Order.id)).scalar()
 
     total_revenue = db.session.query(
-        func.sum(OrderItem.quantity * OrderItem.price)
+        func.sum(OrderItem.quantity * OrderItem.price_at_purchase)
     ).scalar()
 
     orders_per_day = db.session.query(
