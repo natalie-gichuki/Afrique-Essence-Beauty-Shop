@@ -49,26 +49,7 @@ auth_bp = Blueprint('auth', __name__)
         }
     }
 })
-# def register():
-#     data = request.get_json()
-#     if User.query.filter_by(email=data['email']).first():
-#         return jsonify({"msg": "Email already exists"}), 400
 
-#     role = data.get('role', 'customer')
-    
-#     user = User(
-#         username = data['username'],
-#         email = data['email'],
-#         password_hash = generate_password_hash(data['password']),
-#         role = role
-#     )
-
-#     if not user.username or not user.email or not user.password_hash:
-#         return jsonify({"msg": "Missing required fields"}), 400
-    
-#     db.session.add(user)
-#     db.session.commit()
-#     return jsonify({"msg": "User registered successfully"}), 201
 def register():
     data = request.get_json()
 
