@@ -5,6 +5,7 @@ from app.models.category import Category
 from flask_jwt_extended import jwt_required
 from app.utils.auth_helpers import role_required
 from app.routes.category_routes import category_bp
+from flasgger.utils import swag_from
 
 product_bp = Blueprint('product', __name__)
 
@@ -15,6 +16,33 @@ product_bp = Blueprint('product', __name__)
 @product_bp.route('/', methods=['GET'])
 @jwt_required()
 @role_required('admin', 'customer')
+@swag_from({
+    'tags': ['Product'],
+    'description': 'List all products',
+    'security': [{'Bearer': []}],
+    'parameters': [
+        {  'name': 'category',
+            'in': 'query',
+            'required': False,
+            'type': 'string',
+            'description': 'Filter products by category name'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'List of products',
+            'examples': {
+                'application/json': [
+                    {"id": 1, "name": "Product 1", "price": 10.0, "stock": 100, "views": 50, "category": "Electronics"},
+                    {"id": 2, "name": "Product 2", "price": 20.0, "stock": 200, "views": 150, "category": "Books"}
+                ]
+            }
+        }
+    },
+    401: {
+        'description': 'Unauthorized'
+    }
+})
 def list_products():
     products = Product.query.all()
     return jsonify([{
@@ -29,6 +57,46 @@ def list_products():
 @product_bp.route('/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
 @role_required('admin')
+@swag_from({
+    'tags': ['Product'],
+    'description': 'Manage a specific product by ID',
+    'security': [{'Bearer': []}],
+    'parameters': [
+        {         'name': 'id',
+            'in': 'path',
+            'required': True,
+            'type': 'integer',
+            'description': 'Product ID'
+        },
+        {
+            'name': 'product',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': { 
+                    'name': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'price': {'type': 'number'},
+                    'image_url': {'type': 'string'},
+                    'category_id': {'type': 'integer'}
+                },
+                'required': ['name', 'price']
+            }
+        }
+],
+    'responses': {
+        200: {
+            'description': 'Product details',
+            'examples': {
+                'application/json': {"id": 1, "name": "Product 1", "description": "A great product", "price": 10.0, "image_url": "http://example.com/image.jpg", "category": "Electronics"}
+            }
+        },
+        404: {
+            'description': 'Product not found'
+        }
+    }
+})
 def manage_product(id):
     product = Product.query.get_or_404(id)
 
@@ -68,6 +136,37 @@ def manage_product(id):
 @product_bp.route('/', methods=['POST'])
 @jwt_required()
 @role_required('admin')
+@swag_from({
+    'tags': ['Product'],
+    'description': 'Create a new product',
+    'security': [{'Bearer': []}],
+    'parameters': [
+        {            'name': 'product',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'name': {'type': 'string'},
+                    'description': {'type': 'string'},
+                    'price': {'type': 'number'},
+                    'image_url': {'type': 'string'},
+                    'category_id': {'type': 'integer'}
+                },
+                'required': ['name', 'price']
+            }
+        }
+    ],
+    'responses': {
+        201: {
+            'description': 'Product created successfully',
+            'examples': {
+                'application/json': {"id": 1, "name": "New Product", "description": "A new product", "price": 15.0, "image_url": "http://example.com/new_image.jpg", "category": "Electronics"}
+            }
+        },
+        400: {'description': 'Bad Request'}
+    }
+})
 def create_product():
     data = request.get_json()
     if not data or 'name' not in data or 'price' not in data:

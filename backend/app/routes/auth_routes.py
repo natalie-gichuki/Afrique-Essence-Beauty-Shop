@@ -3,11 +3,52 @@ from app import db
 from app.models.user import User
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
+from flasgger.utils import swag_from
 
 # Create a Blueprint for authentication routes
 auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
+@swag_from({
+    'tags': ['Authentication'],
+    'description': 'Register a new user',
+    'security': [{'Bearer': []}],
+    'parameters': [
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'username': {'type': 'string'},
+                    'email': {'type': 'string', 'format': 'email'},
+                    'password': {'type': 'string'},
+                    'role': {'type': 'string', 'default': 'customer'}
+                },
+                'required': ['username', 'email', 'password']
+            }
+        }
+    ],
+    'responses': {
+        201: {
+            'description': 'User registered successfully',
+            'examples': {
+                'application/json': {
+                    'msg': 'User registered successfully'
+                }
+            }
+        },
+        400: {
+            'description': 'Bad Request',
+            'examples': {
+                'application/json': {
+                    'msg': 'Missing required fields'
+                }
+            }
+        }
+    }
+})
 def register():
     data = request.get_json()
     if User.query.filter_by(email=data['email']).first():
@@ -30,6 +71,52 @@ def register():
     return jsonify({"msg": "User registered successfully"}), 201
 
 @auth_bp.route('/login', methods=['POST'])
+@swag_from({
+    'tags': ['Authentication'],
+    'description': 'User login',
+    'security': [{'Bearer': []}],
+    'parameters': [
+        {
+            'name': 'body',
+            'in': 'body',
+            'required': True,
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'email': {'type': 'string', 'format': 'email'},
+                    'password': {'type': 'string'}
+                },
+                'required': ['email', 'password']
+            }
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Login successful',
+            'examples': {
+                'application/json': {
+                    'access_token': '<JWT Token>'
+                }
+            }
+        },
+        401: {
+            'description': 'Unauthorized',
+            'examples': {
+                'application/json': {
+                    'msg': 'Invalid email or password'
+                }
+            }
+        },
+        403: {
+            'description': 'Forbidden',
+            'examples': {
+                'application/json': {
+                    'msg': "User account is disabled"
+                }
+            }
+        }
+    }
+})
 def login():
     data = request.get_json()
     user = User.query.filter_by(email=data['email']).first()
@@ -44,6 +131,32 @@ def login():
 
 @auth_bp.route('/profile', methods=['GET'])
 @jwt_required()
+@swag_from({
+    'tags': ['Authentication'],
+    'description': 'Get user profile',
+    'security': [{'Bearer': []}],
+    'responses': {
+        200: {
+            'description': 'User profile retrieved successfully',
+            'examples': {
+                'application/json': {
+                    'id': 1,
+                    'username': 'john_doe',
+                    'email': 'john_doe@example.com',
+                    'role': 'customer'
+                }
+            }
+        },
+        401: {
+            'description': 'Unauthorized',
+            'examples': {
+                'application/json': {
+                    'msg': 'Missing or invalid token'
+                }
+            }
+        }
+    }
+})
 def profile():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
