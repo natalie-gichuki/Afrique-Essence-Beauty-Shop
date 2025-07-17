@@ -1,40 +1,98 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Blueprint
 from app.models.product import Product
+from app.models import db
+from app.models.category import Category
+from flask_jwt_extended import jwt_required
+from app.utils.auth_helpers import role_required
+from app.routes.category_routes import category_bp
 
-app = Flask(__name__)
+product_bp = Blueprint('product', __name__)
 
-@app.route('/')
-def products():
-    return "https://player.vimeo.com/video/871463199?h=bf967a15de" 
+# @product_bp.route('/')
+# def products():
+#     return "https://player.vimeo.com/video/871463199?h=bf967a15de" 
 
-@app.route('/products', methods=['GET'])
+@product_bp.route('/', methods=['GET'])
+@jwt_required()
+@role_required('admin', 'customer')
 def list_products():
-   Products = [
-        Product("Marini Naturals Shampoo", "A gentle shampoo for all hair types.", 15.99, "https://example.com/shampoo.jpg", "Hair and Beards"),
-        Product("Marini Naturals Conditioner", "A nourishing conditioner for healthy hair.", 17.99, "https://example.com/conditioner.jpg", "Hair and Beards"),
-        Product("Marini Naturals Body Wash", "A refreshing body wash with natural ingredients.", 12.99, "https://example.com/bodywash.jpg", "Body"),
-        Product("Marini Naturals Face Cream", "A hydrating face cream for all skin types.", 20.99, "https://example.com/facecream.jpg", "Face"),
-        Product("Marini Naturals Perfume", "A long-lasting perfume with a unique scent.", 45.99, "https://example.com/perfume.jpg", "Perfumes"),
-        Product("Nivea", "Nivea Moisturizing Cream", "A rich cream for dry skin.", 10.99, "https://example.com/cream.jpg", "Face"),
-        Product("Dove", "Dove Body Wash", "A nourishing body wash for soft skin.", 12.99, "https://example.com/bodywash.jpg", "Body"),
-       
-    ]
-   return jsonify([{"id": prod.id, "name": prod.name, "description": prod.description, "price": prod.price, "image_url": prod.image_url, "category": prod.category} for prod in products])
+    products = Product.query.all()
+    return jsonify([{
+        "id": prod.id, 
+        "name": prod.name,
+        "description": prod.description,
+        "price": prod.price,
+        "image_url": prod.image_url,
+        "category": prod.category.name
+    } for prod in products]), 200
 
-@app.route('/products/<int:product_id>', methods=['GET', 'PUT', 'DELETE'])
-def manage_product(product_id):
+@product_bp.route('/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
+@role_required('admin')
+def manage_product(id):
+    product = Product.query.get_or_404(id)
+
     if request.method == 'GET':
-        product = Product("Marini Naturals Shampoo", "A gentle shampoo for all hair types.", 15.99, "https://example.com/shampoo.jpg", "Hair and Beards")
-        return jsonify({"id": product.id, "name": product.name, "description": product.description, "price": product.price, "image_url": product.image_url, "category": product.category})
-    
-    elif request.method == 'PUT':
-        updated_product = Product("Updated Marini Naturals Shampoo", "An updated gentle shampoo for all hair types.", 16.99, "https://example.com/updated_shampoo.jpg", "Hair and Beards")
-        return jsonify({"id": updated_product.id, "name": updated_product.name, "description": updated_product.description, "price": updated_product.price, "image_url": updated_product.image_url, "category": updated_product.category})
-    
-    elif request.method == 'DELETE':
-        return jsonify({"message": f"Product with id {product_id} deleted successfully"})
-       
+        return jsonify({
+            "id": product.id,
+            "name": product.name,
+            "description": product.description,
+            "price": product.price,
+            "image_url": product.image_url,
+            "category": product.category.name
+        }), 200
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    elif request.method == 'PUT':
+        data = request.get_json()
+        product.name = data.get('name', product.name)
+        product.description = data.get('description', product.description)
+        product.price = data.get('price', product.price)
+        product.image_url = data.get('image_url', product.image_url)
+        product.category_id = data.get('category_id', product.category_id)
+        db.session.commit()
+        return jsonify({
+            "id": product.id,
+            "name": product.name,
+            "description": product.description,
+            "price": product.price,
+            "image_url": product.image_url,
+            "category": product.category.name
+        }), 200
+
+    elif request.method == 'DELETE':
+        db.session.delete(product)
+        db.session.commit()
+        return jsonify({"message": "Product deleted successfully"}), 204
     
+
+@product_bp.route('/', methods=['POST'])
+@jwt_required()
+@role_required('admin')
+def create_product():
+    data = request.get_json()
+    if not data or 'name' not in data or 'price' not in data:
+        return jsonify({"msg": "Name and price are required"}), 400
+    
+    category = Category.query.get(data.get('category_id'))
+    if not category:
+        return jsonify({"msg": "Category not found"}), 404
+    
+    new_product = Product(
+        name=data['name'],
+        description=data.get('description', ''),
+        price=data['price'],
+        image_url=data.get('image_url', ''),
+        category_id=data.get('category_id')
+    )
+    
+    db.session.add(new_product)
+    db.session.commit()
+    
+    return jsonify({
+        "id": new_product.id,
+        "name": new_product.name,
+        "description": new_product.description,
+        "price": new_product.price,
+        "image_url": new_product.image_url,
+        "category": new_product.category.name
+    }), 201

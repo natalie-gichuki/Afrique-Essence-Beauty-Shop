@@ -1,29 +1,48 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Blueprint
 from app.models.category import Category
-app = Flask(__name__)
+from flask_jwt_extended import jwt_required
+from app.utils.auth_helpers import role_required
+from app import db
 
+category_bp = Blueprint('category', __name__)
 
-@app.route('/categories', methods=['GET'])
+@category_bp.route('/', methods=['GET'])
+@jwt_required()
+@role_required('admin')
 def list_categories():
-    categories = [
-        Category("Brands"),
-        Category("Hair and Beards"),
-        Category("Body"),
-        Category("Face"),
-        Category("Perfumes")
-    ]
-    return jsonify([{"id": cat.id, "name": cat.name} for cat in categories])
-@app.route('/categories/<int:category_id>', methods=['GET', 'PUT', 'DELETE'])
-def manage_category(category_id):
+    categories = Category.query.all()
+    return jsonify([{"id": cat.id, "name": cat.name} for cat in categories]), 200
+
+@category_bp.route('/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
+@role_required('admin')
+def manage_category(id):
+    category = Category.query.get_or_404(id)
+
     if request.method == 'GET':
-        category = Category("Hair and Beards")
-        return jsonify({"id": category.id, "name": category.name})
-    
+        return jsonify({"id": category.id, "name": category.name}), 200
+
     elif request.method == 'PUT':
-        updated_category = Category("Updated Hair and Beards")
-        return jsonify({"id": updated_category.id, "name": updated_category.name})
-    
+        data = request.get_json()
+        category.name = data.get('name', category.name)
+        db.session.commit()
+        return jsonify({"id": category.id, "name": category.name}), 200
+
     elif request.method == 'DELETE':
-        return jsonify({"message": f"Category with id {category_id} deleted successfully"})
-if __name__ == '__main__':
-    app.run(debug=True)
+        db.session.delete(category)
+        db.session.commit()
+        return jsonify({"message": f"Category with id {id} deleted successfully"}), 204
+    
+@category_bp.route('/', methods=['POST'])
+@jwt_required()
+@role_required('admin')
+def create_category():
+    data = request.get_json()
+    if not data or 'name' not in data:
+        return jsonify({"msg": "Name is required"}), 400
+    
+    new_category = Category(name=data['name'])
+    db.session.add(new_category)
+    db.session.commit()
+    
+    return jsonify({"id": new_category.id, "name": new_category.name}), 201
