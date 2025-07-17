@@ -93,7 +93,7 @@ DELETE /products/<id>
 
 GET /categories
 
-🛒 Orders, Cart & Invoices (Milka)
+## Orders, Cart & Invoices (Milka)
 POST /orders
 
 GET /orders
@@ -109,7 +109,7 @@ View summarized sales analytics within a date range.
 
 # Testing the API
 Use Postman or cURL to interact with endpoints. Add Authorization headers as required.
-
+We used  Swagger UI for interactive API documentation
 # Tech Stack
 Python (Flask)
 
