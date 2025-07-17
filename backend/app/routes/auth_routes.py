@@ -49,26 +49,53 @@ auth_bp = Blueprint('auth', __name__)
         }
     }
 })
+# def register():
+#     data = request.get_json()
+#     if User.query.filter_by(email=data['email']).first():
+#         return jsonify({"msg": "Email already exists"}), 400
+
+#     role = data.get('role', 'customer')
+    
+#     user = User(
+#         username = data['username'],
+#         email = data['email'],
+#         password_hash = generate_password_hash(data['password']),
+#         role = role
+#     )
+
+#     if not user.username or not user.email or not user.password_hash:
+#         return jsonify({"msg": "Missing required fields"}), 400
+    
+#     db.session.add(user)
+#     db.session.commit()
+#     return jsonify({"msg": "User registered successfully"}), 201
 def register():
     data = request.get_json()
-    if User.query.filter_by(email=data['email']).first():
+
+    # Basic validation to avoid KeyError
+    username = data.get('username')
+    email = data.get('email')
+    password = data.get('password')
+    role = data.get('role', 'customer')
+
+    if not username or not email or not password:
+        return jsonify({"msg": "Missing required fields: username, email, or password"}), 400
+
+    if User.query.filter_by(email=email).first():
         return jsonify({"msg": "Email already exists"}), 400
 
-    role = data.get('role', 'customer')
-    
     user = User(
-        username = data['username'],
-        email = data['email'],
-        password_hash = generate_password_hash(data['password']),
-        role = role
+        username=username,
+        email=email,
+        password_hash=generate_password_hash(password),
+        role=role
     )
 
-    if not user.username or not user.email or not user.password_hash:
-        return jsonify({"msg": "Missing required fields"}), 400
-    
     db.session.add(user)
     db.session.commit()
+
     return jsonify({"msg": "User registered successfully"}), 201
+
 
 @auth_bp.route('/login', methods=['POST'])
 @swag_from({
