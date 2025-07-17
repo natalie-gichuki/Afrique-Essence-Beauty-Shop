@@ -33,7 +33,7 @@ def create_app(config_name = "development"):
     # Initializes Flask-CORS to handle Cross-Origin Resource Sharing, allowing the app to accept requests from different origins.
     cors.init_app(app)
     
-    from app.routes import auth_routes, user_routes, analytics_routes, export_routes
+    from app.routes import auth_routes, user_routes, analytics_routes, export_routes, cart_routes, order_routes, invoice_routes
     from app import models
        
 
@@ -42,6 +42,9 @@ def create_app(config_name = "development"):
     app.register_blueprint(user_routes.bp, url_prefix='/users')
     app.register_blueprint(analytics_routes.analytics_bp, url_prefix='/analytics')
     app.register_blueprint(export_routes.export_bp, url_prefix='/export')
+    app.register_blueprint(cart_routes.cart_bp, url_prefix='/cart')
+    app.register_blueprint(order_routes.order_item_bp, url_prefix='/orders')
+    app.register_blueprint(invoice_routes.invoice_bp, url_prefix='/invoices')
 
     return app
 
