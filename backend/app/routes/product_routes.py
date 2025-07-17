@@ -44,15 +44,44 @@ product_bp = Blueprint('product', __name__)
     }
 })
 def list_products():
-    products = Product.query.all()
-    return jsonify([{
-        "id": prod.id, 
+    # products = Product.query.all()
+    # return jsonify([{
+    #     "id": prod.id, 
+    #     "name": prod.name,
+    #     "description": prod.description,
+    #     "price": prod.price,
+    #     "image_url": prod.image_url,
+    #     "category": prod.category.name
+    # } for prod in products]), 200
+    category_name = request.args.get('category')
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 10, type=int)
+
+    query = Product.query
+
+    if category_name:
+        query = query.join(Product.category).filter(Category.name.ilike(f'%{category_name}%'))
+
+    pagination = query.paginate(page, per_page, error_out=False)
+
+    products = [{
+        "id": prod.id,
         "name": prod.name,
         "description": prod.description,
         "price": prod.price,
         "image_url": prod.image_url,
-        "category": prod.category.name
-    } for prod in products]), 200
+        "category": prod.category.name if prod.category else None
+    } for prod in pagination.items]
+
+    return jsonify({
+        "products": products,
+        "total": pagination.total,
+        "pages": pagination.pages,
+        "current_page": pagination.page,
+        "per_page": pagination.per_page
+    }), 200
+
+
 
 @product_bp.route('/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
