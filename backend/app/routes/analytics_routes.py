@@ -4,6 +4,7 @@ from sqlalchemy import func
 from flask_jwt_extended import jwt_required
 from app.utils.auth_helpers import role_required
 from flasgger.utils import swag_from
+from datetime import datetime
 
 analytics_bp = Blueprint('analytics', __name__, url_prefix='/analytics')
 
@@ -92,5 +93,5 @@ def order_analytics():
     return jsonify({
         'total_orders': total_orders,
         'total_revenue': total_revenue,
-        'orders_per_day': [{'day': o[0].isoformat(), 'count': o[1]} for o in orders_per_day]
+        'orders_per_day': [{'day': datetime.strptime(o[0], '%Y-%m-%d').isoformat(), 'count': o[1]} for o in orders_per_day]
     })
