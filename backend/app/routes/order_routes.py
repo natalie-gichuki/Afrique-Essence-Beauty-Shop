@@ -196,6 +196,15 @@ def update_order_item(id):
     'tags': ['Order Item'],
     'description': 'Delete an order item by ID',
     'security': [{'Bearer': []}],
+    'parameters': [
+        {
+            'name': 'id',
+            'in': 'path',
+            'required': True,
+            'type': 'integer',
+            'description': 'ID of the order item to delete'
+        }
+    ],
     'responses': {
         204: {'description': 'Order item deleted successfully'},
         404: {'description': 'Order item not found'}
