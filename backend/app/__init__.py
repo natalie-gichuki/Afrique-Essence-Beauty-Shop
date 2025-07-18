@@ -53,7 +53,16 @@ def create_app(config_name = "development"):
     # Initializes Flasgger for API documentation.
     swagger.init_app(app)
     
-    from app.routes import auth_routes, user_routes, analytics_routes, export_routes, cart_routes, order_routes, invoice_routes, category_routes, product_routes
+    from app.routes import (auth_routes,
+                             user_routes, 
+                             analytics_routes,
+                               export_routes, 
+                               cart_routes, 
+                               order_routes, 
+                               invoice_routes, 
+                               category_routes, 
+                               product_routes
+                               )
     from app import models
        
 
@@ -63,10 +72,11 @@ def create_app(config_name = "development"):
     app.register_blueprint(analytics_routes.analytics_bp, url_prefix='/analytics')
     app.register_blueprint(export_routes.export_bp, url_prefix='/export')
     app.register_blueprint(cart_routes.cart_bp, url_prefix='/cart')
-    app.register_blueprint(order_routes.order_item_bp, url_prefix='/orders')
+    app.register_blueprint(order_routes.order_item_bp, url_prefix='/order-items')
     app.register_blueprint(invoice_routes.invoice_bp, url_prefix='/invoices')
     app.register_blueprint(category_routes.category_bp, url_prefix='/categories')
     app.register_blueprint(product_routes.product_bp, url_prefix='/products')
+    app.register_blueprint(order_routes.order_bp, url_prefix='/orders')
 
     return app
 
