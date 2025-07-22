@@ -1,11 +1,9 @@
-
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
-  const user = useSelector((state) => state.auth.user);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isAuthenticated = !!user;
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
