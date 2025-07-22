@@ -1,3 +1,4 @@
+
 # app/models/cart.py
 
 from app import db
@@ -6,11 +7,13 @@ from datetime import datetime
 # -----------------------------------
 # 🛒 Cart
 # -----------------------------------
+
 class Cart(db.Model):
     __tablename__ = 'carts'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # One cart → many items
@@ -32,3 +35,4 @@ class CartItem(db.Model):
 
     def __repr__(self):
         return f"<CartItem cart_id={self.cart_id} product_id={self.product_id}>"
+
