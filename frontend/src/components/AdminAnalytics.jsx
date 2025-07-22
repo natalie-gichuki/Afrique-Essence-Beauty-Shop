@@ -1,44 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, Legend, ResponsiveContainer
+} from "recharts";
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#a469c9'];
 
 const AdminAnalytics = () => {
-  return (
-    <div className="p-6 space-y-6">
-      {/* Page Title */}
-      <h1 className="text-3xl font-bold text-gray-800">Admin Analytics</h1>
+  const [monthlySales, setMonthlySales] = useState([]);
+  const [popularProducts, setPopularProducts] = useState([]);
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white shadow-md rounded-xl p-4 text-center">
-          <h2 className="text-lg font-semibold text-gray-600">Total Products</h2>
-          <p className="text-2xl font-bold text-blue-600">--</p>
-        </div>
-        <div className="bg-white shadow-md rounded-xl p-4 text-center">
-          <h2 className="text-lg font-semibold text-gray-600">Total Sales</h2>
-          <p className="text-2xl font-bold text-green-600">--</p>
-        </div>
-        <div className="bg-white shadow-md rounded-xl p-4 text-center">
-          <h2 className="text-lg font-semibold text-gray-600">Top Category</h2>
-          <p className="text-2xl font-bold text-purple-600">--</p>
-        </div>
+  useEffect(() => {
+    fetch("/api/admin/monthly-sales")
+      .then(res => res.json())
+      .then(data => setMonthlySales(data));
+
+    fetch("/api/admin/popular-products")
+      .then(res => res.json())
+      .then(data => setPopularProducts(data));
+  }, []);
+
+  return (
+    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Monthly Sales Bar Chart */}
+      <div className="bg-white shadow-md p-4 rounded-xl">
+        <h2 className="text-xl font-semibold mb-4">Monthly Sales</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={monthlySales}>
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="total_sales" fill="#8884d8" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Sales Over Time Chart Placeholder */}
-        <div className="bg-white shadow-md rounded-xl p-6">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">Sales Over Time</h3>
-          <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
-            Line Chart (coming soon)
-          </div>
-        </div>
-
-        {/* Popular Products Chart Placeholder */}
-        <div className="bg-white shadow-md rounded-xl p-6">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">Popular Products</h3>
-          <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
-            Bar Chart (coming soon)
-          </div>
-        </div>
+      {/* Product Popularity Pie Chart */}
+      <div className="bg-white shadow-md p-4 rounded-xl">
+        <h2 className="text-xl font-semibold mb-4">Product Popularity</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie
+              data={popularProducts}
+              dataKey="count"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              label
+            >
+              {popularProducts.map((_, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
