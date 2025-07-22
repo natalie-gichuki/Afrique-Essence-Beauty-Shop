@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoute'
 import './index.css';
+import Profile from './pages/Profile'
 
 
 
@@ -17,14 +18,14 @@ function App() {
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route
-          path="/admin"
+        <Route
+          path="/profile"
           element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <AdminDashboard />
+            <ProtectedRoute>
+              <Profile/>
             </ProtectedRoute>
           }
-        />*/}
+        />
       </Routes>
     </>
   )

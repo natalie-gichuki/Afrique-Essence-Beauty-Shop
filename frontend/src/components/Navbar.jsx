@@ -13,19 +13,23 @@ const Navbar = () => {
     };
 
     return (
-    <nav className="flex justify-between items-center p-4 bg-blue-600 text-white">
-      <Link to="/">Home</Link>
+    <nav className="flex justify-between items-center p-4 bg-white shadow-lg text-black">
+      <Link to="/" className="ml-7">Home</Link>
       <div className="flex gap-4 items-center">
         {user ? (
           <>
             <span>{user.username}</span>
-            <button onClick={handleLogout} className="bg-red-500 px-3 py-1 rounded">Logout</button>
+            <button onClick={handleLogout} className="bg-red-200 px-3 py-1 rounded shadow-md hover:scale-110">Logout</button>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/login" className=" bg-slate-100 px-3 py-1 rounded hover:scale-110 shadow-md">Login</Link>
+            <Link to="/register" className="mr-10 bg-slate-300 px-3 py-1 rounded hover:scale-110 shadow-md">Register</Link>
+
           </>
+        )}
+        {user && (
+          <Link to="/profile" className="bg-blue-100 px-3 py-1 rounded hover:scale-110 shadow-md">👤</Link>
         )}
       </div>
     </nav>
