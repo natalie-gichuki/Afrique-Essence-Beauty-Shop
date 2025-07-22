@@ -66,11 +66,12 @@ const Register = () => {
                 <label className="block mb-1 text-sm font-medium text-gray-700">Username</label>
                 <input
                     name="username"
+                    value={form.username}
                     className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-green-500"
                     placeholder="Username"
                     onChange={handleChange}
                     required
-                    autoComplete="off"
+                    autoComplete="new-username"
                 />
             </div>
 
@@ -79,11 +80,12 @@ const Register = () => {
                 <input
                     name="email"
                     type="email"
+                    value={form.email}
                     className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-green-500"
                     placeholder="Email"
                     onChange={handleChange}
                     required
-                    autoComplete="off"
+                    autoComplete="new-email"
                 />
             </div>
 
@@ -91,12 +93,13 @@ const Register = () => {
                 <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
                 <input
                     name="password"
+                    value={form.password}
                     type="password"
                     className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-green-500"
                     placeholder="Password"
                     onChange={handleChange}
                     required
-                    autoComplete="off"
+                    autoComplete="new-password"
                 />
             </div>
 

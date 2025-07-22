@@ -31,15 +31,6 @@ const Login = () => {
     };
 
     return (
-        // <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 space-y-4" autoComplete='off'>
-        //     <h2 className="text-2xl font-bold">Login</h2>
-        //     {error && <p className="text-red-500">{error}</p>}
-        //     <input type="email" className="w-full border p-2" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete='off'/>
-        //     <input type="password" className="w-full border p-2" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete='off'/>
-        //     <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded" disabled={loading} >
-        //         {loading ? 'Logging in...' : 'Login'}
-        //     </button>
-        // </form>
         <form
             onSubmit={handleSubmit}
             className="max-w-sm mx-auto mt-24 bg-white p-8 rounded shadow-md"
@@ -65,7 +56,7 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    autoComplete="off"
+                    autoComplete="new-email"
                 />
             </div>
 
@@ -78,7 +69,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    autoComplete="off"
+                    autoComplete="new-password"
                 />
             </div>
 
