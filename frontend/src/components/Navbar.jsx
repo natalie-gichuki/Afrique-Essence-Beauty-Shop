@@ -13,23 +13,24 @@ const Navbar = () => {
     };
 
     return (
-    <nav className="flex justify-between items-center p-4 bg-white shadow-lg text-black">
-      <Link to="/" className="ml-7">Home</Link>
+    <nav className="flex justify-between items-center p-4 bg-fuchsia-50 shadow-md text-gray-700">
+      <Link to="/" className="ml-7 text-purple-800 text-lg font-bold hover:text-violet-800 transition">Home</Link>
       <div className="flex gap-4 items-center">
         {user ? (
           <>
             <span>{user.username}</span>
-            <button onClick={handleLogout} className="bg-red-200 px-3 py-1 rounded shadow-md hover:scale-110">Logout</button>
+            <button onClick={handleLogout} className="bg-purple-800 text-white px-4 py-1.5 rounded hover:bg-violet-800 transition shadow-md"
+            >Logout</button>
           </>
         ) : (
           <>
-            <Link to="/login" className=" bg-slate-100 px-3 py-1 rounded hover:scale-110 shadow-md">Login</Link>
-            <Link to="/register" className="mr-10 bg-slate-300 px-3 py-1 rounded hover:scale-110 shadow-md">Register</Link>
+            <Link to="/login" className="bg-purple-200 text-gray-700 px-4 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md">Login</Link>
+            <Link to="/register" className="mr-10 bg-purple-300 text-gray-700 px-4 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md">Register</Link>
 
           </>
         )}
         {user && (
-          <Link to="/profile" className="bg-blue-100 px-3 py-1 rounded hover:scale-110 shadow-md">👤</Link>
+          <Link to="/profile" className="bg-purple-200 text-purple-800 px-3 py-1.5 rounded-full hover:bg-violet-800 hover:text-white transition shadow-md">👤</Link>
         )}
       </div>
     </nav>

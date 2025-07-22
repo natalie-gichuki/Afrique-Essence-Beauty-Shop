@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoute'
 import './index.css';
 import Profile from './pages/Profile'
+import Home from './pages/Home'
 
 
 
@@ -15,7 +16,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
