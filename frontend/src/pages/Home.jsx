@@ -18,6 +18,7 @@ import VelvetRose from "../assets/images/VelvetRose.jpg"
 import VitaminCSerum from "../assets/images/VitaminCSerum.jpg"
 import NailPolish from "../assets/images/NailPolish.webp"
 import Perfume from "../assets/images/Perfumes.webp"
+import Nonnie from "../assets/images/Milka.jpg"
 
 const Home = () => {
     const { user } = useSelector((state) => state.auth);
@@ -93,11 +94,9 @@ const Home = () => {
                     {/* Card 2 */}
                     <div className="flex flex-col items-center text-center max-w-sm px-4 w-[250px]">
                         <div className="w-[140px] h-[140px] rounded-full bg-purple-200 flex items-center justify-center">
-                            <svg className="w-12 h-12 text-purple-800" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M8 0a8 8 0 100 16A8 8 0 008 0z" />
-                            </svg>
+                            <img src={Nonnie} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
                         </div>
-                        <h2 className="text-xl font-garamond mt-4 text-purple-800">Milka</h2>
+                        <h2 className="text-xl font-garamond mt-4 text-purple-800">Nonnie</h2>
                         <p className="mt-2"><strong>Beautician.</strong><br /> "Creating beauty, enhancing confidence."</p>
 
                     </div>
