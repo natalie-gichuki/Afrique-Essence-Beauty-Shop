@@ -62,7 +62,7 @@ def list_products():
     if category_name:
         query = query.join(Product.category).filter(Category.name.ilike(f'%{category_name}%'))
 
-    pagination = query.paginate(page, per_page, error_out=False)
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
 
     products = [{
         "id": prod.id,

@@ -134,7 +134,10 @@ def login():
     if user.role == 'disabled':
         return jsonify({"msg": "User account is disabled"}), 403
 
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(
+        identity=user.id,
+        additional_claims={ "email": user.email, "role": user.role}  # Include user role in the token
+    )
     return jsonify(access_token=access_token), 200
 
 @auth_bp.route('/profile', methods=['GET'])

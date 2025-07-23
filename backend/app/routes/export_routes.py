@@ -73,9 +73,9 @@ def export_orders():
         "id": o.id,
         "user_id": o.user_id,
         "status": o.status,
-        "total_price": o.total_price,
+        "total_amount": o.total_amount,
         "created_at": o.created_at.isoformat()
     } for o in orders]
 
-    fieldnames = ["id", "user_id", "status", "total_price", "created_at"]
+    fieldnames = ["id", "user_id", "status", "total_amount", "created_at"]
     return generate_csv_response(data, fieldnames, "orders")
