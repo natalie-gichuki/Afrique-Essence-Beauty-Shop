@@ -21,7 +21,7 @@ const Home = () => {
     };
 
     return (
-        <div className="relative w-full h-[400px] bg-fuchsia-50">
+        <div className="relative w-full h-[500px] bg-fuchsia-50">
             {/* Background Video */}
             <video
                 autoPlay
@@ -49,10 +49,10 @@ const Home = () => {
                 </button>
             </div>
 
-            <div className="py-16 bg-fuchsia-50 text-gray-700">
+            <div className="py-16 bg-white text-gray-700">
                 {/* Section Title */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-purple-800">Meet Our Team</h1>
+                    <h1 className="text-4xl font-serif text-purple-800">Meet Our Team</h1>
                     <div className="w-24 h-1 bg-purple-800 mx-auto mt-2 rounded"></div>
                 </div>
 
@@ -77,7 +77,7 @@ const Home = () => {
                                 <path d="M8 0a8 8 0 100 16A8 8 0 008 0z" />
                             </svg>
                         </div>
-                        <h2 className="text-xl font-semibold mt-4 text-purple-800">Milka</h2>
+                        <h2 className="text-xl font-serif mt-4 text-purple-800">Milka</h2>
                         <p className="mt-2"><strong>Beautician.</strong><br /> "Creating beauty, enhancing confidence."</p>
 
                     </div>
@@ -108,12 +108,110 @@ const Home = () => {
                 </div>
             </div> <hr />
 
-            <div className="bg-fuchsia-50 py-16">
+            <div className="bg-fuchsia-50 py-20">
+                <div className="mb-16">
+                    <h1 className="text-3xl md:text-3xl font-serif text-purple-800 text-center">
+                        Unwrap Your Glam – Special <strong className="font-bold text-5xl">Offers!!!</strong>  Just for You!
+                    </h1>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-20 text-center">
+                    {/* Skin Care */}
+                    <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+                        <div className="relative h-60 w-full">
+                            <img
+                                src="https://media.istockphoto.com/id/1286329777/photo/preparing-self-care-package-seasonal-gift-box-with-plastic-free-zero-waste-cosmetics-products.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=Gf95cjUUALqlYw8KREMw4H0brjGOtjJrl-aIWUn_iQU="
+                                className="h-full w-full object-cover"
+                            />
+
+                            {/* Overlay */}
+                            <div className="absolute inset-0 bg-black/30"></div>
+
+                            {/* Optional text inside the overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <h2 className="text-white text-4xl font-serif">Skin Care</h2>
+                            </div>
+                        </div>
+                        <div className="p-6">
+                            <h1 className="text-4xl font-bold text-[#4B145B]">
+                                15% off <span className="text-gray-500 font-light text-2xl">/mo</span>
+                            </h1>
+                            <ul className="mt-6 mb-6 space-y-2 text-2xl text-[#333] font-extralight">
+                                <li>Hydrating Cream</li>
+                                <li>Vitamin C Serum</li>
+                                <li>Face Scrub</li>
+                                <li>Sunscreen</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* Hair Care */}
+                    <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+                        <div className="h-60 relative w-full">
+                            <img
+                                src="https://www.shutterstock.com/image-photo/different-hair-products-towel-brush-260nw-1935530938.jpg"
+                                className="h-full w-full object-cover"
+                            />
+                            {/* Overlay */}
+                            <div className="absolute inset-0 bg-black/30"></div>
+
+                            {/* Optional text inside the overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <h2 className="text-white text-4xl font-serif">Hair Care</h2>
+                            </div>
+                        </div>
+                        <div className="p-6">
+                            <h1 className="text-4xl font-bold text-[#4B145B]">
+                                20% off <span className="text-gray-500 text-2xl font-light">/mo</span>
+                            </h1>
+                            <ul className="mt-6 mb-6 space-y-2 text-2xl font-extralight text-[#333]">
+                                <li>Argan Hair Oil</li>
+                                <li>Hair Sprays</li>
+                                <li>Shampoos</li>
+                                <li>Hair Treatment</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* Perfumes */}
+                    <div className="bg-white rounded-2xl shadow-md border-2 border-gray-200 overflow-hidden">
+                        <div className="h-60 relative w-full">
+                            <img
+                                src="https://www.shutterstock.com/image-photo/bottles-perfumes-lilac-flowers-on-260nw-2640100071.jpg"
+                                className="h-full w-full object-cover"
+                            />
+                            {/* Overlay */}
+                            <div className="absolute inset-0 bg-black/30"></div>
+
+                            {/* Optional text inside the overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <h2 className="text-white text-4xl font-serif">Fragrance</h2>
+                            </div>
+                        </div>
+                        <div className="p-6">
+                            <h1 className="text-4xl font-bold text-[#4B145B]">
+                                10% off <span className="text-gray-500 text-2xl font-light">/mo</span>
+                            </h1>
+                            <ul className="mt-6 mb-6 space-y-2 text-2xl font-extralight text-[#333]">
+                                <li>Midnight Fantasy</li>
+                                <li>Side Effect</li>
+                                <li>Coco Chanel</li>
+                                <li>One Million</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            {/*Best sellers*/}
+            <div className="bg-white py-16">
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-purple-800 mb-4">Best Sellers</h1>
+                    <h1 className="text-5xl font-serif text-purple-800 mb-4">Best Sellers</h1>
                     <p className="text-gray-600">Explore our top-rated beauty products.</p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6 bg-fuchsia-50">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6 bg-white">
 
                     <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
                         <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Hair Oil</div>
@@ -249,7 +347,7 @@ const Home = () => {
             {/*categories*/}
             <div className="bg-fuchsia-50 py-16 ">
                 <div className="text-center mb-12">
-                    <h1 className="text-5xl font-bold text-purple-800 mb-4">Categories</h1>
+                    <h1 className="text-5xl font-serif text-purple-800 mb-4">Categories</h1>
                     <p className="text-gray-600">Explore our top-rated beauty products.</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 bg-fuchsia-50">
@@ -348,10 +446,68 @@ const Home = () => {
             </div> <hr />
 
             {/*Reviews*/}
-            <div className="py-16 bg-fuchsia-50 text-gray-700">
+            <div className="py-16 bg-white text-gray-700">
+                <div className="py-16 px-6 md:px-12 bg-white rounded-3xl">
+                    <h2 className="text-5xl font-serif text-purple-700 mb-10 text-center">
+                        Success <span className="text-[#706d61]">Metrics</span>
+                    </h2>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        {/* Card 1 */}
+                        <div className="bg-fuchsia-50 rounded-xl p-6 border border-[#333] text-center shadow-md">
+                            <div className="text-black text-5xl mb-4 flex items-center justify-center">
+                                {/* <i className="fas fa-certificate"></i> */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
+                                    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5" />
+                                </svg>
+                            </div>
+                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">Years in Business</h4>
+                            <p className="text-2xl text-black font-bold">10+</p>
+                        </div>
+
+                        {/* Card 2 */}
+                        <div className="bg-fuchsia-50 rounded-xl p-6 border border-[#333] text-center shadow-md">
+                            <div className="text-black text-3xl mb-4 flex items-center justify-center">
+                                {/* <i className="fas fa-users"></i> */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+                                    <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
+                                </svg>
+                            </div>
+                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">Positive Reviews</h4>
+                            <p className="text-2xl text-black font-bold">50k+</p>
+                        </div>
+
+                        {/* Card 3 */}
+                        <div className="bg-fuchsia-50 rounded-xl p-6 border border-[#333] text-center shadow-md">
+                            <div className="text-black text-3xl mb-4 flex items-center justify-center">
+                                {/* <i className="bi bi-gift"></i> */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-gift" viewBox="0 0 16 16">
+                                    <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zM1 4v2h6V4zm8 0v2h6V4zm5 3H9v8h4.5a.5.5 0 0 0 .5-.5zm-7 8V7H2v7.5a.5.5 0 0 0 .5.5z" />
+                                </svg>
+                            </div>
+                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">Awards Won</h4>
+                            <p className="text-2xl text-black font-bold">5</p>
+                        </div>
+
+                        {/* Card 4 */}
+                        <div className="bg-fuchsia-50 rounded-xl p-6 border border-[#333] text-center shadow-md">
+                            <div className="text-black text-3xl mb-4 flex items-center justify-center">
+                                {/* <i className="fas fa-heart"></i> */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                    <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5" />
+                                </svg>
+                            </div>
+                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">Happy Clients</h4>
+                            <p className="text-2xl text-black font-bold">10k+</p>
+                        </div>
+                    </div>
+                </div>
+
+
                 {/* Section Title */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-purple-800">Reviews</h1>
+                    <h1 className="text-5xl font-serif text-purple-800">Reviews</h1>
                     <div className="w-24 h-1 bg-purple-800 mx-auto mt-2 rounded"></div>
                 </div>
 
@@ -419,7 +575,7 @@ const Home = () => {
             {/*location*/}
             <div className="w-full bg-fuchsia-50 py-16">
                 <div className="max-w-6xl mx-auto px-6 py-16 bg-fuchsia-50">
-                    <h2 className="text-5xl font-bold text-purple-800 mb-10 text-center">Our Location</h2>
+                    <h2 className="text-5xl font-serif text-purple-800 mb-10 text-center">Our Location</h2>
                     <div className="flex flex-col lg:flex-row gap-8">
                         {/* Google Map */}
                         <div className="flex-1 h-[400px] rounded-xl overflow-hidden shadow-lg">
@@ -439,7 +595,7 @@ const Home = () => {
                             <h3 className="text-2xl font-semibold text-purple-800">Visit or Contact Us</h3>
                             <p className="text-gray-700">
                                 <strong>Address:</strong><br />
-                                Beauty Haven Store, Kimathi Street, Nairobi, Kenya
+                                Afrique Essence Store, Kimathi Street, Nairobi, Kenya
                             </p>
                             <p className="text-gray-700">
                                 <strong>Phone:</strong><br />
