@@ -66,3 +66,185 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* Add these rules to your existing CSS file */
+
+/* Products Grid Layout */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Product Card Styles */
+.product-card {
+  background-color: var(--card-bg, #1a1a1a);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.product-info {
+  padding: 1rem;
+}
+
+.product-info h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.product-price {
+  font-weight: 600;
+  color: #646cff;
+  margin: 0.5rem 0;
+}
+
+/* Filter Controls */
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background-color: var(--filter-bg, #2a2a2a);
+  border-radius: 8px;
+  margin: 0 2rem 2rem;
+}
+
+.search-filter {
+  flex: 1 1 100%;
+}
+
+.search-filter input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #444);
+  background-color: var(--input-bg, #333);
+  color: inherit;
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-buttons button {
+  padding: 0.5rem 1rem;
+  background-color: var(--button-bg, #333);
+}
+
+.category-buttons button.active {
+  background-color: #646cff;
+  color: white;
+}
+
+.price-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price-filter input {
+  width: 80px;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #444);
+  background-color: var(--input-bg, #333);
+  color: inherit;
+}
+
+/* Product Detail Page */
+.product-detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-detail-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 12px;
+  background-color: var(--card-bg, #1a1a1a);
+  padding: 1rem;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.quantity-selector button {
+  padding: 0.25rem 0.5rem;
+  min-width: 32px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 1rem;
+  }
+  
+  .filters-container {
+    margin: 0 1rem 1rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-detail {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}
+
+/* Light Mode Adjustments */
+@media (prefers-color-scheme: light) {
+  :root {
+    --card-bg: #f9f9f9;
+    --filter-bg: #f0f0f0;
+    --input-bg: #ffffff;
+    --border-color: #ddd;
+  }
+  
+  .product-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
