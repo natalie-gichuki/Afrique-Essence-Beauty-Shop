@@ -14,7 +14,11 @@ import Products from './pages/Products';
 import ProductDetails from './pages/ProductDetails'
 import InvoicePage from './pages/InvoicePage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-import AdminAnalytics from './pages/Admin/AdminAnalytics';
+import AdminLayout from './components/Adminlayout';
+import ProductList from './pages/Admin/products/ProductList';
+import ProductForm from './pages/Admin/products/productForm';
+import OrderList from './pages/Admin/OrderList';
+import UserList from './pages/Admin/UserList';
 // import { Layout } from 'lucide-react';
 import Layout from './components/layout'
 
@@ -26,8 +30,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/products" element={<Products/>} />
-        <Route path="/product-details" element={<ProductDetails/>} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/product-details" element={<ProductDetails />} />
 
         <Route
           path="/profile"
@@ -69,22 +73,21 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/analytics"
-          element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <AdminAnalytics />
-            </ProtectedRoute>
-          }
-        />
+        <Route element={
+          <ProtectedRoute adminOnly>
+            <AdminLayout />
+          </ProtectedRoute>
+        }>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/products" element={<ProductList />} />
+          <Route path="/admin/products/new" element={<ProductForm />} />
+          <Route path="/admin/products/edit/:id" element={<ProductForm />} />
+          <Route path="/admin/users" element={<UserList />} />
+          <Route path="/admin/orders" element={<OrderList />} />
+        </Route>
+
+        {/* Catch-all Route */}
+        <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
       </Route>
     </Routes>
   );
