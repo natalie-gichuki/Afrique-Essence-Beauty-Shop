@@ -35,7 +35,7 @@ const Home = () => {
 
             {/* Overlay */}
             <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-center px-4">
-                <h1 className="text-4xl md:text-5xl font-bold text-purple-200 drop-shadow-lg">
+                <h1 className="text-4xl md:text-5xl font-serif font-bold text-purple-200 drop-shadow-lg">
                     Afrique Essence
                 </h1>
                 <p className="mt-4 text-lg md:text-xl text-gray-200">
@@ -65,7 +65,7 @@ const Home = () => {
                                 <path d="M8 0a8 8 0 100 16A8 8 0 008 0z" />
                             </svg>
                         </div>
-                        <h2 className="text-xl font-semibold mt-4 text-purple-800">Ray</h2>
+                        <h2 className="text-xl font-garamond mt-4 text-purple-800">Ray</h2>
                         <p className="mt-2"><strong>Manager.</strong><br /> "Leading with style, managing with grace."</p>
 
                     </div>
@@ -77,7 +77,7 @@ const Home = () => {
                                 <path d="M8 0a8 8 0 100 16A8 8 0 008 0z" />
                             </svg>
                         </div>
-                        <h2 className="text-xl font-serif mt-4 text-purple-800">Milka</h2>
+                        <h2 className="text-xl font-garamond mt-4 text-purple-800">Milka</h2>
                         <p className="mt-2"><strong>Beautician.</strong><br /> "Creating beauty, enhancing confidence."</p>
 
                     </div>
@@ -89,7 +89,7 @@ const Home = () => {
                                 <path d="M8 0a8 8 0 100 16A8 8 0 008 0z" />
                             </svg>
                         </div>
-                        <h2 className="text-xl font-semibold mt-4 text-purple-800">Elvis</h2>
+                        <h2 className="text-xl font-garamond mt-4 text-purple-800">Elvis</h2>
                         <p className="mt-2"><strong>Sales Associate.</strong><br />"Closing deals with charm and finesse."</p>
 
                     </div>
@@ -101,12 +101,12 @@ const Home = () => {
                                 <path d="M8 0a8 8 0 100 16A8 8 0 008 0z" />
                             </svg>
                         </div>
-                        <h2 className="text-xl font-semibold mt-4 text-purple-800">Natalie</h2>
+                        <h2 className="text-xl font-garamond mt-4 text-purple-800">Natalie</h2>
                         <p className="mt-2"><strong>Front Desk Assistant.</strong><br /> "The face of our salon, welcoming all with a smile."</p>
 
                     </div>
                 </div>
-            </div> <hr />
+            </div> 
 
             <div className="bg-fuchsia-50 py-20">
                 <div className="mb-16">
@@ -134,7 +134,7 @@ const Home = () => {
                         </div>
                         <div className="p-6">
                             <h1 className="text-4xl font-bold text-[#4B145B]">
-                                15% off <span className="text-gray-500 font-light text-2xl">/mo</span>
+                                15% off <span className="text-gray-500 font-light text-2xl">(Jul-Sep)</span>
                             </h1>
                             <ul className="mt-6 mb-6 space-y-2 text-2xl text-[#333] font-extralight">
                                 <li>Hydrating Cream</li>
@@ -162,7 +162,7 @@ const Home = () => {
                         </div>
                         <div className="p-6">
                             <h1 className="text-4xl font-bold text-[#4B145B]">
-                                20% off <span className="text-gray-500 text-2xl font-light">/mo</span>
+                                20% off <span className="text-gray-500 text-2xl font-light">(Jul-Sep)</span>
                             </h1>
                             <ul className="mt-6 mb-6 space-y-2 text-2xl font-extralight text-[#333]">
                                 <li>Argan Hair Oil</li>
@@ -190,7 +190,7 @@ const Home = () => {
                         </div>
                         <div className="p-6">
                             <h1 className="text-4xl font-bold text-[#4B145B]">
-                                10% off <span className="text-gray-500 text-2xl font-light">/mo</span>
+                                10% off <span className="text-gray-500 text-2xl font-light">(Jul-Sep)</span>
                             </h1>
                             <ul className="mt-6 mb-6 space-y-2 text-2xl font-extralight text-[#333]">
                                 <li>Midnight Fantasy</li>
@@ -342,7 +342,7 @@ const Home = () => {
                     </div>
 
                 </div>
-            </div><hr />
+            </div>
 
             {/*categories*/}
             <div className="bg-fuchsia-50 py-16 ">
@@ -365,11 +365,11 @@ const Home = () => {
                             </video>
                         </div>
                         <div className="p-4 flex flex-col flex-grow">
-                            <h2 className="text-2xl font-bold text-purple-800 mb-2">Hair & Beard</h2>
-                            <p className="text-gray-700 text-sm mb-4">Nourishes and strengthens dry, frizzy hair.</p>
-                            <div className="mt-auto flex justify-between items-center">
+                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">Hair & Beard</h2>
+                            <p className="text-gray-700 text-sm mb-4 text-center">Nourishes and strengthens dry, frizzy hair.</p>
+                            <div className="mt-auto flex justify-center items-center">
 
-                                <strong className="text-gray-500 text-xs">Amazing strong and healthy hair</strong>
+                                <strong className="text-gray-500 text-xs text-center">Amazing strong and healthy hair</strong>
                             </div>
                         </div>
                     </div>
@@ -388,9 +388,9 @@ const Home = () => {
                             </video>
                         </div>
                         <div className="p-4 flex flex-col flex-grow">
-                            <h2 className="text-2xl font-bold text-purple-800 mb-2">Face</h2>
-                            <p className="text-gray-700 text-sm mb-4">Long-lasting, bold color for every occasion.</p>
-                            <div className="mt-auto flex justify-between items-center">
+                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">Face</h2>
+                            <p className="text-gray-700 text-sm mb-4 text-center">Long-lasting, bold color for every occasion.</p>
+                            <div className="mt-auto flex justify-center items-center">
 
                                 <strong className="text-gray-500 text-xs">Amazing glow and radiance</strong>
                             </div>
@@ -411,9 +411,9 @@ const Home = () => {
                             </video>
                         </div>
                         <div className="p-4 flex flex-col flex-grow">
-                            <h2 className="text-2xl font-bold text-purple-800 mb-2">Body</h2>
-                            <p className="text-gray-700 text-sm mb-4">Deep moisture for radiant, glowing skin.</p>
-                            <div className="mt-auto flex justify-between items-center">
+                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">Body</h2>
+                            <p className="text-gray-700 text-sm mb-4 text-center">Deep moisture for radiant, glowing skin.</p>
+                            <div className="mt-auto flex justify-center items-center">
 
                                 <strong className="text-gray-500 text-xs">Amazing hydration and nourishment</strong>
                             </div>
@@ -434,16 +434,16 @@ const Home = () => {
                             </video>
                         </div>
                         <div className="p-4 flex flex-col flex-grow">
-                            <h2 className="text-2xl font-bold text-purple-800 mb-2">Fragrance</h2>
-                            <p className="text-gray-700 text-sm mb-4">Luxury fragrance with hints of jasmine & rose.</p>
-                            <div className="mt-auto flex justify-between items-center">
+                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">Fragrance</h2>
+                            <p className="text-gray-700 text-sm mb-4 text-center">Luxury fragrance with hints of jasmine & rose.</p>
+                            <div className="mt-auto flex justify-center items-center">
 
                                 <strong className="text-gray-500 text-xs">Amazing scent and radiance</strong>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> <hr />
+            </div> 
 
             {/*Reviews*/}
             <div className="py-16 bg-white text-gray-700">
@@ -569,7 +569,7 @@ const Home = () => {
 
                     </div>
                 </div>
-            </div> <hr />
+            </div> 
 
 
             {/*location*/}

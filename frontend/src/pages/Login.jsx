@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -16,7 +17,6 @@ const Login = () => {
             const result = await dispatch(login({ email, password }));
             if (result.meta.requestStatus === 'fulfilled') {
                 clearForm();
-                // Redirect to home or dashboard after successful login
                 navigate('/');
             }
         } catch (error) {
@@ -24,72 +24,81 @@ const Login = () => {
         }
     };
 
-    // clear form fields after submission
     const clearForm = () => {
         setEmail('');
         setPassword('');
     };
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="max-w-sm mx-auto mt-24 bg-white p-8 rounded shadow-md"
-            autoComplete="off"
-        >
-            <div className="flex justify-center mb-6">
-                {/* Bootstrap logo substitute */}
-                <div className="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold">
-                    L
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-400 to-pink-100 px-4">
+            <div className="bg-white shadow-lg rounded-3xl overflow-hidden flex flex-col md:flex-row max-w-4xl w-full">
+                {/* Left Section with Illustration */}
+                <div className="hidden md:flex items-center justify-center bg-purple-100 w-1/2 ">
+                    {/* Replace with your own image or illustration */}
+                    <img
+                        src="https://img.freepik.com/premium-photo/female-developer-background_665280-9650.jpg"
+                        alt="Login Visual"
+                        className="w-full h-full object-cover"
+                    />
+                </div>
+
+                {/* Right Section - Form */}
+                <div className="w-full md:w-1/2 p-8 sm:p-12">
+                    <h2 className="text-3xl font-bold text-center text-purple-700 mb-6">Welcome Back!!</h2>
+
+                    {error && (
+                        <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+                    )}
+
+                    <form onSubmit={handleSubmit} autoComplete="off">
+                        <div className="mb-4">
+                            <label className="block text-sm text-gray-700 mb-1">Email</label>
+                            <input
+                                type="email"
+                                placeholder="email@gmail.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full px-4 py-3 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                required
+                                autoComplete='new-email'
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-sm text-gray-700 mb-1">Password</label>
+                            <input
+                                type="password"
+                                placeholder="Enter your password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full px-4 py-3 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                required
+                                autoComplete='new-password'
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-full transition"
+                            disabled={loading}
+                        >
+                            {loading ? 'Logging in...' : 'Login'}
+                        </button>
+                    </form>
+
+                    {/* Social login buttons (optional) */}
+                    <div className="mt-6 text-center text-sm text-gray-500">
+                        Don't have an account?{' '}
+                        <Link to="/register" className="text-purple-600 font-medium hover:underline">
+                            Sign up
+                        </Link>
+                    </div>
+
+                    <p className="text-center text-xs text-gray-400 mt-6">© 2025 Luxe Beauty</p>
                 </div>
             </div>
-
-            <h2 className="text-center text-2xl font-semibold mb-6">Please sign in</h2>
-
-            {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
-
-            <div className="mb-4">
-                <label className="block mb-1 text-sm font-medium text-gray-700">Email address</label>
-                <input
-                    type="email"
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    autoComplete="new-email"
-                />
-            </div>
-
-            <div className="mb-4">
-                <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
-                <input
-                    type="password"
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    autoComplete="new-password"
-                />
-            </div>
-
-            <div className="flex items-center mb-4">
-                <input type="checkbox" className="mr-2" />
-                <label className="text-sm text-gray-700">Remember me</label>
-            </div>
-
-            <button
-                type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded"
-                disabled={loading}
-            >
-                {loading ? 'Logging in...' : 'Sign in'}
-            </button>
-
-            <p className="text-center text-xs text-gray-400 mt-6">© 2017–2025</p>
-        </form>
-
+        </div>
     );
-}
+};
 
 export default Login;
