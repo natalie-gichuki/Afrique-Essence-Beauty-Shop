@@ -4,7 +4,7 @@ import { removeFromCart, updateQuantity } from '../redux/slices/cartSlice';
 
 export default function CartPage() {
   const dispatch = useDispatch();
-  const { items, total } = useSelector(state => state.cart);
+  const { items, total } = useSelector(state => state.cart ?? {items : [], total : 0});
 
   const handleRemove = (id) => dispatch(removeFromCart(id));
   const handleQuantity = (id, quantity) => dispatch(updateQuantity({ id, quantity }));

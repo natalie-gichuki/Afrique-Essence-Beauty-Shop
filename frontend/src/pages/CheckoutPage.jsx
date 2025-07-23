@@ -4,7 +4,7 @@ import { clearCart } from '../redux/slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage = () => {
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) => state.cart?.items || []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

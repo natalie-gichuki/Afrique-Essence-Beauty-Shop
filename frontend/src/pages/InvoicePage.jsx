@@ -12,7 +12,7 @@ const InvoicePage = () => {
     const fetchInvoice = async () => {
       try {
         const token = localStorage.getItem('token'); // Or get it from Redux
-        const response = await axios.get(`http://localhost:5000/invoices/${id}`, {
+        const response = await axios.get(`http://localhost:5555/invoices/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -1,5 +1,6 @@
 import {useSelector} from 'react-redux';
 import {Navigate} from 'react-router-dom';
+import Footer from './Footer';
 
 // ProtectedRoute component checks if the user is authenticated and has the required role
 // If not authenticated, it redirects to the login page.
@@ -19,7 +20,11 @@ const ProtectedRoute = ({children, allowedRoles}) => {
     // If the user is not authenticated, redirect to the login page.
     // If the user is authenticated but does not have the required role, redirect to the home
     if (!user) {
-        return <Navigate to="/login" />;
+        return (
+        <>
+        <Navigate to="/login" />;
+       <Footer/>
+        </>)
     }
     // If allowedRoles is provided and the user's role is not in the allowedRoles array,
     // redirect to the home page.
