@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}", // ✅ Corrected typo: "//" → "*/"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        serif: ['Playfair Display', 'serif'],
+        body: ['Libre Baskerville', 'serif'],
+        garamond: ['Cormorant Garamond', 'serif'],
+      },
+    },
   },
   plugins: [],
 };
