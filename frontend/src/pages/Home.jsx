@@ -39,32 +39,34 @@ const Home = () => {
 
 
     return (
-        <div className="relative w-full h-[500px] bg-fuchsia-50">
-            {/* Background Video */}
-            <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-            >
-                <source src={homepageVideo} type="video/mp4" />
-            </video>
-
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-center px-4">
-                <h1 className="text-4xl md:text-5xl font-serif font-bold text-purple-200 drop-shadow-lg">
-                    Afrique Essence
-                </h1>
-                <p className="mt-4 text-lg md:text-xl text-gray-200">
-                    Elevate your glow – where beauty meets luxury.
-                </p>
-                <button
-                    onClick={handleExplore}
-                    className="mt-6 px-6 py-2 bg-purple-800 text-white rounded-full hover:bg-violet-800 transition"
+        <div className=" w-full min-h-screen bg-fuchsia-50">
+            <div className="h-[500px] relative">
+                {/* Background Video */}
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
                 >
-                    Explore Now
-                </button>
+                    <source src={homepageVideo} type="video/mp4" />
+                </video>
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-center px-4">
+                    <h1 className="text-4xl md:text-5xl font-serif font-bold text-purple-200 drop-shadow-lg">
+                        Afrique Essence
+                    </h1>
+                    <p className="mt-4 text-lg md:text-xl text-gray-200">
+                        Elevate your glow – where beauty meets luxury.
+                    </p>
+                    <button
+                        onClick={handleExplore}
+                        className="mt-6 px-6 py-2 bg-purple-800 text-white rounded-full hover:bg-violet-800 transition"
+                    >
+                        Explore Now
+                    </button>
+                </div>
             </div>
 
             <div className="py-16 bg-white text-gray-700">
@@ -196,7 +198,7 @@ const Home = () => {
                         )}
                     </div>
                     {/* Hair Care */}
-                   
+
                     <div
                         onClick={handleClick}
                         className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:scale-110 transition-transform cursor-pointer"
@@ -261,7 +263,7 @@ const Home = () => {
                             </div>
                         )}
                     </div>
-                    
+
                     {/*Fragrance*/}
                     <div
                         onClick={handleClick}
