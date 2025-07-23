@@ -17,6 +17,7 @@ import SilkenTouch from "../assets/images/SilkenTouch.jpg"
 import VelvetRose from "../assets/images/VelvetRose.jpg"
 import VitaminCSerum from "../assets/images/VitaminCSerum.jpg"
 import NailPolish from "../assets/images/NailPolish.webp"
+import Perfume from "../assets/images/Perfumes.webp"
 
 const Home = () => {
     const { user } = useSelector((state) => state.auth);
@@ -268,7 +269,7 @@ const Home = () => {
                     >
                         <div className="relative h-60 w-full">
                             <img
-                                src="https://www.shutterstock.com/image-photo/different-hair-products-towel-brush-260nw-1935530938.jpg"
+                                src={Perfume}
                                 className="h-full w-full object-cover"
                                 alt="Hair care offer"
                             />
