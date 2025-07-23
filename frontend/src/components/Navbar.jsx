@@ -1,21 +1,37 @@
 import { Link, useNavigate } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
 
 const Navbar = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
-    const handleLogout = () => {
-        dispatch(logout());
-        navigate("/login");
-    };
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
 
-    return (
+  return (
     <nav className="flex justify-between items-center p-4 bg-fuchsia-50 shadow-md text-gray-700">
       <Link to="/" className="ml-7 text-purple-800 text-lg font-bold hover:text-violet-800 transition">Home</Link>
       <div className="flex gap-4 items-center">
+        {user?.role === "admin" && (
+          <>
+            <Link
+              to="/admin"
+              className="bg-purple-100 text-purple-800 px-3 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md"
+            >
+              Dashboard
+            </Link>
+            <Link
+              to="/admin/analytics"
+              className="bg-purple-100 text-purple-800 px-3 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md"
+            >
+              Analytics
+            </Link>
+          </>
+        )}
         {user ? (
           <>
             <span>{user.username}</span>
