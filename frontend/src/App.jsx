@@ -1,3 +1,4 @@
+
 import { Routes, Route } from 'react-router-dom'
 
 import ProtectedRoute from './components/ProtectedRoute';
@@ -16,7 +17,84 @@ import AdminAnalytics from './pages/Admin/AdminAnalytics';
 // import { Layout } from 'lucide-react';
 import Layout from './components/layout'
 
+// function App() {
+//   return (
+//     <div className="flex flex-col min-h-screen">
 
+
+//         <Routes>
+//           {/* Public Routes */}
+//           <Route path="/" element={<Home />} />
+//           <Route path="/login" element={<Login />} />
+//           <Route path="/register" element={<Register />} />
+
+//           {/* Protected User Route */}
+//           <Route
+//             path="/profile"
+//             element={
+//               <ProtectedRoute allowedRoles={['customer', 'admin']}>
+//                 <Profile />
+//               </ProtectedRoute>
+//             }
+//           />
+
+//           <Route
+//             path="/cart"
+//             element={
+//               <ProtectedRoute allowedRoles={['customer']}>
+//                 <CartPage />
+//               </ProtectedRoute>
+//             }
+//           />
+//           <Route
+//             path="/checkout"
+//             element={
+//               <ProtectedRoute allowedRoles={['customer']}>
+//                 <CheckoutPage />
+//               </ProtectedRoute>
+//             }
+//           />
+//           <Route
+//             path="/orders"
+//             element={
+//               <ProtectedRoute allowedRoles={['customer']}>
+//                 <Order />
+//               </ProtectedRoute>
+//             }
+//           />
+//           <Route
+//             path="/invoice/:id"
+//             element={
+//               <ProtectedRoute allowedRoles={['customer', 'admin']}>
+//                 <InvoicePage />
+//               </ProtectedRoute>
+//             }
+//           />
+
+
+//           {/* Protected Admin Routes */}
+//           <Route
+//             path="/admin"
+//             element={
+//               <ProtectedRoute allowedRoles={['admin']}>
+//                 <AdminDashboard />
+//               </ProtectedRoute>
+//             }
+//           />
+//           <Route
+//             path="/admin/analytics"
+//             element={
+//               <ProtectedRoute allowedRoles={['admin']}>
+//                 <AdminAnalytics />
+//               </ProtectedRoute>
+//             }
+//           />
+//         </Routes>
+
+
+//     </div>
+//   );
+// }
 function App() {
   return (
     <Routes>
@@ -91,3 +169,4 @@ function App() {
 
 
 export default App;
+
