@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import homepageVideo from "../assets/homepage.mp4";
@@ -6,7 +7,16 @@ import perfumeVideo from "../assets/perfumes.mp4";
 import hairVideo from "../assets/hair.mp4";
 import faceVideo from "../assets/face.mp4";
 import bodyVideo from "../assets/body.mp4";
-
+import ArganOil from "../assets/images/ArganOil.jpg"
+import GlowBoostMask from "../assets/images/GlowBoostMask.jpg"
+import HydratingCream from "../assets/images/HydratingCream.jpg"
+import MatteLipstick from "../assets/images/MatteLipstick.jpg"
+import ShimmerPallette from "../assets/images/ShimmerPallette.jpg"
+import SilkTouch from "../assets/images/SilkTouch.jpg"
+import SilkenTouch from "../assets/images/SilkenTouch.jpg"
+import VelvetRose from "../assets/images/VelvetRose.jpg"
+import VitaminCSerum from "../assets/images/VitaminCSerum.jpg"
+import NailPolish from "../assets/images/NailPolish.webp"
 
 const Home = () => {
     const { user } = useSelector((state) => state.auth);
@@ -19,6 +29,13 @@ const Home = () => {
             console.log("Exploring more features...");
         }
     };
+
+    const [showOffers, setShowOffers] = useState(false);
+
+    const handleClick = () => {
+        setShowOffers(!showOffers);
+    };
+
 
     return (
         <div className="relative w-full h-[500px] bg-fuchsia-50">
@@ -106,7 +123,7 @@ const Home = () => {
 
                     </div>
                 </div>
-            </div> 
+            </div>
 
             <div className="bg-fuchsia-50 py-20">
                 <div className="mb-16">
@@ -117,88 +134,197 @@ const Home = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-20 text-center">
                     {/* Skin Care */}
-                    <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+                    <div
+                        onClick={handleClick}
+                        className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:scale-110 transition-transform cursor-pointer"
+                    >
                         <div className="relative h-60 w-full">
                             <img
                                 src="https://media.istockphoto.com/id/1286329777/photo/preparing-self-care-package-seasonal-gift-box-with-plastic-free-zero-waste-cosmetics-products.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=Gf95cjUUALqlYw8KREMw4H0brjGOtjJrl-aIWUn_iQU="
                                 className="h-full w-full object-cover"
+                                alt="Skincare Offer"
                             />
-
-                            {/* Overlay */}
                             <div className="absolute inset-0 bg-black/30"></div>
-
-                            {/* Optional text inside the overlay */}
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <h2 className="text-white text-4xl font-serif">Skin Care</h2>
                             </div>
                         </div>
-                        <div className="p-6">
-                            <h1 className="text-4xl font-bold text-[#4B145B]">
-                                15% off <span className="text-gray-500 font-light text-2xl">(Jul-Sep)</span>
-                            </h1>
-                            <ul className="mt-6 mb-6 space-y-2 text-2xl text-[#333] font-extralight">
-                                <li>Hydrating Cream</li>
-                                <li>Vitamin C Serum</li>
-                                <li>Face Scrub</li>
-                                <li>Sunscreen</li>
-                            </ul>
-                        </div>
-                    </div>
 
+                        {!showOffers ? (
+                            <div className="p-6">
+                                <h1 className="text-4xl font-bold text-[#4B145B]">
+                                    15% off <span className="text-gray-500 font-light text-2xl">(Jul-Sep)</span>
+                                </h1>
+                                <ul className="mt-6 mb-6 space-y-2 text-2xl text-[#333] font-extralight">
+                                    <li>Cerave Hydrating Cream</li>
+                                    <li>Garnier Vitamin C Serum</li>
+                                    <li>Cerave Face Scrub</li>
+                                    <li>Garnier Sunscreen</li>
+                                </ul>
+                            </div>
+                        ) : (
+                            <div className="p-6 space-y-4">
+                                <h2 className="text-2xl font-semibold text-purple-900">Offers:</h2>
+                                <ul className="space-y-3 text-gray-700">
+                                    <li className="flex justify-between">
+                                        <span>Cerave Hydrating Cream</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 1,200</s> <span className="text-green-600 font-semibold">KSh 1,020</span>
+                                        </span>
+                                    </li>
+                                    <li className="flex justify-between">
+                                        <span>Garnier Vitamin C Serum</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 1,800</s> <span className="text-green-600 font-semibold">KSh 1,530</span>
+                                        </span>
+                                    </li>
+                                    <li className="flex justify-between">
+                                        <span>Cerave Face Scrub</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 950</s> <span className="text-green-600 font-semibold">KSh 807</span>
+                                        </span>
+                                    </li>
+                                    <li className="flex justify-between">
+                                        <span>Garnier Sunscreen</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 1,400</s> <span className="text-green-600 font-semibold">KSh 1,190</span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
                     {/* Hair Care */}
-                    <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
-                        <div className="h-60 relative w-full">
+                   
+                    <div
+                        onClick={handleClick}
+                        className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:scale-110 transition-transform cursor-pointer"
+                    >
+                        <div className="relative h-60 w-full">
                             <img
                                 src="https://www.shutterstock.com/image-photo/different-hair-products-towel-brush-260nw-1935530938.jpg"
                                 className="h-full w-full object-cover"
+                                alt="Hair care offer"
                             />
-                            {/* Overlay */}
                             <div className="absolute inset-0 bg-black/30"></div>
-
-                            {/* Optional text inside the overlay */}
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <h2 className="text-white text-4xl font-serif">Hair Care</h2>
                             </div>
                         </div>
-                        <div className="p-6">
-                            <h1 className="text-4xl font-bold text-[#4B145B]">
-                                20% off <span className="text-gray-500 text-2xl font-light">(Jul-Sep)</span>
-                            </h1>
-                            <ul className="mt-6 mb-6 space-y-2 text-2xl font-extralight text-[#333]">
-                                <li>Argan Hair Oil</li>
-                                <li>Hair Sprays</li>
-                                <li>Shampoos</li>
-                                <li>Hair Treatment</li>
-                            </ul>
-                        </div>
+
+                        {!showOffers ? (
+                            <div className="p-6">
+                                <h1 className="text-4xl font-bold text-[#4B145B]">
+                                    25% off <span className="text-gray-500 font-light text-2xl">(Jul–Sep)</span>
+                                </h1>
+                                <ul className="mt-6 mb-6 space-y-2 text-2xl text-[#333] font-extralight">
+                                    <li>Argan Hair Oil</li>
+                                    <li>Hair Sprays</li>
+                                    <li>Darling Shampoo</li>
+                                    <li>Miadi Hair Treatment</li>
+                                </ul>
+                            </div>
+                        ) : (
+                            <div className="p-6 space-y-4">
+                                <h2 className="text-2xl font-semibold text-purple-900">Offers:</h2>
+                                <ul className="space-y-3 text-gray-700">
+                                    <li className="flex justify-between">
+                                        <span>Argan Hair Oil</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 6,000</s>{' '}
+                                            <span className="text-green-600 font-semibold">KSh 4,500</span>
+                                        </span>
+                                    </li>
+                                    <li className="flex justify-between">
+                                        <span>Hair Sprays</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 2,500</s>{' '}
+                                            <span className="text-green-600 font-semibold">KSh 1,875</span>
+                                        </span>
+                                    </li>
+                                    <li className="flex justify-between">
+                                        <span>Miadi Hair Treatment</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 950</s>{' '}
+                                            <span className="text-green-600 font-semibold">KSh 713</span>
+                                        </span>
+                                    </li>
+                                    <li className="flex justify-between">
+                                        <span>Darling Shampoo</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 2,200</s>{' '}
+                                            <span className="text-green-600 font-semibold">KSh 1,650</span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
                     </div>
-
-                    {/* Perfumes */}
-                    <div className="bg-white rounded-2xl shadow-md border-2 border-gray-200 overflow-hidden">
-                        <div className="h-60 relative w-full">
+                    
+                    {/*Fragrance*/}
+                    <div
+                        onClick={handleClick}
+                        className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:scale-110 transition-transform cursor-pointer"
+                    >
+                        <div className="relative h-60 w-full">
                             <img
-                                src="https://www.shutterstock.com/image-photo/bottles-perfumes-lilac-flowers-on-260nw-2640100071.jpg"
+                                src="https://www.shutterstock.com/image-photo/different-hair-products-towel-brush-260nw-1935530938.jpg"
                                 className="h-full w-full object-cover"
+                                alt="Hair care offer"
                             />
-                            {/* Overlay */}
                             <div className="absolute inset-0 bg-black/30"></div>
-
-                            {/* Optional text inside the overlay */}
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <h2 className="text-white text-4xl font-serif">Fragrance</h2>
                             </div>
                         </div>
-                        <div className="p-6">
-                            <h1 className="text-4xl font-bold text-[#4B145B]">
-                                10% off <span className="text-gray-500 text-2xl font-light">(Jul-Sep)</span>
-                            </h1>
-                            <ul className="mt-6 mb-6 space-y-2 text-2xl font-extralight text-[#333]">
-                                <li>Midnight Fantasy</li>
-                                <li>Side Effect</li>
-                                <li>Coco Chanel</li>
-                                <li>One Million</li>
-                            </ul>
-                        </div>
+
+                        {!showOffers ? (
+                            <div className="p-6">
+                                <h1 className="text-4xl font-bold text-[#4B145B]">
+                                    5% off <span className="text-gray-500 font-light text-2xl">(Jul–Sep)</span>
+                                </h1>
+                                <ul className="mt-6 mb-6 space-y-2 text-2xl text-[#333] font-extralight">
+                                    <li>Midnight Fantasy</li>
+                                    <li>Side Effect</li>
+                                    <li>Coco Chanel</li>
+                                    <li>One Million</li>
+                                </ul>
+                            </div>
+                        ) : (
+                            <div className="p-6 space-y-4">
+                                <h2 className="text-2xl font-semibold text-purple-900">Offers:</h2>
+                                <ul className="space-y-3 text-gray-700">
+                                    <li className="flex justify-between">
+                                        <span>Midnight Fantasy</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 7,000</s>{' '}
+                                            <span className="text-green-600 font-semibold">KSh 6,650</span>
+                                        </span>
+                                    </li>
+                                    <li className="flex justify-between">
+                                        <span>Side Effect</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 10,000</s>{' '}
+                                            <span className="text-green-600 font-semibold">KSh 9,500</span>
+                                        </span>
+                                    </li>
+                                    <li className="flex justify-between">
+                                        <span>Coco Chanel</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 5,000</s>{' '}
+                                            <span className="text-green-600 font-semibold">KSh 4,750</span>
+                                        </span>
+                                    </li>
+                                    <li className="flex justify-between">
+                                        <span>One Million</span>
+                                        <span>
+                                            <s className="text-gray-400">KSh 15,000</s>{' '}
+                                            <span className="text-green-600 font-semibold">KSh 14,250</span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -213,8 +339,10 @@ const Home = () => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6 bg-white">
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Hair Oil</div>
+                    <div className="bg-white overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={ArganOil} alt="Argan Oil" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold text-purple-800 mb-2">Argan Hair Oil</h2>
                             <p className="text-gray-700 text-sm mb-4">Nourishes and strengthens dry, frizzy hair.</p>
@@ -226,8 +354,10 @@ const Home = () => {
                     </div>
 
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Lipstick</div>
+                    <div className="bg-white overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={MatteLipstick} alt="Matte Lipstick" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold text-purple-800 mb-2">Matte Lipstick</h2>
                             <p className="text-gray-700 text-sm mb-4">Long-lasting, bold color for every occasion.</p>
@@ -239,8 +369,10 @@ const Home = () => {
                     </div>
 
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Skin Cream</div>
+                    <div className="bg-white overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={HydratingCream} alt="hydrating cream" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold text-purple-800 mb-2">Hydrating Cream</h2>
                             <p className="text-gray-700 text-sm mb-4">Deep moisture for radiant, glowing skin.</p>
@@ -252,8 +384,10 @@ const Home = () => {
                     </div>
 
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Perfume</div>
+                    <div className="bg-white overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={VelvetRose} alt="Velvet Rose Perfume" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold text-purple-800 mb-2">Velvet Rose</h2>
                             <p className="text-gray-700 text-sm mb-4">Luxury fragrance with hints of jasmine & rose.</p>
@@ -264,10 +398,12 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Nail Polish</div>
+                    <div className="bg-white overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={NailPolish} alt="pink nail polish" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
-                            <h2 className="text-xl font-semibold text-purple-800 mb-2">Glossy Pink</h2>
+                            <h2 className="text-xl font-semibold text-purple-800 mb-2">Glossy Pink NailPolish</h2>
                             <p className="text-gray-700 text-sm mb-4">Chip-resistant, high-shine nail polish.</p>
                             <div className="mt-auto flex justify-between items-center">
 
@@ -277,8 +413,10 @@ const Home = () => {
                     </div>
 
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Foundation</div>
+                    <div className="bg-white overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={SilkTouch} alt="Foundation" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold text-purple-800 mb-2">Silk Touch</h2>
                             <p className="text-gray-700 text-sm mb-4">Lightweight foundation with full coverage.</p>
@@ -290,8 +428,10 @@ const Home = () => {
                     </div>
 
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Face Mask</div>
+                    <div className="bg-white overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={GlowBoostMask} alt="Glow boost mask" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold text-purple-800 mb-2">Glow Boost Mask</h2>
                             <p className="text-gray-700 text-sm mb-4">Brightens skin and reduces dullness instantly.</p>
@@ -303,8 +443,10 @@ const Home = () => {
                     </div>
 
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Body Lotion</div>
+                    <div className="bg-white  overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={SilkenTouch} alt="silken touch body lotion" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold text-purple-800 mb-2">Silken Touch</h2>
                             <p className="text-gray-700 text-sm mb-4">Smooth and soft skin all day long.</p>
@@ -316,8 +458,10 @@ const Home = () => {
                     </div>
 
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Serum</div>
+                    <div className="bg-white  overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={VitaminCSerum} alt="Vitamin C Serum" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold text-purple-800 mb-2">Vitamin C Serum</h2>
                             <p className="text-gray-700 text-sm mb-4">Brightens skin and reduces fine lines.</p>
@@ -329,8 +473,10 @@ const Home = () => {
                     </div>
 
 
-                    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
-                        <div className="w-full h-[140px] bg-purple-800 flex items-center justify-center text-white text-sm">Eyeshadow</div>
+                    <div className="bg-white  overflow-hidden flex flex-col">
+                        <div className="w-full h-[250px] bg-purple-800 flex items-center justify-center text-white text-sm">
+                            <img src={ShimmerPallette} alt="shimmer eyeshadow pallette" className="w-full h-full object-cover" />
+                        </div>
                         <div className="p-4 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold text-purple-800 mb-2">Shimmer Palette</h2>
                             <p className="text-gray-700 text-sm mb-4">Blendable shimmer colors for stunning eyes.</p>
@@ -443,7 +589,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
 
             {/*Reviews*/}
             <div className="py-16 bg-white text-gray-700">
@@ -569,7 +715,7 @@ const Home = () => {
 
                     </div>
                 </div>
-            </div> 
+            </div>
 
 
             {/*location*/}
