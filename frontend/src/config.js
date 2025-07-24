@@ -1,1 +1,1 @@
-export const API_URL = 'http://localhost:5555/apidocs';
+export const API_URL = 'http://localhost:5555/';
