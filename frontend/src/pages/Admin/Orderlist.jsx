@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getOrders, updateOrderStatus } from '../../../services/orderService';
+import { getAllOrders, updateOrder } from '../../services/orderService';
 
 export default function OrderList() {
   const [orders, setOrders] = useState([]);
@@ -13,7 +13,7 @@ export default function OrderList() {
 
   const fetchOrders = async () => {
     try {
-      let data = await getOrders();
+      let data = await getAllOrders();
       if (statusFilter !== 'all') {
         data = data.filter(order => order.status === statusFilter);
       }
@@ -27,7 +27,7 @@ export default function OrderList() {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await updateOrderStatus(orderId, newStatus);
+      await updateOrder(orderId, newStatus);
       // Refresh only the updated order in the UI
       setOrders(prev =>
         prev.map(order =>

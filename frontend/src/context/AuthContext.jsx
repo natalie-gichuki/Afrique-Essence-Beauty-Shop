@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { verifyAdmin } from '../services/authService';
+import authService from '../services/authService';
 
 const AuthContext = createContext();
 
@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const data = await verifyAdmin();
+        const data = await authService.verifyAdmin();
         if (data.isAdmin) {
           setUser({ role: 'admin' });
         }

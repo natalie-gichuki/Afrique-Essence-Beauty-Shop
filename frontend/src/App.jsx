@@ -1,6 +1,6 @@
 
 import { Routes, Route } from 'react-router-dom'
-
+import { Navigate } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 import Home from './pages/Home';
@@ -17,8 +17,9 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminLayout from './components/Adminlayout';
 import ProductList from './pages/Admin/products/ProductList';
 import ProductForm from './pages/Admin/products/productForm';
-import OrderList from './pages/Admin/OrderList';
-import UserList from './pages/Admin/UserList';
+
+import OrderList from './pages/Admin/Orderlist';
+import UserList from './pages/Admin/Userlist';
 // import { Layout } from 'lucide-react';
 import Layout from './components/layout'
 
@@ -97,4 +98,6 @@ function App() {
 
 
 export default App;
+
+
 
