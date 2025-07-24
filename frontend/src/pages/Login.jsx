@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import LoginPic from '../assets/images/LoginPhoto.jpg'
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -36,7 +37,7 @@ const Login = () => {
                 <div className="hidden md:flex items-center justify-center bg-purple-100 w-1/2 ">
                     {/* Replace with your own image or illustration */}
                     <img
-                        src="https://img.freepik.com/premium-photo/female-developer-background_665280-9650.jpg"
+                        src={LoginPic}
                         alt="Login Visual"
                         className="w-full h-full object-cover"
                     />

@@ -48,3 +48,5 @@ export const authService = {
     login,
     register
 };
+
+export default authService;
