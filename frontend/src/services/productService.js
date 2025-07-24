@@ -1,127 +1,61 @@
-// frontend/src/services/productService.js
+import axios from 'axios';
 
-const API_BASE = '/api/products';
+const API_BASE_URL = 'http://localhost:5000/api'; // Update with your backend URL
+
+// Set up axios instance with default headers
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Add request interceptor to include JWT token
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('jwtToken');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 export const productService = {
-  // Get all products
-  getAllProducts: async () => {
-    try {
-      const response = await fetch(API_BASE);
-      if (!response.ok) throw new Error('Failed to fetch products');
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      throw error;
-    }
+  // Get all products with optional filtering and pagination
+  async getProducts({ category, page = 1, limit = 10 }) {
+    const params = { page, limit };
+    if (category) params.category = category;
+    
+    const response = await api.get('/products', { params });
+    return response.data;
   },
 
   // Get single product by ID
-  getProductById: async (id) => {
-    try {
-      const response = await fetch(`${API_BASE}/${id}`);
-      if (!response.ok) throw new Error('Failed to fetch product');
-      return await response.json();
-    } catch (error) {
-      console.error(`Error fetching product ${id}:`, error);
-      throw error;
-    }
+  async getProductById(id) {
+    const response = await api.get(`/products/${id}`);
+    return response.data;
   },
 
   // Create new product
-  createProduct: async (productData) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(API_BASE, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(productData)
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create product');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Error creating product:', error);
-      throw error;
-    }
+  async createProduct(productData) {
+    const response = await api.post('/products', productData);
+    return response.data;
   },
 
   // Update existing product
-  updateProduct: async (id, productData) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE}/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(productData)
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to update product');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error(`Error updating product ${id}:`, error);
-      throw error;
-    }
+  async updateProduct(id, productData) {
+    const response = await api.put(`/products/${id}`, productData);
+    return response.data;
   },
 
   // Delete product
-  deleteProduct: async (id) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE}/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to delete product');
-      }
-
-      return true;
-    } catch (error) {
-      console.error(`Error deleting product ${id}:`, error);
-      throw error;
-    }
+  async deleteProduct(id) {
+    await api.delete(`/products/${id}`);
   },
 
   // Get all categories
-  getCategories: async () => {
-    try {
-      const response = await fetch('/api/categories');
-      if (!response.ok) throw new Error('Failed to fetch categories');
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-      throw error;
-    }
-  },
-
-  // Search products
-  searchProducts: async (query) => {
-    try {
-      const response = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
-      if (!response.ok) throw new Error('Failed to search products');
-      return await response.json();
-    } catch (error) {
-      console.error('Error searching products:', error);
-      throw error;
-    }
+  async getCategories() {
+    const response = await api.get('/categories');
+    return response.data;
   }
 };
 

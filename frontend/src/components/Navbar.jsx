@@ -80,10 +80,12 @@ const Navbar = () => {
   return (
     <nav className="flex justify-between items-center p-4 bg-fuchsia-50 shadow-md text-gray-700">
       <Link to="/" className="ml-7 text-purple-800 text-lg font-bold hover:text-violet-800 transition">Home</Link>
+      <Link to="/products" className="text-purple-700 hover:underline">Products</Link>
       <Link to="/cart" className="text-purple-700 hover:underline">Cart</Link>
       <Link to="/checkout" className="text-purple-700 hover:underline">Checkout</Link>
       <Link to="/orders" className="text-purple-700 hover:underline">My Orders</Link>
       <Link to="/invoice/:id" className="text-purple-700 hover:underline">My Invoice</Link>
+      
 
       <div className="flex gap-4 items-center">
         {user?.role === "admin" && (

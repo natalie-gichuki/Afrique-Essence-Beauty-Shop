@@ -1,300 +1,163 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
-import productService from '../services/productService';
-import '../styles/index.css';
+import { productService } from '../services/productService';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TextField,
+  Button,
+  IconButton,
+  Typography,
+  Box,
+  Pagination,
+  CircularProgress,
+  Alert
+} from '@mui/material';
+import { Edit, Delete, Add } from '@mui/icons-material';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({
-    category: '',
-    minPrice: 0,
-    maxPrice: 1000,
-    searchQuery: ''
-  });
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [newProduct, setNewProduct] = useState({
-    name: '',
-    description: '',
-    price: '',
-    stock: '',
-    category: '',
-    image: ''
+  const [error, setError] = useState(null);
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    total: 0,
+    pages: 1
   });
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const [productsData, categoriesData] = await Promise.all([
-          productService.getAllProducts(),
-          productService.getCategories()
-        ]);
-        setProducts(productsData);
-        setFilteredProducts(productsData);
-        setCategories(categoriesData);
-      } catch (error) {
-        console.error('Error loading data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
-
-  useEffect(() => {
-    fetchProducts();
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    applyFilters();
-  }, [filters, products]);
-
   const fetchProducts = async () => {
     try {
-      const response = await fetch('/api/products');
-      const data = await response.json();
-      setProducts(data);
-      setFilteredProducts(data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
+      setLoading(true);
+      const data = await productService.getProducts({
+        category: categoryFilter,
+        page: pagination.page,
+        limit: pagination.limit
+      });
+      
+      setProducts(data.products);
+      setPagination({
+        ...pagination,
+        total: data.total,
+        pages: data.pages
+      });
+      setError(null);
+    } catch (err) {
+      setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch('/api/categories');
-      const data = await response.json();
-      setCategories(data);
-    } catch (error) {
-      console.error('Error fetching categories:', error);
+  useEffect(() => {
+    fetchProducts();
+  }, [categoryFilter, pagination.page]);
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      try {
+        await productService.deleteProduct(id);
+        fetchProducts(); // Refresh the list
+      } catch (err) {
+        setError(err.message);
+      }
     }
   };
 
-  const applyFilters = () => {
-    let result = [...products];
-    
-    if (filters.category) {
-      result = result.filter(product => product.category === filters.category);
-    }
-    
-    result = result.filter(product => 
-      product.price >= filters.minPrice && product.price <= filters.maxPrice
-    );
-    
-    if (filters.searchQuery) {
-      result = result.filter(product =>
-        product.name.toLowerCase().includes(filters.searchQuery.toLowerCase())
-      );
-    }
-    
-    setFilteredProducts(result);
+  const handlePageChange = (event, newPage) => {
+    setPagination({ ...pagination, page: newPage });
   };
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleAddProduct = async (e) => {
-    e.preventDefault();
-    try {
-      const createdProduct = await productService.createProduct({
-        ...newProduct,
-        price: parseFloat(newProduct.price),
-        stock: parseInt(newProduct.stock)
-      });
-      
-      setProducts(prev => [...prev, createdProduct]);
-      setNewProduct({
-        name: '',
-        description: '',
-        price: '',
-        stock: '',
-        category: '',
-        image: ''
-      });
-      setShowAddForm(false);
-      alert(`Product "${createdProduct.name}" added successfully!`);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  if (loading) return <div className="loading">Loading products...</div>;
+  if (loading) return <CircularProgress />;
+  if (error) return <Alert severity="error">{error}</Alert>;
 
   return (
-    <div className="products-page">
-      <div className="products-header">
-        <h2>Products</h2>
-        <button 
-          className="add-product-btn"
-          onClick={() => setShowAddForm(!showAddForm)}
-        >
-          {showAddForm ? 'Cancel' : '+ Add Product'}
-        </button>
-      </div>
-
-      {showAddForm && (
-        <div className="add-product-form">
-          <h3>Add New Product</h3>
-          <form onSubmit={handleAddProduct}>
-            <div className="form-group">
-              <input
-                type="text"
-                name="name"
-                placeholder="Product Name"
-                value={newProduct.name}
-                onChange={handleNewProductChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <textarea
-                name="description"
-                placeholder="Description"
-                value={newProduct.description}
-                onChange={handleNewProductChange}
-                required
-              />
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <input
-                  type="number"
-                  name="price"
-                  placeholder="Price"
-                  value={newProduct.price}
-                  onChange={handleNewProductChange}
-                  min="0.01"
-                  step="0.01"
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <input
-                  type="number"
-                  name="stock"
-                  placeholder="Stock"
-                  value={newProduct.stock}
-                  onChange={handleNewProductChange}
-                  min="1"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <input
-                type="text"
-                name="category"
-                placeholder="Category"
-                value={newProduct.category}
-                onChange={handleNewProductChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <input
-                type="url"
-                name="image"
-                placeholder="Image URL (optional)"
-                value={newProduct.image}
-                onChange={handleNewProductChange}
-              />
-            </div>
-
-            <button type="submit" className="submit-btn">
-              Add Product
-            </button>
-          </form>
-        </div>
-      )}
-
-      <div className="filters-container">
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h4" gutterBottom>
+        Product List
+      </Typography>
+      
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+        <TextField
+          label="Filter by Category"
+          variant="outlined"
+          size="small"
+          value={categoryFilter}
+          onChange={(e) => {
+            setCategoryFilter(e.target.value);
+            setPagination({ ...pagination, page: 1 });
+          }}
+        />
         
-        <div className="search-filter">
-          <input
-            type="text"
-            name="searchQuery"
-            placeholder="Search products..."
-            value={filters.searchQuery}
-            onChange={handleFilterChange}
-          />
-        </div>
-
-        <div className="category-filter">
-          <h3>Categories</h3>
-          <div className="category-buttons">
-            <button 
-              className={!filters.category ? 'active' : ''}
-              onClick={() => setFilters(prev => ({...prev, category: ''}))}
-            >
-              All
-            </button>
-            {categories.map(category => (
-              <button
-                key={category.id}
-                className={filters.category === category.name ? 'active' : ''}
-                onClick={() => setFilters(prev => ({...prev, category: category.name}))}
-              >
-                {category.name}
-              </button>
+        <Button
+          variant="contained"
+          startIcon={<Add />}
+          onClick={() => navigate('/products/new')}
+        >
+          Add Product
+        </Button>
+      </Box>
+      
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products.map((product) => (
+              <TableRow key={product.id}>
+                <TableCell>
+                  <Button 
+                    onClick={() => navigate(`/products/${product.id}`)}
+                    color="primary"
+                  >
+                    {product.name}
+                  </Button>
+                </TableCell>
+                <TableCell>${product.price.toFixed(2)}</TableCell>
+                <TableCell>{product.category}</TableCell>
+                <TableCell>
+                  <IconButton
+                    color="primary"
+                    onClick={() => navigate(`/products/${product.id}/edit`)}
+                  >
+                    <Edit />
+                  </IconButton>
+                  <IconButton
+                    color="error"
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
             ))}
-          </div>
-        </div>
-
-        <div className="price-filter">
-          <h3>Price Range</h3>
-          <div className="price-inputs">
-            <input
-              type="number"
-              name="minPrice"
-              placeholder="Min"
-              value={filters.minPrice}
-              onChange={handleFilterChange}
-            />
-            <span>-</span>
-            <input
-              type="number"
-              name="maxPrice"
-              placeholder="Max"
-              value={filters.maxPrice}
-              onChange={handleFilterChange}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="products-grid">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map(product => (
-            <ProductCard 
-              key={product.id} 
-              product={product}
-              onClick={() => navigate(`/products/${product.id}`)}
-            />
-          ))
-        ) : (
-          <div className="no-results">No products match your filters.</div>
-        )}
-      </div>
-    </div>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+        <Pagination
+          count={pagination.pages}
+          page={pagination.page}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </Box>
+    </Box>
   );
 };
 
