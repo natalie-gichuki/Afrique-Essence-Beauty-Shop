@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../redux/slices/authSlice';
 import { useNavigate, Link } from 'react-router-dom';
+import LoginPic from '../assets/images/LoginPhoto.jpg'
 
 const Register = () => {
     const [form, setForm] = useState({
@@ -39,7 +40,7 @@ const Register = () => {
                 {/* Left Section with Illustration */}
                 <div className="hidden md:flex items-center justify-center bg-purple-100 w-1/2">
                     <img
-                        src="https://img.freepik.com/premium-photo/female-developer-background_665280-9650.jpg"
+                        src={LoginPic}
                         alt="Register Visual"
                         className="w-full h-full object-cover"
                     />
