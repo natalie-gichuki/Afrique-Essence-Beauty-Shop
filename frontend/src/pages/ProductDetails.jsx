@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { productService } from '../services/productService';
+import { getProductById } from '../services/productService';
 import {
   Box,
   Typography,
@@ -28,7 +28,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const data = await productService.getProductById(id);
+        const data = await getProductById(id);
         setProduct(data);
         setError(null);
       } catch (err) {

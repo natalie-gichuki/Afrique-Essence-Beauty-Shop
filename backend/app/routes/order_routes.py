@@ -87,7 +87,7 @@ def get_order_item(id):
 # Create order item - Admin only (usually order items created automatically during order creation)
 @order_item_bp.route('/', methods=['POST'])
 @jwt_required()
-@role_required('admin')
+@role_required('admin', 'customer')
 @swag_from({
     'tags': ['Order Item'],
     'description': 'Create a new order item',

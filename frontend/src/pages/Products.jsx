@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { productService } from '../services/productService';
+import { getAllProducts } from '../services/productService';
 import {
   Table,
   TableBody,
@@ -37,7 +37,7 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const data = await productService.getProducts({
+      const data = await getAllProducts({
         category: categoryFilter,
         page: pagination.page,
         limit: pagination.limit

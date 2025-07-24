@@ -48,10 +48,14 @@ def create_app(config_name = "development"):
     # Initializes the Flask-JWT-Extended extension for JWT authentication. Hence on can use JWT in their routes
     jwt.init_app(app)
     # Initializes Flask-CORS to handle Cross-Origin Resource Sharing, allowing the app to accept requests from different origins.
-    cors.init_app(app)
+    cors.init_app(app, resources={r"/*": {"origins": "http://127.0.0.1:5173"}}, supports_credentials=True)
+
 
     # Initializes Flasgger for API documentation.
     swagger.init_app(app)
+
+    app.url_map.strict_slashes = False
+
     
     from app.routes import (auth_routes,
                              user_routes, 

@@ -156,8 +156,11 @@ const Navbar = () => {
         
         {/* Regular customer links */}
         <Link to="/products" className="text-purple-700 hover:underline">Products</Link>
+        <Link to="/products-details" className="text-purple-700 hover:underline">Product Details</Link>
         <Link to="/cart" className="text-purple-700 hover:underline">Cart</Link>
         <Link to="/orders" className="text-purple-700 hover:underline">My Orders</Link>
+        <Link to="/checkout" className="text-purple-700 hover:underline">Checkout</Link>
+        <Link to="/invoice" className="text-purple-700 hover:underline">Invoice</Link>
       </div>
 
       <div className="flex gap-4 items-center">
