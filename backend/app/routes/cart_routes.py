@@ -47,6 +47,20 @@ def get_carts():
     carts = Cart.query.all()
     return jsonify([cart.to_dict() for cart in carts])
 
+
+@cart_bp.route('/me', methods=['GET'])
+@jwt_required()
+@role_required('admin', 'customer')
+def get_my_cart():
+    current_user_id = get_jwt_identity()
+    cart = Cart.query.filter_by(user_id=current_user_id).first()
+
+    if not cart:
+        return jsonify({"msg": "No cart found"}), 404
+
+    return jsonify(cart.to_dict()), 200
+
+
 @cart_bp.route('/<int:id>', methods=['GET'])
 @jwt_required()
 @role_required('admin', 'customer') 

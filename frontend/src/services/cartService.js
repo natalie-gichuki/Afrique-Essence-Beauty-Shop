@@ -77,7 +77,7 @@ const getUserIdFromToken = () => {
 
 // Fetch the current user's cart
 const getMyCart = async () => {
-  const res = await axios.get(`${CART_URL}`, ...authHeaders());
+  const res = await axios.get(`${CART_URL}/me`, ...authHeaders());
 
   // If backend returns all carts, filter here (not ideal):
   const carts = res.data;

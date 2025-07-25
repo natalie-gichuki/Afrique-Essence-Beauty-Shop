@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../redux/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemToCart } from '../redux/slices/cartSlice';
+import { addItemToCart, fetchMyCart } from '../redux/slices/cartSlice';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -16,15 +16,27 @@ const ProductDetails = () => {
     dispatch(fetchProductById(id));
   }, [id]);
 
+
+  useEffect(() => {
+    // Fetch cart if it's not yet available
+    if (!cart) {
+      dispatch(fetchMyCart());
+    }
+  }, [cart, dispatch]);
+
+
   const addToCart = () => {
-    if (!cart) return alert("Cart not loaded.");
+    if (!cart || !cart.id) return alert("Cart not ready yet. Please wait...");
 
     dispatch(addItemToCart({
-      product_id: product.id,
-      quantity,
+      cartId: cart.id,
+      item: {
+        product_id: product.id,
+        quantity: quantity
+      }
     }));
-
   };
+
 
 
   if (!product) return <p>Loading...</p>;
