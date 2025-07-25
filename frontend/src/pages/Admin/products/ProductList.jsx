@@ -263,82 +263,131 @@
 // export default ProductList;
 
 // src/pages/ProductList.jsx
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { fetchProducts, removeProduct } from '../../../redux/productSlice';
+// import { Link } from 'react-router-dom';
+
+// const ProductList = () => {
+//   const dispatch = useDispatch();
+//   const { items: products = [], loading = false, error = null } = useSelector(
+//     (state) => state.products || {}
+//   );
+
+//   const token = useSelector((state) => state.auth.user?.access_token);
+
+//   useEffect(() => {
+//     dispatch(fetchProducts(token));
+//   }, [dispatch, token]);
+
+//   const handleDelete = (id) => {
+//     if (window.confirm('Are you sure you want to delete this product?')) {
+//       dispatch(removeProduct({ productId: id, token }));
+//     }
+//   };
+
+//   if (loading) return <p className="text-center mt-4">Loading products...</p>;
+//   if (error) return <p className="text-center mt-4 text-red-500">Error: {error}</p>;
+
+//   return (
+//     <div className="max-w-4xl mx-auto mt-10">
+//       <div className="flex justify-between items-center mb-4">
+//         <h2 className="text-2xl font-bold">Product List</h2>
+//         <Link
+//           to="/admin/products/new"
+//           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+//         >
+//           Add Product
+//         </Link>
+//       </div>
+//       {products.length === 0 ? (
+//         <p>No products found.</p>
+//       ) : (
+//         <table className="w-full border-collapse border border-gray-200">
+//           <thead>
+//             <tr className="bg-gray-100">
+//               <th className="border px-4 py-2">ID</th>
+//               <th className="border px-4 py-2">Name</th>
+//               <th className="border px-4 py-2">Price</th>
+//               <th className="border px-4 py-2">Category</th>
+//               <th className="border px-4 py-2">Actions</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {products.map((product) => (
+//               <tr key={product.id} className="text-center">
+//                 <td className="border px-4 py-2">{product.id}</td>
+//                 <td className="border px-4 py-2">{product.name}</td>
+//                 <td className="border px-4 py-2">Ksh {product.price}</td>
+//                 <td className="border px-4 py-2">{product.category || 'N/A'}</td>
+//                 <td className="border px-4 py-2 space-x-2">
+//                   <Link
+//                     to={`/admin/products/edit/${product.id}`}
+//                     className="text-blue-600 hover:underline"
+//                   >
+//                     Edit
+//                   </Link>
+//                   <button
+//                     onClick={() => handleDelete(product.id)}
+//                     className="text-red-600 hover:underline"
+//                   >
+//                     Delete
+//                   </button>
+//                 </td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default ProductList;
+
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts, removeProduct } from '../../../redux/productSlice';
+import { fetchProducts, deleteProduct } from '../../../redux/slices/productSlice';
 import { Link } from 'react-router-dom';
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const { items: products = [], loading = false, error = null } = useSelector(
-    (state) => state.products || {}
-  );
-
-  const token = useSelector((state) => state.auth.user?.access_token);
+  const { products } = useSelector((state) => state.products);
 
   useEffect(() => {
-    dispatch(fetchProducts(token));
-  }, [dispatch, token]);
+    dispatch(fetchProducts());
+  }, []);
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
-      dispatch(removeProduct({ productId: id, token }));
-    }
+    if (confirm('Delete this product?')) dispatch(deleteProduct(id));
   };
 
-  if (loading) return <p className="text-center mt-4">Loading products...</p>;
-  if (error) return <p className="text-center mt-4 text-red-500">Error: {error}</p>;
-
   return (
-    <div className="max-w-4xl mx-auto mt-10">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Product List</h2>
-        <Link
-          to="/admin/products/new"
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Add Product
-        </Link>
+    <div className="p-4">
+      <div className="flex justify-between mb-4">
+        <h2 className="text-xl font-bold">All Products</h2>
+        <Link to="/admin/products/new" className="bg-green-600 text-white px-4 py-2 rounded">Add Product</Link>
       </div>
-      {products.length === 0 ? (
-        <p>No products found.</p>
-      ) : (
-        <table className="w-full border-collapse border border-gray-200">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border px-4 py-2">ID</th>
-              <th className="border px-4 py-2">Name</th>
-              <th className="border px-4 py-2">Price</th>
-              <th className="border px-4 py-2">Category</th>
-              <th className="border px-4 py-2">Actions</th>
+      <table className="w-full border">
+        <thead className="bg-gray-100">
+          <tr>
+            <th>Name</th><th>Price</th><th>Category</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((prod) => (
+            <tr key={prod.id} className="text-center border-t">
+              <td>{prod.name}</td>
+              <td>{prod.price}</td>
+              <td>{prod.category}</td>
+              <td>
+                <Link to={`/admin/products/edit/${prod.id}`} className="text-blue-500 mr-2">Edit</Link>
+                <button onClick={() => handleDelete(prod.id)} className="text-red-500">Delete</button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id} className="text-center">
-                <td className="border px-4 py-2">{product.id}</td>
-                <td className="border px-4 py-2">{product.name}</td>
-                <td className="border px-4 py-2">Ksh {product.price}</td>
-                <td className="border px-4 py-2">{product.category || 'N/A'}</td>
-                <td className="border px-4 py-2 space-x-2">
-                  <Link
-                    to={`/admin/products/edit/${product.id}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="text-red-600 hover:underline"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

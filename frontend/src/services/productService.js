@@ -62,48 +62,97 @@
 // export default productService;
 
 // src/services/productService.js
-import axios from 'axios';
-import { API_URL } from '../config';
+import { API_URL } from "../config";
 
 const BASE_URL = `${API_URL}/products`;
 
-const getAllProducts = async () => {
-  const token = localStorage.getItem('token'); // or sessionStorage.getItem('token');
-  const res = await axios.get(BASE_URL, {
+const getAllProducts = async (token, params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  const res = await fetch(`${BASE_URL}?${query}`, {
     headers: {
-      Authorization: `Bearer ${token}`,
-    },
+      Authorization: `Bearer ${token}`
+    }
   });
-  return res.data;
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to fetch products');
+  }
+
+  return await res.json();
 };
 
+const getProductById = async (id, token) => {
+  const res = await fetch(`${BASE_URL}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to fetch product');
+  }
+
+  return await res.json();
+};
 
 const createProduct = async (productData, token) => {
-  const res = await axios.post(BASE_URL, productData, {
-    headers: { Authorization: `Bearer ${token}` },
+  const res = await fetch(BASE_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(productData)
   });
-  return res.data;
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to create product');
+  }
+
+  return await res.json();
 };
 
-const updateProduct = async (productId, productData, token) => {
-  const res = await axios.patch(`${BASE_URL}/${productId}`, productData, {
-    headers: { Authorization: `Bearer ${token}` },
+const updateProduct = async (id, productData, token) => {
+  const res = await fetch(`${BASE_URL}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(productData)
   });
-  return res.data;
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to update product');
+  }
+
+  return await res.json();
 };
 
-const deleteProduct = async (productId, token) => {
-  const res = await axios.delete(`${BASE_URL}/${productId}`, {
-    headers: { Authorization: `Bearer ${token}` },
+const deleteProduct = async (id, token) => {
+  const res = await fetch(`${BASE_URL}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   });
-  return res.data;
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to delete product');
+  }
 };
 
-export const getProductById = async (id) => {
-  const response = await fetch(`${API_URL}/products/${id}`);
-  if (!response.ok) throw new Error("Failed to fetch product");
-  return await response.json();
+export const productService = {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct
 };
 
-
-export { getAllProducts, createProduct, updateProduct, deleteProduct };
+export default productService;

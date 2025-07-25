@@ -142,7 +142,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/product-details" element={<ProductDetails />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/invoice" element={<InvoicePage />} />
 
