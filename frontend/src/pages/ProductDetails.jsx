@@ -2,21 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../redux/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { addItemToCart } from '../redux/slices/cartSlice';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.products);
   const [quantity, setQuantity] = useState(1);
+  const { cart } = useSelector((state) => state.cart);
+
 
   useEffect(() => {
     dispatch(fetchProductById(id));
   }, [id]);
 
   const addToCart = () => {
-    console.log('Add to cart', { ...product, quantity });
-    // dispatch(addToCart({ product, quantity }))
+    if (!cart) return alert("Cart not loaded.");
+
+    dispatch(addItemToCart({
+      product_id: product.id,
+      quantity,
+    }));
+
   };
+
 
   if (!product) return <p>Loading...</p>;
 

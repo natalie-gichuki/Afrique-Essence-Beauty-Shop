@@ -53,11 +53,17 @@ const CART_URL = `${API_URL}/cart`;
 
 const getToken = () => localStorage.getItem('token');
 
-const authHeaders = () => ({
-  headers: {
-    Authorization: `Bearer ${getToken()}`,
-  },
-});
+const authHeaders = () => {
+  const token = getToken();
+  return token
+    ? {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    : {}; // or throw an error or redirect to login
+};
+
 
 // Utility to extract user ID from JWT token
 const getUserIdFromToken = () => {
@@ -114,6 +120,8 @@ const cartService = {
   addItem,
   updateItem,
   deleteItem,
+ 
 };
 
 export default cartService;
+export { authHeaders };

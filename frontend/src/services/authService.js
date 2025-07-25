@@ -17,8 +17,13 @@ const login = async (credentials) => {
         throw new Error(errorData.message || 'Login failed');
     }
 
+    const data = await response.json(); // ✅ Parse response
+
+    localStorage.setItem('token', data.access_token); // ✅ Save token
+
+
     // If successful, returns the parsed response (likely a token and user info).
-    return await response.json();
+    return data;
 }
 
 
@@ -37,6 +42,8 @@ const register = async (userData) => {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Registration failed');
     }
+
+    
 
     return await response.json();
 }

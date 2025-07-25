@@ -45,10 +45,15 @@
 // src/redux/slices/cartSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import cartService from '../../services/cartService';
+import axios from 'axios';
+import {authHeaders} from '../../services/cartService'
+
+const CART_URL = 'http://localhost:5555/cart';
+
 
 const initialState = {
   carts: [],
-  cart: { items: [] },  
+  cart: { items: [] },
   status: 'idle',
   error: null,
 };
@@ -66,17 +71,43 @@ export const createCart = createAsyncThunk('cart/createCart', async (_, thunkAPI
   try {
     return await cartService.createCart();
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue(error?.response?.data || error.message || 'Unknown error');
+
   }
 });
 
-export const addItemToCart = createAsyncThunk('cart/addItemToCart', async ({ cartId, item }, thunkAPI) => {
-  try {
-    return await cartService.addItem(cartId, item);
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+export const addItemToCart = createAsyncThunk(
+  'cart/addItemToCart',
+  async (item, thunkAPI) => {
+    try {
+      let cartId;
+
+      // Try to get existing cart
+      try {
+        const existingCart = await thunkAPI.dispatch(fetchMyCart()).unwrap();
+        cartId = existingCart?.id;
+      } catch (err) {
+        // If no cart, create a new one
+        const newCart = await thunkAPI.dispatch(createCart()).unwrap();
+        cartId = newCart?.id;
+      }
+
+      if (!cartId) throw new Error('Cart ID could not be resolved');
+
+      const res = await axios.post(
+        `${CART_URL}/${cartId}/items`,
+        item,
+        authHeaders()
+      );
+
+      return res.data;
+    } catch (error) {
+      console.error('[addItemToCart Error]', error);
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
   }
-});
+);
+
 
 export const updateCartItem = createAsyncThunk('cart/updateCartItem', async ({ itemId, data }, thunkAPI) => {
   try {
@@ -125,8 +156,15 @@ const cartSlice = createSlice({
       })
 
       .addCase(addItemToCart.fulfilled, (state, action) => {
+        if (!state.cart) {
+          state.cart = { items: [] };
+        }
+        if (!state.cart.items) {
+          state.cart.items = [];
+        }
         state.cart.items.push(action.payload);
       })
+
 
       .addCase(updateCartItem.fulfilled, (state, action) => {
         const index = state.cart.items.findIndex(item => item.id === action.payload.id);
