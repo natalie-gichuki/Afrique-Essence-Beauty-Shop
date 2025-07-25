@@ -85,7 +85,7 @@ def list_products():
 
 @product_bp.route('/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
-@role_required('admin')
+@role_required('admin', 'customer')
 @swag_from({
     'tags': ['Product'],
     'description': 'Manage a specific product by ID',
