@@ -87,29 +87,41 @@ const InvoicePage = () => {
     }
   }, []);
 
-  if (!invoice) return <p>No invoice found.</p>;
+  if (!invoice)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-gray-500 text-lg">No invoice found.</p>
+      </div>
+    );
 
   return (
-    <div className="p-4 border rounded-md shadow-md">
-      <h2 className="text-xl font-bold mb-2">🧾 Invoice #{invoice.id}</h2>
-      <p>Date: {invoice.date}</p>
+    <div className="max-w-2xl mx-auto mt-10 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+      <h2 className="text-2xl font-bold mb-2 text-green-700">🧾 Invoice #{invoice.id}</h2>
+      <p className="text-gray-600 mb-4">🗓️ Date: {invoice.date}</p>
 
-      <div className="my-4">
-        <h3 className="font-semibold">Billing Info</h3>
-        <p>👤 Name: {invoice.billing?.name}</p>
-        <p>📞 Phone: {invoice.billing?.phone}</p>
-        <p>📍 Address: {invoice.billing?.address}</p>
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold text-gray-800 mb-1">Billing Info</h3>
+        <div className="text-gray-700 space-y-1 pl-2">
+          <p>👤 <span className="font-medium">Name:</span> {invoice.billing?.name}</p>
+          <p>📞 <span className="font-medium">Phone:</span> {invoice.billing?.phone}</p>
+          <p>📍 <span className="font-medium">Address:</span> {invoice.billing?.address}</p>
+        </div>
       </div>
 
-      <ul className="my-4">
-        {invoice.items.map((item, i) => (
-          <li key={i}>
-            {item.name} x {item.quantity} = KES {item.price * item.quantity}
-          </li>
-        ))}
-      </ul>
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold text-gray-800 mb-2">Items</h3>
+        <ul className="space-y-1 pl-4 text-gray-700 list-disc">
+          {invoice.items.map((item, i) => (
+            <li key={i}>
+              {item.name} × {item.quantity} = <span className="font-semibold">KES {item.price * item.quantity}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <p className="font-bold">Total: KES {invoice.total}</p>
+      <p className="text-xl font-bold text-green-800 text-right">
+        Total: KES {invoice.total}
+      </p>
     </div>
   );
 };

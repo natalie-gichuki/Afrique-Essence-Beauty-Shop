@@ -28,6 +28,7 @@ const Home = () => {
         if (!user) {
             navigate("/login");
         } else {
+            navigate("/products")
             console.log("Exploring more features...");
         }
     };

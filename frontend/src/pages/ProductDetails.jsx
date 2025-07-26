@@ -2,66 +2,68 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../redux/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-// import {  fetchMyCart, createCart } from '../redux/slices/cartSlice';
 import { addToLocalCart } from '../redux/slices/cartSlice';
+
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.products);
   const [quantity, setQuantity] = useState(1);
   const cart = useSelector((state) => state.cart.cart);
-  
-
-
 
   useEffect(() => {
     dispatch(fetchProductById(id));
   }, [id]);
 
-
-  useEffect(() => {
-    if (!cart && status === 'idle') {
-      dispatch(fetchMyCart())
-        .unwrap()
-        .catch((err) => {
-          if (err?.response?.status === 404) {
-            dispatch(createCart()).then(() => dispatch(fetchMyCart()));
-          }
-        });
-    }
-  }, [cart, status, dispatch]);
-
-
-
   const addToCart = () => {
-  dispatch(addToLocalCart({
-    productId: product.id,
-    name: product.name,
-    price: product.price,
-    quantity,
-    image: product.image,
-  }));
-  alert('Added to cart!');
-};
+    dispatch(addToLocalCart({
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      quantity,
+      image: product.image,
+    }));
+    alert('Added to cart!');
+  };
 
-
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <p className="text-center mt-10 text-gray-500">Loading product...</p>;
 
   return (
-    <div className="p-6 flex gap-6">
-      <img src={product.image_url} alt={product.name} className="h-60 object-cover" />
-      <div>
-        <h1 className="text-2xl font-bold">{product.name}</h1>
-        <p>{product.description}</p>
-        <p className="font-semibold">Ksh {product.price}</p>
-        <div className="mt-2 flex items-center gap-2">
-          <button onClick={() => setQuantity(q => Math.max(1, q - 1))}>-</button>
-          <span>{quantity}</span>
-          <button onClick={() => setQuantity(q => q + 1)}>+</button>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+      <div className="bg-white rounded-2xl shadow-lg p-6 max-w-4xl w-full flex flex-col md:flex-row items-center gap-8">
+        <img
+          src={product.image_url}
+          alt={product.name}
+          className="w-80 h-80 object-cover rounded-xl shadow"
+        />
+        <div className="flex-1 text-center md:text-left">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">{product.name}</h1>
+          <p className="text-gray-600 mb-4">{product.description}</p>
+          <p className="text-purple-700 text-xl font-semibold mb-4">Ksh {product.price}</p>
+
+          <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
+            <button
+              onClick={() => setQuantity(q => Math.max(1, q - 1))}
+              className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200"
+            >
+              −
+            </button>
+            <span className="font-semibold">{quantity}</span>
+            <button
+              onClick={() => setQuantity(q => q + 1)}
+              className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200"
+            >
+              +
+            </button>
+          </div>
+
+          <button
+            className="mt-2 bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-2 rounded-xl transition-all"
+            onClick={addToCart}
+          >
+            Add to Cart
+          </button>
         </div>
-        <button className="mt-4 bg-blue-600 text-white px-4 py-2" onClick={addToCart}>
-          Add to Cart
-        </button>
       </div>
     </div>
   );

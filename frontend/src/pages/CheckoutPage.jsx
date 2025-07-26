@@ -247,36 +247,60 @@ const Checkout = () => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Checkout</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-8">
+      <div className="w-full max-w-xl bg-white shadow-lg rounded-2xl p-8">
+        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Checkout</h2>
 
-      <div className="mb-4">
-        <label className="block">Full Name:</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} className="border px-2 py-1 w-full" />
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="Jane Doe"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+            <input
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="+254712345678"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Delivery Address</label>
+            <input
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="Nairobi, Kenya"
+            />
+          </div>
+        </div>
+
+        <ul className="mt-6 border-t pt-4 space-y-2 text-sm text-gray-700">
+          {items.map((item) => (
+            <li key={item.productId} className="flex justify-between">
+              <span>{item.name} × {item.quantity}</span>
+              <span>KES {item.price * item.quantity}</span>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-4 font-bold text-right text-lg text-gray-800">Total: KES {total}</p>
+
+        <button
+          onClick={handlePay}
+          className="w-full mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-xl transition duration-200"
+        >
+          Pay Now
+        </button>
       </div>
-
-      <div className="mb-4">
-        <label className="block">Phone Number:</label>
-        <input value={phone} onChange={(e) => setPhone(e.target.value)} className="border px-2 py-1 w-full" />
-      </div>
-
-      <div className="mb-4">
-        <label className="block">Delivery Address:</label>
-        <input value={address} onChange={(e) => setAddress(e.target.value)} className="border px-2 py-1 w-full" />
-      </div>
-
-      <ul className="my-4">
-        {items.map((item) => (
-          <li key={item.productId}>
-            {item.name} x {item.quantity} = KES {item.price * item.quantity}
-          </li>
-        ))}
-      </ul>
-
-      <p className="font-bold mt-2">Total: KES {total}</p>
-      <button onClick={handlePay} className="bg-green-600 text-white px-4 py-2 mt-4">
-        Pay Now
-      </button>
     </div>
   );
 };
