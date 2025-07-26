@@ -59,6 +59,7 @@ const authHeaders = () => {
     ? {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
       }
     : {}; // or throw an error or redirect to login
@@ -77,18 +78,18 @@ const getUserIdFromToken = () => {
 
 // Fetch the current user's cart
 const getMyCart = async () => {
-  const res = await axios.get(`${CART_URL}/me`, ...authHeaders());
+  const res = await axios.get(`${CART_URL}/me`, authHeaders());
 
   // If backend returns all carts, filter here (not ideal):
-  const carts = res.data;
-  const userId = getUserIdFromToken();
-  const myCart = carts.find(c => c.user_id === parseInt(userId));
+  // const carts = res.data;
+  // const userId = getUserIdFromToken();
+  // const myCart = carts.find(c => c.user_id === parseInt(userId));
 
-  if (!myCart) {
-    throw new Error('No cart found for user');
-  }
+  // if (!myCart) {
+  //   throw new Error('No cart found for user');
+  // }
 
-  return myCart;
+  return res.data;
 };
 
 // Create a new cart

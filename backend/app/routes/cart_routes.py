@@ -56,9 +56,10 @@ def get_my_cart():
     cart = Cart.query.filter_by(user_id=current_user_id).first()
 
     if not cart:
-        return jsonify({"msg": "No cart found"}), 404
+        return jsonify({'msg': 'Cart not found'}), 404
 
     return jsonify(cart.to_dict()), 200
+
 
 
 @cart_bp.route('/<int:id>', methods=['GET'])

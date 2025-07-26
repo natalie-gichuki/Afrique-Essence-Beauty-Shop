@@ -52,20 +52,30 @@ const CART_URL = 'http://localhost:5555/cart';
 
 
 const initialState = {
-  carts: [],
-  cart: { items: [] },
+  carts: null,
+  cart:  {items : []} ,
   status: 'idle',
   error: null,
 };
 
 // Thunks
-export const fetchMyCart = createAsyncThunk('cart/fetchMyCart', async (_, thunkAPI) => {
-  try {
-    return await cartService.getMyCart();
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+export const fetchMyCart = createAsyncThunk(
+  'cart/fetchMyCart',
+  async (_, thunkAPI) => {
+    try {
+      const cart = await cartService.getMyCart();
+      return cart;
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        // Auto-create cart
+        const createdCart = await cartService.createCart();
+        return createdCart;
+      }
+      return thunkAPI.rejectWithValue(err.response?.data || 'Failed to fetch cart');
+    }
   }
-});
+);
+
 
 export const createCart = createAsyncThunk('cart/createCart', async (_, thunkAPI) => {
   try {
