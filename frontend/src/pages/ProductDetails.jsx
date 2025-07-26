@@ -29,7 +29,7 @@ const ProductDetails = () => {
   if (!product) return <p className="text-center mt-10 text-gray-500">Loading product...</p>;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-fuchsia-50 to-fuchsia-100 flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-lg p-6 max-w-4xl w-full flex flex-col md:flex-row items-center gap-8">
         <img
           src={product.image_url}

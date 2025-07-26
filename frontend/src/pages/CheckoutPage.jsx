@@ -247,8 +247,8 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-8">
-      <div className="w-full max-w-xl bg-white shadow-lg rounded-2xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-fuchsia-50 to-fuchsia-100 px-4 py-8">
+      <div className="w-full max-w-xl bg-fuchsia-50 shadow-lg rounded-2xl p-8">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Checkout</h2>
 
         <div className="space-y-4">
