@@ -61,7 +61,7 @@ export const fetchProducts = createAsyncThunk(
   async (queryParams = {}, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      return await productService.getAllProducts(token, queryParams);
+      return await productService.getAllProducts(queryParams);
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }

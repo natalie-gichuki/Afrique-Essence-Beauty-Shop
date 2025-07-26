@@ -54,6 +54,8 @@ def list_products():
     #     "category": prod.category.name
     # } for prod in products]), 200
     category_name = request.args.get('category')
+    name = request.args.get('name')
+    price = request.args.get('price', type=float)
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
 
@@ -61,6 +63,14 @@ def list_products():
 
     if category_name:
         query = query.join(Product.category).filter(Category.name.ilike(f'%{category_name}%'))
+
+    # Filter by product name
+    if name:
+        query = query.filter(Product.name.ilike(f"%{name}%"))
+
+    # Filter by max price
+    if price:
+        query = query.filter(Product.price <= price)
 
     pagination = query.paginate(page=page, per_page=per_page, error_out=False)
 

@@ -63,10 +63,12 @@
 
 // src/services/productService.js
 import { API_URL } from "../config";
+import authService from './authService';
 
 const BASE_URL = `${API_URL}/products`;
 
-const getAllProducts = async (token, params = {}) => {
+const getAllProducts = async (params = {}) => {
+  const token = authService.getToken();
   const query = new URLSearchParams(params).toString();
   const res = await fetch(`${BASE_URL}?${query}`, {
     headers: {
