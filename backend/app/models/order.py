@@ -15,7 +15,7 @@ class Order(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     total_amount = db.Column(db.Numeric(10, 2), nullable=False)
-    status = db.Column(db.String(50), default='pending')
+    status = db.Column(db.String(50), default='Shipped')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # One order → many order items
