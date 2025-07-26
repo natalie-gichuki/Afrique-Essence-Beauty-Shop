@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../redux/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemToCart, fetchMyCart, createCart } from '../redux/slices/cartSlice';
-
+// import {  fetchMyCart, createCart } from '../redux/slices/cartSlice';
+import { addToLocalCart } from '../redux/slices/cartSlice';
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.products);
   const [quantity, setQuantity] = useState(1);
   const cart = useSelector((state) => state.cart.cart);
+  
 
 
 
@@ -33,25 +34,15 @@ const ProductDetails = () => {
 
 
   const addToCart = () => {
-    console.log("cart:", cart);
-
-    if (!cart || !cart.id) return alert("Cart not ready yet. Please wait...");
-
-    console.log("🛒 Adding to cart:", {
-      cartId: cart.id,
-      productId: product.id,
-      quantity,
-    });
-
-    dispatch(addItemToCart({
-      product_id: product.id,
-      quantity: quantity
-    }));
-
-
-    dispatch(fetchMyCart());
-  };
-
+  dispatch(addToLocalCart({
+    productId: product.id,
+    name: product.name,
+    price: product.price,
+    quantity,
+    image: product.image,
+  }));
+  alert('Added to cart!');
+};
 
 
   if (!product) return <p>Loading...</p>;

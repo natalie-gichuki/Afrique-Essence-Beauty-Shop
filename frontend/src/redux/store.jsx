@@ -5,6 +5,7 @@ import categoryReducer from './slices/categorySlice'
 import cartReducer from './slices/cartSlice'
 import orderReducer from './orderSlice'
 import userReducer from './userSlice'
+import localCartReducer from './slices/cartSlice'
 //import productReducer from './productSlice'
 
 // This is the Redux store configuration file
@@ -18,7 +19,8 @@ const store = configureStore({
         categories: categoryReducer,
         cart: cartReducer,
         order: orderReducer,
-        users: userReducer
+        users: userReducer,
+        localCart: localCartReducer
     },
     // devTools is enabled only in development mode for debugging purposes.
     devTools: process.env.NODE_ENV !== 'production',

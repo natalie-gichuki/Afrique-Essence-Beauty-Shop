@@ -95,114 +95,190 @@
 // export default CheckoutPage;
 
 
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { API_URL } from '../config';
-import { toast } from 'react-toastify';
+// import React, { useEffect, useState } from 'react';
+// import { useSelector } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import axios from 'axios';
+// import { API_URL } from '../config';
+// import { toast } from 'react-toastify';
 
-const CheckoutPage = () => {
-  const { cartItems, totalPrice } = useSelector(state => state.cart);
-  const { user } = useSelector(state => state.auth);
+// const CheckoutPage = () => {
+//   const { cartItems, totalPrice } = useSelector(state => state.cart);
+//   const { user } = useSelector(state => state.auth);
+//   const navigate = useNavigate();
+
+//   const [address, setAddress] = useState('');
+//   const [loading, setLoading] = useState(false);
+
+//   useEffect(() => {
+//     if (!user) navigate('/login');
+//   }, [user, navigate]);
+
+//   const handleCheckout = async () => {
+//     if (!address.trim()) {
+//       toast.error('Shipping address is required');
+//       return;
+//     }
+
+//     setLoading(true);
+//     try {
+//       const config = {
+//         headers: {
+//           Authorization: `Bearer ${user.token}`
+//         }
+//       };
+
+//       const payload = {
+//         address,
+//         items: cartItems.map(item => ({
+//           product_id: item.id,
+//           quantity: item.quantity
+//         }))
+//       };
+
+//       const res = await axios.post(`${API_URL}/checkout`, payload, config);
+//       toast.success('Order placed successfully!');
+//       navigate('/orders');
+//     } catch (err) {
+//       toast.error(err.response?.data?.message || 'Checkout failed');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   if (!cartItems || cartItems.length === 0) {
+//     return (
+//       <div className="p-8 text-center">
+//         <h2 className="text-2xl font-semibold mb-4">Your cart is empty</h2>
+//         <button
+//           className="bg-blue-600 text-white px-4 py-2 rounded"
+//           onClick={() => navigate('/products')}
+//         >
+//           Shop Now
+//         </button>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="max-w-4xl mx-auto p-6">
+//       <h2 className="text-3xl font-bold mb-6">Checkout</h2>
+
+//       <div className="space-y-4">
+//         {cartItems.map(item => (
+//           <div
+//             key={item.id}
+//             className="flex justify-between items-center border-b pb-2"
+//           >
+//             <div>
+//               <h3 className="text-lg font-semibold">{item.name}</h3>
+//               <p className="text-gray-500">Quantity: {item.quantity}</p>
+//             </div>
+//             <p className="font-medium">KSh {(item.price * item.quantity).toLocaleString()}</p>
+//           </div>
+//         ))}
+//       </div>
+
+//       <div className="mt-6">
+//         <h3 className="text-xl font-semibold">Total: KSh {totalPrice.toLocaleString()}</h3>
+//       </div>
+
+//       <div className="mt-6">
+//         <label className="block mb-2 font-medium">Shipping Address</label>
+//         <textarea
+//           value={address}
+//           onChange={e => setAddress(e.target.value)}
+//           rows={4}
+//           className="w-full p-3 border rounded resize-none"
+//           placeholder="Enter your delivery address"
+//         />
+//       </div>
+
+//       <button
+//         onClick={handleCheckout}
+//         className="mt-6 bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 disabled:opacity-50"
+//         disabled={loading}
+//       >
+//         {loading ? 'Processing...' : 'Place Order'}
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default CheckoutPage;
+
+import { useSelector, useDispatch } from 'react-redux';
+import { clearLocalCart } from '../redux/slices/cartSlice';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+const Checkout = () => {
+  const items = useSelector((state) => state.localCart.items);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (!user) navigate('/login');
-  }, [user, navigate]);
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const handleCheckout = async () => {
-    if (!address.trim()) {
-      toast.error('Shipping address is required');
+  const handlePay = () => {
+    if (!name || !phone || !address) {
+      alert('Please fill in all billing details.');
       return;
     }
 
-    setLoading(true);
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`
-        }
-      };
-
-      const payload = {
+    const invoice = {
+      id: Math.floor(Math.random() * 1000000),
+      date: new Date().toLocaleString(),
+      items,
+      total,
+      billing: {
+        name,
+        phone,
         address,
-        items: cartItems.map(item => ({
-          product_id: item.id,
-          quantity: item.quantity
-        }))
-      };
+      },
+    };
 
-      const res = await axios.post(`${API_URL}/checkout`, payload, config);
-      toast.success('Order placed successfully!');
-      navigate('/orders');
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Checkout failed');
-    } finally {
-      setLoading(false);
-    }
+    localStorage.setItem('invoice', JSON.stringify(invoice));
+    dispatch(clearLocalCart());
+    navigate('/invoice');
   };
 
-  if (!cartItems || cartItems.length === 0) {
-    return (
-      <div className="p-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4">Your cart is empty</h2>
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-          onClick={() => navigate('/products')}
-        >
-          Shop Now
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-6">Checkout</h2>
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">Checkout</h2>
 
-      <div className="space-y-4">
-        {cartItems.map(item => (
-          <div
-            key={item.id}
-            className="flex justify-between items-center border-b pb-2"
-          >
-            <div>
-              <h3 className="text-lg font-semibold">{item.name}</h3>
-              <p className="text-gray-500">Quantity: {item.quantity}</p>
-            </div>
-            <p className="font-medium">KSh {(item.price * item.quantity).toLocaleString()}</p>
-          </div>
+      <div className="mb-4">
+        <label className="block">Full Name:</label>
+        <input value={name} onChange={(e) => setName(e.target.value)} className="border px-2 py-1 w-full" />
+      </div>
+
+      <div className="mb-4">
+        <label className="block">Phone Number:</label>
+        <input value={phone} onChange={(e) => setPhone(e.target.value)} className="border px-2 py-1 w-full" />
+      </div>
+
+      <div className="mb-4">
+        <label className="block">Delivery Address:</label>
+        <input value={address} onChange={(e) => setAddress(e.target.value)} className="border px-2 py-1 w-full" />
+      </div>
+
+      <ul className="my-4">
+        {items.map((item) => (
+          <li key={item.productId}>
+            {item.name} x {item.quantity} = KES {item.price * item.quantity}
+          </li>
         ))}
-      </div>
+      </ul>
 
-      <div className="mt-6">
-        <h3 className="text-xl font-semibold">Total: KSh {totalPrice.toLocaleString()}</h3>
-      </div>
-
-      <div className="mt-6">
-        <label className="block mb-2 font-medium">Shipping Address</label>
-        <textarea
-          value={address}
-          onChange={e => setAddress(e.target.value)}
-          rows={4}
-          className="w-full p-3 border rounded resize-none"
-          placeholder="Enter your delivery address"
-        />
-      </div>
-
-      <button
-        onClick={handleCheckout}
-        className="mt-6 bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 disabled:opacity-50"
-        disabled={loading}
-      >
-        {loading ? 'Processing...' : 'Place Order'}
+      <p className="font-bold mt-2">Total: KES {total}</p>
+      <button onClick={handlePay} className="bg-green-600 text-white px-4 py-2 mt-4">
+        Pay Now
       </button>
     </div>
   );
 };
 
-export default CheckoutPage;
+export default Checkout;
