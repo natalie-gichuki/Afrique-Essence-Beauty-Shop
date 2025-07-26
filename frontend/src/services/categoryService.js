@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { API_URL } from '../config';
+import {authService} from './authService'
 
 const BASE_URL = `${API_URL}/categories`;
 
-const getAllCategories = async (token) => {
+const getAllCategories = async () => {
+  const token = authService.getToken(); // ✅ safely gets JWT
   const res = await axios.get(BASE_URL, {
     headers: {
       Authorization: `Bearer ${token}`

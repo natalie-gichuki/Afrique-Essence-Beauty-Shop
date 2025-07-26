@@ -49,11 +49,16 @@ const register = async (userData) => {
 }
 
 
+const getToken = () => {
+  return localStorage.getItem('token');
+};
+
 // Exports the authService object containing the login and register functions.
 // This allows other parts of the application to import and use these functions for authentication.
 export const authService = {
     login,
-    register
+    register,
+    getToken,
 };
 
 export default authService;
