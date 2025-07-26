@@ -48,7 +48,11 @@ def create_app(config_name = "development"):
     # Initializes the Flask-JWT-Extended extension for JWT authentication. Hence on can use JWT in their routes
     jwt.init_app(app)
     # Initializes Flask-CORS to handle Cross-Origin Resource Sharing, allowing the app to accept requests from different origins.
-    cors.init_app(app)
+    cors.init_app(app, resources={r"/*": {"origins": [
+    "http://localhost:5173", 
+    "http://127.0.0.1:5173"
+    ]}}, supports_credentials=True)
+
 
 
     # Initializes Flasgger for API documentation.
@@ -81,6 +85,14 @@ def create_app(config_name = "development"):
     app.register_blueprint(category_routes.category_bp, url_prefix='/categories')
     app.register_blueprint(product_routes.product_bp, url_prefix='/products')
     app.register_blueprint(order_routes.order_bp, url_prefix='/orders')
+
+
+    @app.after_request
+    def after_request(response):
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+        response.headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS")
+        return response
+
 
     return app
 

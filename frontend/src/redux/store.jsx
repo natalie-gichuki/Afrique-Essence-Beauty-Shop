@@ -18,7 +18,7 @@ const store = configureStore({
         categories: categoryReducer,
         cart: cartReducer,
         order: orderReducer,
-        user: userReducer
+        users: userReducer
     },
     // devTools is enabled only in development mode for debugging purposes.
     devTools: process.env.NODE_ENV !== 'production',
