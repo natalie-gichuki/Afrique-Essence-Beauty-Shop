@@ -210,6 +210,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMyCart } from '../redux/slices/cartSlice';
+import { createOrder } from '../redux/orderSlice';
 import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage = () => {
@@ -236,14 +237,29 @@ const CheckoutPage = () => {
     return cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0).toFixed(2);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit billing + cart info here to backend or redirect
-    console.log('Billing Info:', form);
-    console.log('Cart Items:', cart.items);
-    navigate('/invoice'); // or trigger actual order creation
-  };
 
+    const orderPayload = {
+      phone: form.phone,
+      address: form.address,
+      cart_items: cart.items.map((item) => ({
+        product_id: item.product.id,
+        quantity: item.quantity,
+      }))
+    };
+
+    try {
+      const resultAction = await dispatch(createOrder(orderPayload));
+      if (createOrder.fulfilled.match(resultAction)) {
+        navigate(`/invoice/${resultAction.payload.invoice.id}`);
+      } else {
+        console.error('Order creation failed:', resultAction.error);
+      }
+    } catch (err) {
+      console.error('Failed to create order:', err);
+    }
+  };
   if (status === 'loading') {
     return <p className="text-center mt-10 text-gray-500">Loading...</p>;
   }
@@ -316,4 +332,5 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
+
 

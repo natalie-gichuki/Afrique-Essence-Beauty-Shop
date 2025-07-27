@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from app import db
 from app.models.order import OrderItem, Order
+from app.models.invoice import Invoice
+from app.models.product import Product
 from app.utils.auth_helpers import role_required
 from flasgger.utils import swag_from
 
@@ -327,23 +329,66 @@ def get_order(id):
     }
 })
 def create_order():
+    user_id = get_jwt_identity()
     data = request.get_json()
-    current_user_id = get_jwt_identity()
 
-    if 'total_amount' not in data:
-        return jsonify({"msg": "Missing total_amount"}), 400
+    shipping_address = data.get('address')
+    phone = data.get('phone')
+    cart_items = data.get('cart_items')  # List of {product_id, quantity}
 
-    try:
-        order = Order(
-            user_id=current_user_id,
-            total_amount=data['total_amount'],
-            status=data.get('status', 'pending')
-        )
-        db.session.add(order)
-        db.session.commit()
-        return jsonify(order.to_dict()), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+    if not cart_items:
+        return jsonify({"error": "Cart is empty"}), 400
+
+    total_amount = 0
+    order_items = []
+
+    for item in cart_items:
+        product = Product.query.get(item['product_id'])
+        if not product:
+            return jsonify({"error": f"Product with ID {item['product_id']} not found"}), 404
+        
+        quantity = item['quantity']
+        item_total = float(product.price) * quantity
+        total_amount += item_total
+
+        order_items.append(OrderItem(
+            product_id=product.id,
+            quantity=quantity,
+            price_at_purchase=product.price  # stored at time of purchase
+        ))
+
+    # Create order
+    order = Order(
+        user_id=user_id,
+        total_amount=total_amount,
+        status='Shipped'  # or 'Pending', depends on your business logic
+    )
+    db.session.add(order)
+    db.session.flush()  # so order.id is generated
+
+    # Add order items
+    for item in order_items:
+        item.order_id = order.id
+        db.session.add(item)
+
+    # Create invoice
+    invoice = Invoice(
+        user_id=user_id,
+        order_id=order.id,
+        total=total_amount,
+        # address=shipping_address,
+        # phone=phone,
+        invoice_url=f"https://farmart.com/invoices/{order.id}"
+    )
+    db.session.add(invoice)
+
+    db.session.commit()
+
+    return jsonify({
+        "message": "Order placed successfully",
+        "order": order.to_dict(),
+        "invoice": invoice.to_dict()
+    }), 201
 
 # -------------------------------
 # UPDATE an order - Admin only
