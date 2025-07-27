@@ -16,7 +16,10 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(fetchProductById(id));
-  }, [id]);
+    dispatch(fetchMyCart())
+  }, [dispatch, id]);
+
+  
 
   const addToCart = () => {
     console.log("cart", cart)
@@ -27,7 +30,7 @@ const ProductDetails = () => {
       quantity,
       
     }));
-
+    dispatch(fetchMyCart());
   };
 
 
