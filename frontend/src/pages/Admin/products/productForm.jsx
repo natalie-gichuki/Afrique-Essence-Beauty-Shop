@@ -470,6 +470,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createProduct, updateProduct, fetchProductById } from '../../../redux/slices/productSlice';
 import { fetchCategories } from '../../../redux/slices/categorySlice';
 import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -513,8 +514,26 @@ const ProductForm = () => {
     e.preventDefault();
     if (isEdit) {
       dispatch(updateProduct({ id, productData: formData }));
+      Swal.fire({
+        icon: 'success',
+        title: 'Product Updated!',
+        text: 'The product was successfully updated.',
+        toast: true,
+        position: 'top-end',
+        timer: 2000,
+        showConfirmButton: false,
+      });
     } else {
       dispatch(createProduct(formData));
+      Swal.fire({
+        icon: 'success',
+        title: 'Product Created!',
+        text: 'The product was successfully added.',
+        toast: true,
+        position: 'top-end',
+        timer: 2000,
+        showConfirmButton: false,
+      });
     }
     navigate('/admin/products');
   };

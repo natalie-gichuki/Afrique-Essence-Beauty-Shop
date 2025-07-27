@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../redux/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToLocalCart } from '../redux/slices/cartSlice';
+import Swal from 'sweetalert2';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -10,6 +11,7 @@ const ProductDetails = () => {
   const { product } = useSelector((state) => state.products);
   const [quantity, setQuantity] = useState(1);
   const cart = useSelector((state) => state.cart.cart);
+  
 
   useEffect(() => {
     dispatch(fetchProductById(id));
@@ -23,7 +25,15 @@ const ProductDetails = () => {
       quantity,
       image: product.image,
     }));
-    alert('Added to cart!');
+    Swal.fire({
+    icon: 'success',
+    title: 'Added to Cart!',
+    text: `${product.name} (x${quantity}) was successfully added.`,
+    showConfirmButton: false,
+    timer: 2000,
+    toast: true,
+    position: 'top-end',
+  });
   };
 
   if (!product) return <p className="text-center mt-10 text-gray-500">Loading product...</p>;

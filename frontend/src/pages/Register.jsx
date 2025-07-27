@@ -5,6 +5,8 @@ import { register } from '../redux/slices/authSlice';
 import { useNavigate, Link } from 'react-router-dom';
 import LoginPic from '../assets/images/LoginPhoto.jpg'
 
+import Swal from 'sweetalert2';
+
 const Register = () => {
     const [form, setForm] = useState({
         username: '',
@@ -29,8 +31,20 @@ const Register = () => {
                 setForm({ username: '', email: '', password: '', role: 'customer' });
                 navigate('/login');
             }
+            Swal.fire({
+                icon: 'success',
+                title: 'Register Sucessful!',
+                text: 'Registration Successful. Welcome!',
+                timer: 2000,
+                showConfirmButton: false,
+            });
         } catch (err) {
             console.error('Registration failed:', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Something went wrong.',
+            });
         }
     };
 

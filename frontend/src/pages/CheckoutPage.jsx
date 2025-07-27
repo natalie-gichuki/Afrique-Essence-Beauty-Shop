@@ -211,6 +211,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { clearLocalCart } from '../redux/slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 const Checkout = () => {
   const items = useSelector((state) => state.localCart.items);
@@ -225,7 +226,12 @@ const Checkout = () => {
 
   const handlePay = () => {
     if (!name || !phone || !address) {
-      alert('Please fill in all billing details.');
+      Swal.fire({
+      icon: 'warning',
+      title: 'Missing Information',
+      text: 'Please fill in all billing details.',
+      confirmButtonColor: '#a855f7', // tailwind's purple-500
+    });
       return;
     }
 
@@ -257,7 +263,7 @@ const Checkout = () => {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Jane Doe"
             />
           </div>
@@ -267,7 +273,7 @@ const Checkout = () => {
             <input
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="+254712345678"
             />
           </div>
@@ -277,7 +283,7 @@ const Checkout = () => {
             <input
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Nairobi, Kenya"
             />
           </div>

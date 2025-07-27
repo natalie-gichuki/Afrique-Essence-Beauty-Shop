@@ -4,6 +4,7 @@ import { login } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import LoginPic from '../assets/images/LoginPhoto.jpg'
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -20,8 +21,20 @@ const Login = () => {
                 clearForm();
                 navigate('/');
             }
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successfull!',
+                text: 'Login Successful. Welcome Back!',
+                timer: 2000,
+                showConfirmButton: false,
+            });
         } catch (error) {
             console.error('Login failed:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Something went wrong.',
+            });
         }
     };
 
