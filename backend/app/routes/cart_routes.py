@@ -54,6 +54,7 @@ def get_carts():
 def get_my_cart():
     current_user_id = get_jwt_identity()
     cart = Cart.query.filter_by(user_id=current_user_id).first()
+    
 
     if not cart:
         return jsonify({'msg': 'Cart not found'}), 404

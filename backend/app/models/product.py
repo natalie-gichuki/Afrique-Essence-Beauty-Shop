@@ -16,3 +16,14 @@ class Product(db.Model):
 
     def __repr__(self):
         return f'<Product {self.name}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'price': self.price,
+            'image_url': self.image_url,
+            'category': self.category.to_dict() if self.category else None,
+        # any other fields you want exposed
+    }
+

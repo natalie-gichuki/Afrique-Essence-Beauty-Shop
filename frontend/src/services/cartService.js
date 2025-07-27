@@ -57,6 +57,7 @@ const authHeaders = () => {
   const token = getToken();
   return token
     ? {
+        withCredentials: true, 
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
