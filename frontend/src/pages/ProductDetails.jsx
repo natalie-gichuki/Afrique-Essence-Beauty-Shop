@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../redux/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToLocalCart } from '../redux/slices/cartSlice';
+import { addItemToCart, fetchMyCart } from '../redux/slices/cartSlice';
+
 import Swal from 'sweetalert2';
 
 const ProductDetails = () => {
@@ -18,23 +19,18 @@ const ProductDetails = () => {
   }, [id]);
 
   const addToCart = () => {
-    dispatch(addToLocalCart({
-      productId: product.id,
-      name: product.name,
-      price: product.price,
+    console.log("cart", cart)
+    if (!cart || !cart.id) return alert("Cart not ready yet. Please wait...");
+
+    dispatch(addItemToCart({
+      product_id: product.id,
       quantity,
-      image: product.image,
+      
     }));
-    Swal.fire({
-    icon: 'success',
-    title: 'Added to Cart!',
-    text: `${product.name} (x${quantity}) was successfully added.`,
-    showConfirmButton: false,
-    timer: 2000,
-    toast: true,
-    position: 'top-end',
-  });
+
   };
+
+
 
   if (!product) return <p className="text-center mt-10 text-gray-500">Loading product...</p>;
 
