@@ -193,97 +193,68 @@
 
 // export default AdminOrders;
 
-import { useEffect, useState } from 'react';
-import React from 'react';
+// admin/OrderList.jsx
+// admin/OrderList.jsx
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOrders } from '../../redux/orderSlice';
 
-const AdminOrders = () => {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  const token = localStorage.getItem('token');
+const OrderList = () => {
+  const dispatch = useDispatch();
+  const { orders, status } = useSelector(state => state.orders);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const res = await fetch('http://localhost:5555/orders', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+    dispatch(fetchOrders());
+  }, [dispatch]);
 
-        if (!res.ok) throw new Error('Failed to fetch orders');
-        const data = await res.json();
-        setOrders(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchOrders();
-  }, [token]);
-
-  if (loading) return <p className="p-4">Loading orders...</p>;
-  if (error) return <p className="p-4 text-red-600">Error: {error}</p>;
+  if (status === 'loading') return <p>Loading orders...</p>;
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">All Orders</h2>
-      {orders.length === 0 ? (
-        <p>No orders yet.</p>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse border">
-            <thead className="bg-gray-200">
-              <tr>
-                <th className="border p-2">Order ID</th>
-                <th className="border p-2">User</th>
-                <th className="border p-2">Total</th>
-                <th className="border p-2">Status</th>
-                <th className="border p-2">Created At</th>
+      <h2 className="text-2xl font-bold mb-4">📦 Orders</h2>
+      <table className="w-full table-auto border">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="px-4 py-2">#</th>
+            <th className="px-4 py-2">Customer</th>
+            <th className="px-4 py-2">Email</th>
+            <th className="px-4 py-2">Total</th>
+            <th className="px-4 py-2">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order, idx) => (
+            <React.Fragment key={order.id}>
+              <tr className="bg-white">
+                <td className="border px-4 py-2">{idx + 1}</td>
+                <td className="border px-4 py-2">{order.user?.name}</td>
+                <td className="border px-4 py-2">{order.user?.email}</td>
+                <td className="border px-4 py-2">Ksh {order.total_amount}</td>
+                <td className="border px-4 py-2">
+                  {new Date(order.created_at).toLocaleDateString()}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <React.Fragment key={order.id}>
-                  <tr className="hover:bg-gray-100">
-                    <td className="border p-2">{order.id}</td>
-                    <td className="border p-2">{order.user?.username || 'N/A'}</td>
-                    <td className="border p-2">KES {order.total_amount}</td>
-                    <td className="border p-2">{order.status}</td>
-                    <td className="border p-2">
-                      {new Date(order.created_at).toLocaleString()}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="5" className="border p-2 bg-gray-50">
-                      <div className="ml-4">
-                        <p className="font-semibold mb-2">Ordered Items:</p>
-                        {order.order_items.length === 0 ? (
-                          <p className="text-gray-500">No items</p>
-                        ) : (
-                          <ul className="list-disc pl-5">
-                            {order.order_items.map((item) => (
-                              <li key={item.id}>
-                                {item.product?.name || 'Unknown Product'} — Quantity:{' '}
-                                {item.quantity}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                </React.Fragment>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+
+              {/* Nested product list row */}
+              <tr>
+                <td colSpan="5" className="border px-4 py-2 bg-gray-50">
+                  <p className="font-semibold mb-1">🛒 Products Purchased:</p>
+                  <ul className="list-disc list-inside text-sm">
+                    {order.order_items?.map(item => (
+                      <li key={item.id}>
+                        {item.product.name} — {item.quantity} × Ksh {item.product.price} ={" "}
+                        <strong>Ksh {item.product.price * item.quantity}</strong>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+              </tr>
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default AdminOrders;
+export default OrderList;

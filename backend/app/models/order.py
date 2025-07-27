@@ -20,7 +20,8 @@ class Order(db.Model):
 
     # One order → many order items
     order_items = db.relationship('OrderItem', backref='order', lazy=True, cascade="all, delete-orphan")
-    invoice = db.relationship('Invoice', uselist=False, backref='order')
+    invoice = db.relationship('Invoice', uselist=False, backref='order', cascade='all, delete-orphan')
+    user = db.relationship('User', backref='orders')  
 
     def __repr__(self):
         return f"<Order id={self.id} user_id={self.user_id} total={self.total_amount}>"
@@ -29,6 +30,11 @@ class Order(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "user": {
+                "id": self.user.id,
+                "name": self.user.username,
+                "email": self.user.email,
+            } if self.user else None,
             "total_amount": str(self.total_amount),
             "status": self.status,
             "created_at": self.created_at.isoformat(),
@@ -50,6 +56,8 @@ class OrderItem(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     price_at_purchase = db.Column(db.Numeric(10, 2), nullable=False)
 
+    product = db.relationship('Product', backref='order_items')
+
     def __repr__(self):
         return f"<OrderItem order_id={self.order_id} product_id={self.product_id}>"
     
@@ -59,6 +67,11 @@ class OrderItem(db.Model):
             "order_id": self.order_id,
             "product_id": self.product_id,
             "quantity": self.quantity,
-            "price_at_purchase": str(self.price_at_purchase)
+            "price_at_purchase": str(self.price_at_purchase),
+            "product": {
+                "id": self.product.id,
+                "name": self.product.name,
+                "price": str(self.product.price)
+            } if self.product else None
         }
 
