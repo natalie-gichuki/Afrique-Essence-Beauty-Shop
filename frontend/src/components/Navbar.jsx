@@ -159,19 +159,19 @@ const Navbar = () => {
         <div className="flex gap-6 text-lg font-medium">
           <Link
             to="/"
-            className="text-purple-800 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-xl"
+            className="text-purple-800 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
           >
             Home
           </Link>
           <Link
             to="/products"
-            className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-xl"
+            className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
           >
             Products
           </Link>
           <Link
             to="/products-details"
-            className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-xl"
+            className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
           >
             Product Details
           </Link>
@@ -179,31 +179,37 @@ const Navbar = () => {
       </div>
 
       {/* Right Section: Right Links + Auth */}
+
       <div className="flex items-center gap-6 text-lg font-medium">
-        <Link
-          to="/cart"
-          className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-xl"
-        >
-          🛒
-        </Link>
-        {/* <Link
+        {user?.role === "customer" && (
+        <div className="flex items-center gap-6 text-lg font-medium">
+          <Link
+            to="/cart"
+            className="text-purple-700  hover:text-violet-800 transition-all duration-200 hover:text-3xl"
+          >
+            🛒
+          </Link>
+          {/* <Link
           to="/orders"
           className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-xl"
         >
           My Orders
         </Link> */}
-        <Link
-          to="/checkout"
-          className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-xl"
-        >
-          Checkout
-        </Link>
-        <Link
-          to="/invoice"
-          className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-xl"
-        >
-          Invoice
-        </Link>
+          <Link
+            to="/checkout"
+            className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
+          >
+            Checkout
+          </Link>
+          <Link
+            to="/invoice"
+            className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
+          >
+            Invoice
+          </Link>
+        </div>
+      )}
+
 
         {/* Admin Panel */}
         {user?.role === "admin" && (
