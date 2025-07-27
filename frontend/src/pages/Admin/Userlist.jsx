@@ -103,54 +103,63 @@ const UserList = () => {
     }
   };
 
-  if (status === 'loading') return <p>Loading users...</p>;
-  if (status === 'failed') return <p className="text-red-500">Error: {error}</p>;
+  if (status === 'loading') {
+    return <p className="text-center text-gray-700">Loading users...</p>;
+  }
+
+  if (status === 'failed') {
+    return <p className="text-red-600 text-center">Error: {error}</p>;
+  }
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">User List</h2>
-      <table className="min-w-full border text-sm text-left">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="p-2 border">ID</th>
-            <th className="p-2 border">Username</th>
-            <th className="p-2 border">Email</th>
-            <th className="p-2 border">Role</th>
-            <th className="p-2 border">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.length === 0 && (
+    <div className="p-6 bg-fuchsia-50 min-h-screen">
+      <h2 className="text-2xl font-semibold text-gray-700 mb-6">👥 User List</h2>
+      <div className="overflow-x-auto shadow rounded-lg border border-purple-200 bg-white">
+        <table className="min-w-full text-sm text-gray-700">
+          <thead className="bg-purple-200 text-left">
             <tr>
-              <td colSpan="5" className="text-center p-4">
-                No users found
-              </td>
+              <th className="py-3 px-4 border">ID</th>
+              <th className="py-3 px-4 border">Username</th>
+              <th className="py-3 px-4 border">Email</th>
+              <th className="py-3 px-4 border">Role</th>
+              <th className="py-3 px-4 border">Action</th>
             </tr>
-          )}
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td className="p-2 border">{user.id}</td>
-              <td className="p-2 border">{user.username}</td>
-              <td className="p-2 border">{user.email}</td>
-              <td className="p-2 border">{user.role}</td>
-              <td className="p-2 border">
-                {user.role !== 'admin' ? (
-                  <button
-                    onClick={() => handleDisable(user.id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                  >
-                    Disable
-                  </button>
-                ) : (
-                  <span className="text-gray-400 italic">N/A</span>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="text-center py-4 text-gray-500 italic">
+                  No users found
+                </td>
+              </tr>
+            ) : (
+              users.map((user) => (
+                <tr key={user.id} className="hover:bg-fuchsia-100 transition">
+                  <td className="py-2 px-4 border">{user.id}</td>
+                  <td className="py-2 px-4 border">{user.username}</td>
+                  <td className="py-2 px-4 border">{user.email}</td>
+                  <td className="py-2 px-4 border capitalize">{user.role}</td>
+                  <td className="py-2 px-4 border text-center">
+                    {user.role !== 'admin' ? (
+                      <button
+                        onClick={() => handleDisable(user.id)}
+                        className="bg-purple-800 hover:bg-violet-800 text-white px-3 py-1 rounded-md transition"
+                      >
+                        Disable
+                      </button>
+                    ) : (
+                      <span className="text-gray-400 italic">N/A</span>
+                    )}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
 
 export default UserList;
+

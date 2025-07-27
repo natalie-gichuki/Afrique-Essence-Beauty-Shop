@@ -207,52 +207,54 @@ const OrderList = () => {
     dispatch(fetchOrders());
   }, [dispatch]);
 
-  if (status === 'loading') return <p>Loading orders...</p>;
+  if (status === 'loading') {
+    return <p className="text-center text-gray-700">Loading orders...</p>;
+  }
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">📦 Orders</h2>
-      <table className="w-full table-auto border">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="px-4 py-2">#</th>
-            <th className="px-4 py-2">Customer</th>
-            <th className="px-4 py-2">Email</th>
-            <th className="px-4 py-2">Total</th>
-            <th className="px-4 py-2">Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order, idx) => (
-            <React.Fragment key={order.id}>
-              <tr className="bg-white">
-                <td className="border px-4 py-2">{idx + 1}</td>
-                <td className="border px-4 py-2">{order.user?.name}</td>
-                <td className="border px-4 py-2">{order.user?.email}</td>
-                <td className="border px-4 py-2">Ksh {order.total_amount}</td>
-                <td className="border px-4 py-2">
-                  {new Date(order.created_at).toLocaleDateString()}
-                </td>
-              </tr>
-
-              {/* Nested product list row */}
-              <tr>
-                <td colSpan="5" className="border px-4 py-2 bg-gray-50">
-                  <p className="font-semibold mb-1">🛒 Products Purchased:</p>
-                  <ul className="list-disc list-inside text-sm">
-                    {order.order_items?.map(item => (
-                      <li key={item.id}>
-                        {item.product.name} — {item.quantity} × Ksh {item.product.price} ={" "}
-                        <strong>Ksh {item.product.price * item.quantity}</strong>
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-              </tr>
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
+    <div className="p-6 bg-fuchsia-50 min-h-screen">
+      <h2 className="text-2xl font-semibold text-gray-700 mb-6">📦 Orders</h2>
+      <div className="overflow-x-auto rounded-lg shadow border border-purple-200 bg-white">
+        <table className="w-full text-sm text-gray-700">
+          <thead className="bg-purple-200 text-left">
+            <tr>
+              <th className="px-4 py-3 border">#</th>
+              <th className="px-4 py-3 border">Customer</th>
+              <th className="px-4 py-3 border">Email</th>
+              <th className="px-4 py-3 border">Total</th>
+              <th className="px-4 py-3 border">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order, idx) => (
+              <React.Fragment key={order.id}>
+                <tr className="bg-white hover:bg-fuchsia-100 transition">
+                  <td className="border px-4 py-2">{idx + 1}</td>
+                  <td className="border px-4 py-2">{order.user?.name}</td>
+                  <td className="border px-4 py-2">{order.user?.email}</td>
+                  <td className="border px-4 py-2 font-medium">Ksh {order.total_amount}</td>
+                  <td className="border px-4 py-2">
+                    {new Date(order.created_at).toLocaleDateString()}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="5" className="border px-4 py-3 bg-purple-50">
+                    <p className="font-semibold text-purple-800 mb-1">🛒 Products Purchased:</p>
+                    <ul className="list-disc list-inside text-sm text-gray-700">
+                      {order.order_items?.map(item => (
+                        <li key={item.id}>
+                          {item.product.name} — {item.quantity} × Ksh {item.product.price} ={" "}
+                          <strong>Ksh {item.product.price * item.quantity}</strong>
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                </tr>
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -90,35 +90,47 @@ const InvoicePage = () => {
       .catch(err => console.error(err));
   }, [orderId]);
 
-  if (!invoice) return <div>Loading invoice...</div>;
+  if (!invoice) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-gray-500 text-lg">Loading invoice...</p>
+      </div>
+    );
+  }
 
   return (
-  <div className="p-8 max-w-4xl mx-auto bg-white shadow-md rounded">
-    {invoice ? (
-      <>
-        <h2 className="text-3xl font-bold mb-6">Invoice #{invoice.id}</h2>
-        <p className="mb-2">Generated At: {new Date(invoice.generated_at).toLocaleString()}</p>
-        <p className="mb-2">Invoice URL: <a href={invoice.invoice_url} className="text-blue-600 underline">{invoice.invoice_url}</a></p>
-        <p className="mb-2">Total: ${invoice?.total ? parseFloat(invoice.total).toFixed(2) : '0.00'}</p>
+    <div className='bg-gradient-to-br from-fuchsia-50 to-fuchsia-200 p-6 min-h-screen'>
+      <div className="p-6 sm:p-8 max-w-4xl mx-auto bg-white rounded-2xl shadow-md mt-10">
+        <div className="border-b pb-4 mb-6">
+          <h2 className="text-3xl font-bold text-gray-800 mb-2">🧾 Invoice #{invoice.id}</h2>
+          <p className="text-sm text-gray-500">Generated At: {new Date(invoice.generated_at).toLocaleString()}</p>
+          <p className="text-sm text-gray-500">
+            Invoice URL:{' '}
+            <a href={invoice.invoice_url} className="text-blue-600 underline break-words">
+              {invoice.invoice_url}
+            </a>
+          </p>
+          <p className="text-xl font-semibold text-gray-700 mt-3">
+            Total: <span className="text-green-600">${parseFloat(invoice.total).toFixed(2)}</span>
+          </p>
+        </div>
 
-        <h3 className="text-2xl font-semibold mt-8 mb-4">Order Summary</h3>
-        <ul className="space-y-2">
+        <h3 className="text-2xl font-semibold text-gray-800 mb-4">🛒 Order Summary</h3>
+        <ul className="grid gap-4 sm:grid-cols-2">
           {invoice.items?.map((item) => (
-            <li key={item.product_id} className="border p-4 rounded">
-              <h4 className="font-semibold">{item.name}</h4>
-              <p>Price: ${item.price.toFixed(2)}</p>
-              <p>Quantity: {item.quantity}</p>
-              <p>Total: ${(item.price * item.quantity).toFixed(2)}</p>
+            <li key={item.product_id} className="border rounded-xl p-4 bg-gray-50 hover:bg-gray-100 transition">
+              <h4 className="text-lg font-medium text-gray-700">{item.name}</h4>
+              <p className="text-sm text-gray-600">Price: ${item.price.toFixed(2)}</p>
+              <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
+              <p className="text-sm text-gray-700 font-semibold mt-1">
+                Total: ${(item.price * item.quantity).toFixed(2)}
+              </p>
             </li>
           ))}
         </ul>
-      </>
-    ) : (
-      <p>Loading invoice...</p>
-    )}
-  </div>
-);
-
+      </div>
+    </div>
+  );
 };
 
 export default InvoicePage;

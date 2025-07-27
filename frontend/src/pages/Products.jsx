@@ -23,7 +23,7 @@ const Product = () => {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-br from-fuchsia-50 to-fuchsia-100 min-h-screen">
+    <div className="p-6 bg-gradient-to-br from-fuchsia-50 to-fuchsia-200 min-h-screen">
       <div className="flex flex-wrap gap-4 mb-6">
         <input
           type="text"

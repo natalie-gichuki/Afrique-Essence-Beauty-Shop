@@ -426,47 +426,70 @@ const ProductList = () => {
         <button
           key={i}
           onClick={() => setPage(i)}
-          className={`px-3 py-1 border rounded ${i === current ? 'bg-blue-600 text-white' : 'bg-white'}`}
+          className={`px-3 py-1 border rounded 
+            ${i === current ? 'bg-purple-800 text-white' : 'bg-white text-gray-700'} 
+            hover:bg-violet-800 hover:text-white transition`}
         >
           {i}
         </button>
       );
     }
 
-    return <div className="flex gap-2 mt-4 justify-center">{buttons}</div>;
+    return <div className="flex gap-2 mt-6 justify-center">{buttons}</div>;
   };
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between mb-4">
-        <h2 className="text-xl font-bold">All Products</h2>
-        <Link to="/admin/products/new" className="bg-green-600 text-white px-4 py-2 rounded">Add Product</Link>
+    <div className="p-6 bg-fuchsia-50 min-h-screen">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-semibold text-gray-700">🛍️ All Products</h2>
+        <Link
+          to="/admin/products/new"
+          className="bg-purple-800 hover:bg-violet-800 text-white px-4 py-2 rounded-lg transition"
+        >
+          Add Product
+        </Link>
       </div>
 
       {loading ? (
-        <div>Loading...</div>
+        <div className="text-center text-gray-700">Loading...</div>
       ) : (
         <>
-          <table className="w-full border text-sm">
-            <thead className="bg-gray-100">
-              <tr>
-                <th>Name</th><th>Price</th><th>Category</th><th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((prod) => (
-                <tr key={prod.id} className="text-center border-t">
-                  <td>{prod.name}</td>
-                  <td>{prod.price}</td>
-                  <td>{prod.category}</td>
-                  <td>
-                    <Link to={`/admin/products/edit/${prod.id}`} className="text-blue-500 mr-2">Edit</Link>
-                    <button onClick={() => handleDelete(prod.id)} className="text-red-500">Delete</button>
-                  </td>
+          <div className="overflow-x-auto shadow rounded-lg border border-purple-200 bg-white">
+            <table className="w-full text-sm text-gray-700">
+              <thead className="bg-purple-200 text-left">
+                <tr>
+                  <th className="py-3 px-4">Name</th>
+                  <th className="py-3 px-4">Price</th>
+                  <th className="py-3 px-4">Category</th>
+                  <th className="py-3 px-4 text-center">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {products.map((prod) => (
+                  <tr key={prod.id} className="border-t hover:bg-fuchsia-100 transition">
+                    <td className="py-3 px-4">{prod.name}</td>
+                    <td className="py-3 px-4">KES {prod.price}</td>
+                    <td className="py-3 px-4">{prod.category}</td>
+                    <td className="py-3 px-4 text-center">
+                      <Link
+                        to={`/admin/products/edit/${prod.id}`}
+                        className="text-purple-800 hover:underline mr-4"
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(prod.id)}
+                        className="text-red-600 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
           {renderPagination()}
         </>
       )}

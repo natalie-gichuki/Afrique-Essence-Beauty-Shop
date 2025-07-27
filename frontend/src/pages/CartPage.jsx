@@ -235,7 +235,6 @@ import {
   updateCartItem,
   deleteCartItem,
 } from '../redux/slices/cartSlice';
-
 import { Link } from 'react-router-dom';
 
 const CartPage = () => {
@@ -261,37 +260,42 @@ const CartPage = () => {
   };
 
   if (status === 'loading') {
-    return <p className="text-center text-gray-600 mt-8">Loading cart...</p>;
+    return <p className="text-center text-gray-700 mt-8">Loading cart...</p>;
   }
 
   if (!cart || !cart.items || cart.items.length === 0) {
-    return <p className="text-center text-gray-600 mt-8">Your cart is empty.</p>;
+    return <p className="text-center text-gray-500 mt-8">🛍️ Your cart is empty.</p>;
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 px-4 py-8">
-      <div className="max-w-4xl mx-auto bg-white shadow-md rounded-2xl p-6">
-        <h2 className="text-2xl font-bold text-purple-700 mb-6">🛒 Your Cart</h2>
+    <div className="min-h-screen bg-gradient-to-br from-fuchsia-50 to-fuchsia-200 px-4 py-10">
+      <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6 border border-purple-200">
+        <h2 className="text-2xl font-bold text-purple-800 mb-6">🛒 Your Cart</h2>
+
         {cart.items.map((item) => (
-          <div key={item.id} className="flex items-center justify-between border-b py-4">
+          <div key={item.id} className="flex items-center justify-between border-b border-purple-100 py-4">
             <div className="flex items-center gap-4">
-              <img src={item.product.image_url} alt={item.product.name} className="w-20 h-20 object-cover rounded-xl shadow" />
+              <img
+                src={item.product.image_url}
+                alt={item.product.name}
+                className="w-20 h-20 object-cover rounded-xl shadow-sm"
+              />
               <div>
-                <h3 className="font-semibold text-gray-800">{item.product.name}</h3>
+                <h3 className="font-semibold text-gray-700">{item.product.name}</h3>
                 <p className="text-gray-600">Ksh {item.product.price}</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <button
                 onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                className="bg-purple-100 text-purple-600 px-3 py-1 rounded-full hover:bg-purple-200"
+                className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition"
               >
                 −
               </button>
-              <span>{item.quantity}</span>
+              <span className="text-gray-700">{item.quantity}</span>
               <button
                 onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                className="bg-purple-100 text-purple-600 px-3 py-1 rounded-full hover:bg-purple-200"
+                className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition"
               >
                 +
               </button>
@@ -307,12 +311,12 @@ const CartPage = () => {
 
         <div className="mt-6 flex justify-between items-center">
           <h3 className="text-xl font-semibold text-gray-800">Total:</h3>
-          <p className="text-xl font-bold text-purple-700">Ksh {calculateTotal()}</p>
+          <p className="text-xl font-bold text-purple-800">Ksh {calculateTotal()}</p>
         </div>
 
         <div className="mt-6 text-right">
           <Link to="/checkout">
-            <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-xl transition-all">
+            <button className="bg-purple-800 hover:bg-violet-800 text-white px-6 py-3 rounded-xl transition-all">
               Proceed to Checkout
             </button>
           </Link>
@@ -323,5 +327,3 @@ const CartPage = () => {
 };
 
 export default CartPage;
-
-
