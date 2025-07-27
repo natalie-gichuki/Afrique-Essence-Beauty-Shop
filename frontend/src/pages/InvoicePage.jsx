@@ -75,10 +75,12 @@
 
 // export default InvoicePage;
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import html2pdf from 'html2pdf.js';
 
 const InvoicePage = () => {
   const [invoice, setInvoice] = useState(null);
+  const invoiceRef = useRef(); // For PDF export
 
   useEffect(() => {
     const saved = localStorage.getItem('invoice');
@@ -86,6 +88,18 @@ const InvoicePage = () => {
       setInvoice(JSON.parse(saved));
     }
   }, []);
+
+  const handleDownload = () => {
+    const element = invoiceRef.current;
+    const opt = {
+      margin: 0.5,
+      filename: `invoice-${invoice.id}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    };
+    html2pdf().set(opt).from(element).save();
+  };
 
   if (!invoice)
     return (
@@ -95,8 +109,8 @@ const InvoicePage = () => {
     );
 
   return (
-    <div className='bg-gradient-to-br from-fuchsia-50 to-fuchsia-100 min-h-screen p-6'>
-      <div className="max-w-2xl mx-auto mt-10 bg-fuchsia-50 p-6 rounded-xl shadow-lg border border-gray-200">
+    <div className="bg-gradient-to-br from-fuchsia-50 to-fuchsia-100 min-h-screen p-6">
+      <div className="max-w-2xl mx-auto mt-10 bg-fuchsia-50 p-6 rounded-xl shadow-lg border border-gray-200" ref={invoiceRef}>
         <h2 className="text-2xl font-bold mb-2 text-green-700">🧾 Invoice #{invoice.id}</h2>
         <p className="text-gray-600 mb-4">🗓️ Date: {invoice.date}</p>
 
@@ -123,6 +137,15 @@ const InvoicePage = () => {
         <p className="text-xl font-bold text-green-800 text-right">
           Total: KES {invoice.total}
         </p>
+      </div>
+
+      <div className="flex justify-center mt-6">
+        <button
+          onClick={handleDownload}
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow-md transition"
+        >
+          Download PDF
+        </button>
       </div>
     </div>
   );
