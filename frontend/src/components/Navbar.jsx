@@ -242,15 +242,15 @@ const Navbar = () => {
           <>
             <Link
               to="/login"
-              className="bg-purple-200 text-gray-700 px-4 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md"
+              className="bg-purple-200 text-gray-700 px-4 py-1.5 rounded-lg hover:bg-violet-800 hover:text-white transition shadow-md"
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="mr-4 bg-purple-300 text-gray-700 px-4 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md"
+              className="mr-4 bg-purple-300 text-gray-700 px-4 py-1.5 rounded-lg hover:bg-violet-800 hover:text-white transition shadow-md"
             >
-              Register
+              Sign In
             </Link>
           </>
         )}
