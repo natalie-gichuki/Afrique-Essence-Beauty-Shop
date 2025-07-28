@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../redux/slices/productSlice';
 import { Link } from 'react-router-dom';
 import { fetchCategories } from '../redux/slices/categorySlice';
+import { addItemToCart, fetchMyCart } from '../redux/slices/cartSlice';
+import Swal from 'sweetalert2';
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -20,6 +22,26 @@ const Product = () => {
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
     setPage(1);
+  };
+
+  const handleAddToCart = (product) => {
+    if (!product) return;
+
+    dispatch(addItemToCart({
+      product_id: product.id,
+      quantity: 1,
+    }));
+    dispatch(fetchMyCart());
+
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      title: `${product.name} added to cart!`,
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+    });
   };
 
   return (
@@ -57,19 +79,27 @@ const Product = () => {
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
-              <Link
+              <div
                 key={product.id}
-                to={`/products/${product.id}`}
-                className="bg-white border border-purple-200 hover:scale-110  p-4 shadow hover:shadow-md transition duration-200"
+                className="bg-white border border-purple-200 p-4 shadow hover:scale-110 hover:shadow-md transition duration-200 rounded"
               >
-                <img
-                  src={product.image_url}
-                  alt={product.name}
-                  className="h-60 w-full object-contain rounded mb-4"
-                />
-                <h3 className="text-purple-800 font-semibold">{product.name}</h3>
-                <p className="text-gray-700">Ksh {product.price}</p>
-              </Link>
+                <Link to={`/products/${product.id}`}>
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    className="h-60 w-full object-contain rounded mb-4"
+                  />
+                  <h3 className="text-purple-800 font-semibold">{product.name}</h3>
+                  <p className="text-gray-700 mb-2">Ksh {product.price}</p>
+                </Link>
+
+                <button
+                  onClick={() => handleAddToCart(product)}
+                  className="mt-2 w-full bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded-lg transition"
+                >
+                  Add to Cart
+                </button>
+              </div>
             ))}
           </div>
 
@@ -78,11 +108,10 @@ const Product = () => {
               <button
                 key={i + 1}
                 onClick={() => setPage(i + 1)}
-                className={`px-3 py-1 rounded-lg font-medium transition ${
-                  page === i + 1
-                    ? 'bg-purple-800 text-white'
-                    : 'bg-purple-200 text-purple-800 hover:bg-violet-800 hover:text-white'
-                }`}
+                className={`px-3 py-1 rounded-lg font-medium transition ${page === i + 1
+                  ? 'bg-purple-800 text-white'
+                  : 'bg-purple-200 text-purple-800 hover:bg-violet-800 hover:text-white'
+                  }`}
               >
                 {i + 1}
               </button>
