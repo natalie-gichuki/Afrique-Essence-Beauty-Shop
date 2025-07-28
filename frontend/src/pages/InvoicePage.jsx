@@ -201,9 +201,7 @@ const InvoicePage = () => {
           <div className="text-right">
             <p><strong>MyClub Card:</strong> ********80830</p>
             <p><strong>Name:</strong> {customer.name}</p>
-            <p><strong>Previous Balance:</strong> 463.7</p>
-            <p><strong>Earned Points:</strong> 21.88</p>
-            <p><strong>New Balance:</strong> 0</p>
+            
           </div>
         </div>
 
