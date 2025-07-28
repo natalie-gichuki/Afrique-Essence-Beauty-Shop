@@ -156,7 +156,7 @@ function App() {
           }
         />
         <Route
-          path="/invoice/:id"
+          path="/invoice"
           element={
             <ProtectedRoute allowedRoles={["customer", "admin"]}>
               <InvoicePage />

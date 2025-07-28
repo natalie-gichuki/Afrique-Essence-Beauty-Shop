@@ -237,29 +237,18 @@ const CheckoutPage = () => {
     return cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0).toFixed(2);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const orderPayload = {
-      phone: form.phone,
-      address: form.address,
-      cart_items: cart.items.map((item) => ({
-        product_id: item.product.id,
-        quantity: item.quantity,
-      }))
-    };
-
-    try {
-      const resultAction = await dispatch(createOrder(orderPayload));
-      if (createOrder.fulfilled.match(resultAction)) {
-        navigate(`/invoice/${resultAction.payload.invoice.id}`);
-      } else {
-        console.error('Order creation failed:', resultAction.error);
+    navigate('/invoice', {
+      state: {
+        customer: form,
+        items: cart.items,
+        total: calculateTotal()
       }
-    } catch (err) {
-      console.error('Failed to create order:', err);
-    }
+    });
   };
+
   if (status === 'loading') {
     return <p className="text-center mt-10 text-gray-500">Loading...</p>;
   }
