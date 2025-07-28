@@ -75,6 +75,7 @@
 import React, { useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import html2pdf from 'html2pdf.js';
+import Logo from '../assets/images/logo.jpg'
 
 const InvoicePage = () => {
   const { state } = useLocation();
@@ -112,7 +113,7 @@ const InvoicePage = () => {
         {/* Header */}
         <div className="flex justify-between items-center border-b border-purple-200 pb-4 mb-6">
           <div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Carrefour_logo.svg/1280px-Carrefour_logo.svg.png" alt="Logo" className="h-10" />
+            <img src={Logo} alt="Logo" className="h-12" />
             <h2 className="text-xl font-semibold text-purple-800">Tax Invoice</h2>
             <p className="text-xs text-gray-500">ETR is available on physical invoice</p>
           </div>
