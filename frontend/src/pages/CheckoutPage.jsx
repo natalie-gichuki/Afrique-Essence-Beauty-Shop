@@ -237,16 +237,32 @@ const CheckoutPage = () => {
     return cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0).toFixed(2);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const orderPayload = {
+      phone: form.phone,
+      address: form.address,
+      cart_items: cart.items.map((item) => ({
+        product_id: item.product.id,
+        quantity: item.quantity,
+      }))
+    };
 
-    navigate('/invoice', {
+    try {
+      const resultAction = await dispatch(createOrder(orderPayload));
+      if (createOrder.fulfilled.match(resultAction)) {
+       navigate('/invoice', {
       state: {
         customer: form,
         items: cart.items,
         total: calculateTotal()
+      }});
+      } else {
+        console.error('Order creation failed:', resultAction.error);
       }
-    });
+    } catch (err) {
+      console.error('Failed to create order:', err);
+    }
   };
 
   if (status === 'loading') {
