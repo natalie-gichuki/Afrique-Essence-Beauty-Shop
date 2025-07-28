@@ -1,11 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchOrders } from '../../redux/orderSlice';
+import { fetchProducts } from '../../redux/slices/productSlice';
+import { fetchUsers } from '../../redux/userSlice';
+
 import { exportToCSV } from '../../utils/exportUtils';
 
 Chart.register(...registerables);
 
 export default function AdminDashboard() {
+  const dispatch = useDispatch();
+
+  const { orders } = useSelector((state) => state.orders);
+  const { products } = useSelector((state) => state.products);
+  const { users } = useSelector((state) => state.users);
+
   const [stats, setStats] = useState({
     totalProducts: 0,
     activeUsers: 0,
@@ -30,56 +42,79 @@ export default function AdminDashboard() {
   });
 
   useEffect(() => {
-    // Fetch data from API
-    fetchDashboardData();
-  }, []);
+    dispatch(fetchOrders());
+    dispatch(fetchProducts({ page: 1, per_page: 100 }));
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
-  const fetchDashboardData = async () => {
-    // Replace with actual API calls
-    setStats({
-      totalProducts: 124,
-      activeUsers: 89,
-      pendingOrders: 23
+  useEffect(() => {
+    const totalProducts = products.length || 0;
+    // If you want to count only customer users
+    const activeUsers = users.filter(user => user.role === 'customer').length;
+    const totalOrders = orders.length;
+
+    const salesMap = {};
+    orders.forEach(order => {
+      order.order_items?.forEach(item => {
+        const name = item.product?.name;
+        if (name) {
+          salesMap[name] = (salesMap[name] || 0) + item.quantity;
+        }
+      });
     });
 
+    const salesLabels = Object.keys(salesMap);
+    const salesCounts = Object.values(salesMap);
+
+    const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#F67019'];
+
+    setStats({ totalProducts, activeUsers, totalOrders });
+
     setSalesData({
-      labels: ['Product A', 'Product B', 'Product C', 'Product D'],
+      labels: salesLabels,
       datasets: [{
-        data: [300, 50, 100, 200],
-        backgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56',
-          '#4BC0C0'
-        ]
+        data: salesCounts,
+        backgroundColor: salesLabels.map((_, i) => colors[i % colors.length])
       }]
+    });
+
+    const ordersPerDay = Array(7).fill(0);
+    const today = new Date();
+
+    orders.forEach(order => {
+      const date = new Date(order.created_at);
+      const dayDiff = (today - date) / (1000 * 60 * 60 * 24);
+      if (dayDiff < 7) {
+        const weekday = date.getDay(); // 0 (Sun) to 6 (Sat)
+        ordersPerDay[weekday]++;
+      }
     });
 
     setOrdersData({
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       datasets: [{
         label: 'Orders',
-        data: [12, 19, 3, 5, 2, 3, 9],
+        data: ordersPerDay,
         backgroundColor: 'rgba(59, 130, 246, 0.5)'
       }]
     });
-  };
+  }, [products, users, orders]);
 
   const handleExport = () => {
     const data = [
       ['Metric', 'Value'],
       ['Total Products', stats.totalProducts],
       ['Active Users', stats.activeUsers],
-      ['Pending Orders', stats.pendingOrders],
+      ['Pending Orders', stats.totalOrders],
       ...salesData.labels.map((label, i) => [label, salesData.datasets[0].data[i]])
     ];
     exportToCSV(data, 'dashboard_metrics');
   };
 
   return (
-    <div>
+    <div className="p-6 bg-fuchsia-50 min-h-screen">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+        <h1 className="text-2xl font-bold text-gray-700">📊 Admin Dashboard</h1>
         <button 
           onClick={handleExport}
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex items-center gap-2"
@@ -102,8 +137,8 @@ export default function AdminDashboard() {
           <p className="text-3xl font-bold">{stats.activeUsers}</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-gray-500">Pending Orders</h3>
-          <p className="text-3xl font-bold">{stats.pendingOrders}</p>
+          <h3 className="text-gray-500">Total Orders</h3>
+          <p className="text-3xl font-bold">{stats.totalOrders}</p>
         </div>
       </div>
 
