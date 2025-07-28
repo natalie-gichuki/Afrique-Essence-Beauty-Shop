@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { NavLink, Outlet } from 'react-router-dom';
 
 export default function AdminLayout() {
@@ -5,7 +6,7 @@ export default function AdminLayout() {
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-gray-800 text-white p-4">
-        <div className="text-xl font-bold p-4 border-b border-gray-700">Admin Panel</div>
+        <div className="text-xl font-bold p-4 border-b border-gray-700">{t('adminPanel')}</div>
         <nav className="mt-4 space-y-1">
           <NavLink 
             to="/admin/dashboard" 
@@ -13,7 +14,7 @@ export default function AdminLayout() {
               `block px-4 py-2 rounded-md ${isActive ? 'bg-gray-900 text-yellow-400 font-medium' : 'hover:bg-gray-700 hover:text-yellow-300'}`
             }
           >
-            Dashboard
+            {t('dashboard')}
           </NavLink>
           <NavLink 
             to="/admin/products"
@@ -21,7 +22,7 @@ export default function AdminLayout() {
               `block px-4 py-2 rounded-md ${isActive ? 'bg-gray-900 text-yellow-400 font-medium' : 'hover:bg-gray-700 hover:text-yellow-300'}`
             }
           >
-            Products
+            {t('products')}
           </NavLink>
           <NavLink 
             to="/admin/users"
@@ -29,7 +30,7 @@ export default function AdminLayout() {
               `block px-4 py-2 rounded-md ${isActive ? 'bg-gray-900 text-yellow-400 font-medium' : 'hover:bg-gray-700 hover:text-yellow-300'}`
             }
           >
-            Users
+            {t('user')}
           </NavLink>
           <NavLink 
             to="/admin/orders"
@@ -37,7 +38,7 @@ export default function AdminLayout() {
               `block px-4 py-2 rounded-md ${isActive ? 'bg-gray-900 text-yellow-400 font-medium' : 'hover:bg-gray-700 hover:text-yellow-300'}`
             }
           >
-            Orders
+            {t('orders')}
           </NavLink>
           <NavLink 
             to="/admin/analytics"

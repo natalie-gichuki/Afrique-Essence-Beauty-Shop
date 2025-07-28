@@ -88,6 +88,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, disableUser } from '../../redux/userSlice';
+import { t } from 'i18next';
 
 const UserList = () => {
   const dispatch = useDispatch();
@@ -113,16 +114,16 @@ const UserList = () => {
 
   return (
     <div className="p-6 bg-fuchsia-50 min-h-screen">
-      <h2 className="text-2xl font-semibold text-gray-700 mb-6">👥 User List</h2>
+      <h2 className="text-2xl font-semibold text-gray-700 mb-6">👥 {t('userList')}</h2>
       <div className="overflow-x-auto shadow rounded-lg border border-purple-200 bg-white">
         <table className="min-w-full text-sm text-gray-700">
           <thead className="bg-purple-200 text-left">
             <tr>
               <th className="py-3 px-4 border">ID</th>
-              <th className="py-3 px-4 border">Username</th>
-              <th className="py-3 px-4 border">Email</th>
-              <th className="py-3 px-4 border">Role</th>
-              <th className="py-3 px-4 border">Action</th>
+              <th className="py-3 px-4 border">{t('username')}</th>
+              <th className="py-3 px-4 border">{t('email')}</th>
+              <th className="py-3 px-4 border">{t('role')}</th>
+              <th className="py-3 px-4 border">{t('actions')}</th>
             </tr>
           </thead>
           <tbody>
@@ -145,7 +146,7 @@ const UserList = () => {
                         onClick={() => handleDisable(user.id)}
                         className="bg-purple-800 hover:bg-violet-800 text-white px-3 py-1 rounded-md transition"
                       >
-                        Disable
+                        {t('disable')}
                       </button>
                     ) : (
                       <span className="text-gray-400 italic">N/A</span>

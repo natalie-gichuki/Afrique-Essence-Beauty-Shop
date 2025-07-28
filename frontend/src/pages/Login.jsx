@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import LoginPic from '../assets/images/LoginPhoto.jpg'
 import Swal from 'sweetalert2';
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.auth);
+    const { t } = useTranslation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,7 +60,7 @@ const Login = () => {
 
                 {/* Right Section - Form */}
                 <div className="w-full md:w-1/2 p-8 sm:p-12">
-                    <h2 className="text-3xl font-bold text-center text-purple-700 mb-6">Welcome Back!!</h2>
+                    <h2 className="text-3xl font-bold text-center text-purple-700 mb-6">{t('welcomeBack')}</h2>
 
                     {error && (
                         <p className="text-red-500 text-sm text-center mb-4">{error}</p>
@@ -66,7 +68,7 @@ const Login = () => {
 
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className="mb-4">
-                            <label className="block text-sm text-gray-700 mb-1">Email</label>
+                            <label className="block text-sm text-gray-700 mb-1">{t('email')}</label>
                             <input
                                 type="email"
                                 placeholder="email@gmail.com"
@@ -79,7 +81,7 @@ const Login = () => {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm text-gray-700 mb-1">Password</label>
+                            <label className="block text-sm text-gray-700 mb-1">{t('password')}</label>
                             <input
                                 type="password"
                                 placeholder="Enter your password"
@@ -104,7 +106,7 @@ const Login = () => {
                     <div className="mt-6 text-center text-sm text-gray-500">
                         Don't have an account?{' '}
                         <Link to="/register" className="text-purple-600 font-medium hover:underline">
-                            Sign up
+                            {t('signUp')}
                         </Link>
                     </div>
 

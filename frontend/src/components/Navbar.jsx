@@ -135,6 +135,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
+import { t } from "i18next";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -161,19 +162,19 @@ const Navbar = () => {
             to="/"
             className="text-purple-800 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
           >
-            Home
+           {t('home')}
           </Link>
           <Link
             to="/products"
             className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
           >
-            Products
+            {t('products')}
           </Link>
           <Link
             to="/products-details"
             className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
           >
-            Product Details
+            {t('productDetails')}
           </Link>
         </div>
       </div>
@@ -199,13 +200,13 @@ const Navbar = () => {
             to="/checkout"
             className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
           >
-            Checkout
+            {t('checkout')}
           </Link>
           <Link
             to="/invoice"
             className="text-purple-700 hover:underline hover:text-violet-800 transition-all duration-200 hover:text-2xl"
           >
-            Invoice
+            {t('invoice')}
           </Link>
         </div>
       )}
@@ -217,7 +218,7 @@ const Navbar = () => {
             to="/admin/dashboard"
             className="bg-purple-100 text-purple-800 px-3 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md"
           >
-            Admin Panel
+            {t('adminPanel')}
           </Link>
         )}
 
@@ -235,7 +236,7 @@ const Navbar = () => {
               onClick={handleLogout}
               className="bg-purple-800 text-white px-4 py-1.5 rounded hover:bg-violet-800 transition shadow-md"
             >
-              Logout
+              {t('logout')}
             </button>
           </>
         ) : (
@@ -244,13 +245,13 @@ const Navbar = () => {
               to="/login"
               className="bg-purple-200 text-gray-700 px-4 py-1.5 rounded-lg hover:bg-violet-800 hover:text-white transition shadow-md"
             >
-              Login
+              {t('login')}
             </Link>
             <Link
               to="/register"
               className="mr-4 bg-purple-300 text-gray-700 px-4 py-1.5 rounded-lg hover:bg-violet-800 hover:text-white transition shadow-md"
             >
-              Sign In
+              {t('signUp')}
             </Link>
           </>
         )}

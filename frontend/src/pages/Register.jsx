@@ -6,6 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import LoginPic from '../assets/images/LoginPhoto.jpg'
 
 import Swal from 'sweetalert2';
+import { t } from 'i18next';
 
 const Register = () => {
     const [form, setForm] = useState({
@@ -62,13 +63,13 @@ const Register = () => {
 
                 {/* Right Section - Form */}
                 <div className="w-full md:w-1/2 p-8 sm:p-12">
-                    <h2 className="text-3xl font-bold text-center text-purple-700 mb-6">Create an Account</h2>
+                    <h2 className="text-3xl font-bold text-center text-purple-700 mb-6">{t('createAccount')}</h2>
 
                     {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
 
                     <form onSubmit={handleSubmit} autoComplete="off">
                         <div className="mb-4">
-                            <label className="block text-sm text-gray-700 mb-1">Username</label>
+                            <label className="block text-sm text-gray-700 mb-1">{t('username')}</label>
                             <input
                                 type="text"
                                 name="username"
@@ -82,7 +83,7 @@ const Register = () => {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm text-gray-700 mb-1">Email</label>
+                            <label className="block text-sm text-gray-700 mb-1">{t('email')}</label>
                             <input
                                 type="email"
                                 name="email"
@@ -96,7 +97,7 @@ const Register = () => {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm text-gray-700 mb-1">Password</label>
+                            <label className="block text-sm text-gray-700 mb-1">{t('password')}</label>
                             <input
                                 type="password"
                                 name="password"
@@ -121,7 +122,7 @@ const Register = () => {
                     <div className="mt-6 text-center text-sm text-gray-500">
                         Already have an account?{' '}
                         <Link to="/login" className="text-purple-600 font-medium hover:underline">
-                            Login
+                            {t('login')}
                         </Link>
                     </div>
 

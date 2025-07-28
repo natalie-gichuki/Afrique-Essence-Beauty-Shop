@@ -198,6 +198,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOrders } from '../../redux/orderSlice';
+import { t } from 'i18next';
 
 const OrderList = () => {
   const dispatch = useDispatch();
@@ -213,16 +214,16 @@ const OrderList = () => {
 
   return (
     <div className="p-6 bg-fuchsia-50 min-h-screen">
-      <h2 className="text-2xl font-semibold text-gray-700 mb-6">📦 Orders</h2>
+      <h2 className="text-2xl font-semibold text-gray-700 mb-6">📦 {t('orders')}</h2>
       <div className="overflow-x-auto rounded-lg shadow border border-purple-200 bg-white">
         <table className="w-full text-sm text-gray-700">
           <thead className="bg-purple-200 text-left">
             <tr>
               <th className="px-4 py-3 border">#</th>
-              <th className="px-4 py-3 border">Customer</th>
-              <th className="px-4 py-3 border">Email</th>
-              <th className="px-4 py-3 border">Total</th>
-              <th className="px-4 py-3 border">Date</th>
+              <th className="px-4 py-3 border">{t('customer')}</th>
+              <th className="px-4 py-3 border">{t('email')}</th>
+              <th className="px-4 py-3 border">{t('total')}</th>
+              <th className="px-4 py-3 border">{t('date')}</th>
             </tr>
           </thead>
           <tbody>
@@ -239,7 +240,7 @@ const OrderList = () => {
                 </tr>
                 <tr>
                   <td colSpan="5" className="border px-4 py-3 bg-purple-50">
-                    <p className="font-semibold text-purple-800 mb-1">🛒 Products Purchased:</p>
+                    <p className="font-semibold text-purple-800 mb-1">🛒 {t('productsPurchased')}:</p>
                     <ul className="list-disc list-inside text-sm text-gray-700">
                       {order.order_items?.map(item => (
                         <li key={item.id}>

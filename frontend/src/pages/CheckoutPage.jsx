@@ -212,6 +212,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchMyCart } from '../redux/slices/cartSlice';
 import { createOrder } from '../redux/orderSlice';
 import { useNavigate } from 'react-router-dom';
+import { t } from 'i18next';
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
@@ -272,11 +273,11 @@ const CheckoutPage = () => {
   return (
     <div className="min-h-screen  bg-gradient-to-br from-fuchsia-50 to-fuchsia-200 px-4 py-10">
       <div className="max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-lg">
-        <h2 className="text-2xl font-bold text-purple-700 mb-6">🧾 Checkout</h2>
+        <h2 className="text-2xl font-bold text-purple-700 mb-6">🧾 {t('checkout')}</h2>
 
         {/* Cart Summary */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">Your Items</h3>
+          <h3 className="text-lg font-semibold mb-4">{t('yourItems')}</h3>
           {cart.items.map((item) => (
             <div key={item.id} className="flex justify-between items-center py-2 border-b">
               <div>
@@ -289,14 +290,14 @@ const CheckoutPage = () => {
             </div>
           ))}
           <div className="flex justify-between items-center mt-4 text-xl font-bold">
-            <span>Total:</span>
+            <span>{t('total')}:</span>
             <span className="text-purple-700">Ksh {calculateTotal()}</span>
           </div>
         </div>
 
         {/* Billing Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <h3 className="text-lg font-semibold mb-2">Billing Information</h3>
+          <h3 className="text-lg font-semibold mb-2">{t('billingInfo')}</h3>
           <input
             type="text"
             name="name"
@@ -328,7 +329,7 @@ const CheckoutPage = () => {
             type="submit"
             className="w-full bg-purple-600 text-white font-semibold py-2 rounded-xl hover:bg-purple-700 transition"
           >
-            Place Order
+            {t('placeOrder')}
           </button>
         </form>
       </div>

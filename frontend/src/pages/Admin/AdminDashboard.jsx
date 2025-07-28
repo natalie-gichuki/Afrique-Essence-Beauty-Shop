@@ -8,6 +8,7 @@ import { fetchProducts } from '../../redux/slices/productSlice';
 import { fetchUsers } from '../../redux/userSlice';
 
 import { exportToCSV } from '../../utils/exportUtils';
+import { t } from 'i18next';
 
 Chart.register(...registerables);
 
@@ -114,12 +115,12 @@ export default function AdminDashboard() {
   return (
     <div className="p-6 bg-fuchsia-50 min-h-screen">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-700">📊 Admin Dashboard</h1>
+        <h1 className="text-2xl font-bold text-gray-700">📊 {t('adminDashboard')}</h1>
         <button 
           onClick={handleExport}
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex items-center gap-2"
         >
-          <span>Export to CSV</span>
+          <span>{t('exportToCSV')}</span>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>
@@ -129,15 +130,15 @@ export default function AdminDashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-gray-500">Total Products</h3>
+          <h3 className="text-gray-500">{t('totalProducts')}</h3>
           <p className="text-3xl font-bold">{stats.totalProducts}</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-gray-500">Active Users</h3>
+          <h3 className="text-gray-500">{t('activeUsers')}</h3>
           <p className="text-3xl font-bold">{stats.activeUsers}</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-gray-500">Total Orders</h3>
+          <h3 className="text-gray-500">{t('totalOrders')}</h3>
           <p className="text-3xl font-bold">{stats.totalOrders}</p>
         </div>
       </div>
@@ -145,13 +146,13 @@ export default function AdminDashboard() {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Sales by Product</h2>
+          <h2 className="text-xl font-semibold mb-4">{t('salesByProduct')}</h2>
           <div className="h-64">
             <Pie data={salesData} />
           </div>
         </div>
         <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Orders This Week</h2>
+          <h2 className="text-xl font-semibold mb-4">{t('ordersThisWeek')}</h2>
           <div className="h-64">
             <Bar data={ordersData} />
           </div>

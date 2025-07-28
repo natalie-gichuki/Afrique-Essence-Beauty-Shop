@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart, fetchMyCart } from '../redux/slices/cartSlice';
 
 import Swal from 'sweetalert2';
+import { t } from 'i18next';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -79,7 +80,7 @@ const ProductDetails = () => {
             className="mt-2 bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-2 rounded-xl transition-all"
             onClick={addToCart}
           >
-            Add to Cart
+            {t('addToCart')}
           </button>
         </div>
       </div>

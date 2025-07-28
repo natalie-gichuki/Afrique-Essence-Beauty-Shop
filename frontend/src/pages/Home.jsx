@@ -19,10 +19,12 @@ import VitaminCSerum from "../assets/images/VitaminCSerum.jpg"
 import NailPolish from "../assets/images/NailPolish.webp"
 import Perfume from "../assets/images/Perfumes.webp"
 import Nonnie from "../assets/images/Milka.jpg"
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
     const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const handleExplore = () => {
         if (!user) {
@@ -57,7 +59,7 @@ const Home = () => {
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-center px-4">
                     <h1 className="text-4xl md:text-5xl font-serif font-bold text-purple-200 drop-shadow-lg">
-                        Afrique Essence
+                        {t('welcome')}
                     </h1>
                     <p className="mt-4 text-lg md:text-xl text-gray-200">
                         Elevate your glow – where beauty meets luxury.
@@ -66,7 +68,7 @@ const Home = () => {
                         onClick={handleExplore}
                         className="mt-6 px-6 py-2 bg-purple-800 text-white rounded-full hover:bg-violet-800 transition"
                     >
-                        Explore Now
+                        {t('exploreNow')}
                     </button>
                 </div>
             </div>
@@ -74,7 +76,7 @@ const Home = () => {
             <div className="py-16 bg-white text-gray-700">
                 {/* Section Title */}
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl font-serif text-purple-800">Meet Our Team</h1>
+                    <h1 className="text-4xl font-serif text-purple-800">{t('meetTeam')}</h1>
                     <div className="w-24 h-1 bg-purple-800 mx-auto mt-2 rounded"></div>
                 </div>
 
@@ -131,7 +133,7 @@ const Home = () => {
             <div className="bg-fuchsia-50 py-20">
                 <div className="mb-16">
                     <h1 className="text-3xl md:text-3xl font-serif text-purple-800 text-center">
-                        Unwrap Your Glam – Special <strong className="font-bold text-5xl">Offers!!!</strong>  Just for You!
+                        {t('unwrapGlam')}
                     </h1>
                 </div>
 
@@ -337,7 +339,7 @@ const Home = () => {
             {/*Best sellers*/}
             <div className="bg-white py-16">
                 <div className="text-center mb-12">
-                    <h1 className="text-5xl font-serif text-purple-800 mb-4">Best Sellers</h1>
+                    <h1 className="text-5xl font-serif text-purple-800 mb-4">{t('bestSellers')}</h1>
                     <p className="text-gray-600">Explore our top-rated beauty products.</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6 bg-white">
@@ -496,7 +498,7 @@ const Home = () => {
             {/*categories*/}
             <div className="bg-fuchsia-50 py-16 ">
                 <div className="text-center mb-12">
-                    <h1 className="text-5xl font-serif text-purple-800 mb-4">Categories</h1>
+                    <h1 className="text-5xl font-serif text-purple-800 mb-4">{t('categories')}</h1>
                     <p className="text-gray-600">Explore our top-rated beauty products.</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 bg-fuchsia-50">
@@ -598,7 +600,7 @@ const Home = () => {
             <div className="py-16 bg-white text-gray-700">
                 <div className="py-16 px-6 md:px-12 bg-white rounded-3xl">
                     <h2 className="text-5xl font-serif text-purple-700 mb-10 text-center">
-                        Success <span className="text-[#706d61]">Metrics</span>
+                        {t('success')} <span className="text-[#706d61]">{t('metrics')}</span>
                     </h2>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -656,7 +658,7 @@ const Home = () => {
 
                 {/* Section Title */}
                 <div className="text-center mb-12">
-                    <h1 className="text-5xl font-serif text-purple-800">Reviews</h1>
+                    <h1 className="text-5xl font-serif text-purple-800">{t("reviews")}</h1>
                     <div className="w-24 h-1 bg-purple-800 mx-auto mt-2 rounded"></div>
                 </div>
 
@@ -724,7 +726,7 @@ const Home = () => {
             {/*location*/}
             <div className="w-full bg-fuchsia-50 py-16">
                 <div className="max-w-6xl mx-auto px-6 py-16 bg-fuchsia-50">
-                    <h2 className="text-5xl font-serif text-purple-800 mb-10 text-center">Our Location</h2>
+                    <h2 className="text-5xl font-serif text-purple-800 mb-10 text-center">{t('ourLocation')}</h2>
                     <div className="flex flex-col lg:flex-row gap-8">
                         {/* Google Map */}
                         <div className="flex-1 h-[400px] rounded-xl overflow-hidden shadow-lg">

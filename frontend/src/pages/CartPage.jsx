@@ -236,6 +236,7 @@ import {
   deleteCartItem,
 } from '../redux/slices/cartSlice';
 import { Link } from 'react-router-dom';
+import {t} from 'i18next';
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -270,7 +271,7 @@ const CartPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-fuchsia-50 to-fuchsia-200 px-4 py-10">
       <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6 border border-purple-200">
-        <h2 className="text-2xl font-bold text-purple-800 mb-6">🛒 Your Cart</h2>
+        <h2 className="text-2xl font-bold text-purple-800 mb-6">🛒 {t('yourCart')}t</h2>
 
         {cart.items.map((item) => (
           <div key={item.id} className="flex items-center justify-between border-b border-purple-100 py-4">
@@ -303,21 +304,21 @@ const CartPage = () => {
                 onClick={() => handleRemove(item.id)}
                 className="ml-4 text-red-500 hover:underline"
               >
-                Remove
+                {t('remove')}
               </button>
             </div>
           </div>
         ))}
 
         <div className="mt-6 flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-800">Total:</h3>
+          <h3 className="text-xl font-semibold text-gray-800">{t('total')}:</h3>
           <p className="text-xl font-bold text-purple-800">Ksh {calculateTotal()}</p>
         </div>
 
         <div className="mt-6 text-right">
           <Link to="/checkout">
             <button className="bg-purple-800 hover:bg-violet-800 text-white px-6 py-3 rounded-xl transition-all">
-              Proceed to Checkout
+              {t('proceedToCheckout')}
             </button>
           </Link>
         </div>

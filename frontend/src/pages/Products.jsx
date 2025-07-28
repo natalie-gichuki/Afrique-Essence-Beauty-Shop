@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { fetchCategories } from '../redux/slices/categorySlice';
 import { addItemToCart, fetchMyCart } from '../redux/slices/cartSlice';
 import Swal from 'sweetalert2';
+import { t } from 'i18next';
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const Product = () => {
         <input
           type="text"
           name="name"
-          placeholder="Search by name"
+          placeholder={t('searchByName')}
           onChange={handleChange}
           className="px-3 py-2 rounded border border-purple-800 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-800 bg-white"
         />
@@ -59,7 +60,7 @@ const Product = () => {
           onChange={handleChange}
           className="px-3 py-2 rounded border border-purple-800 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-800 bg-white"
         >
-          <option value="">All Categories</option>
+          <option value="">{t('allCategories')}</option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.name}>{cat.name}</option>
           ))}
@@ -67,7 +68,7 @@ const Product = () => {
         <input
           type="number"
           name="price"
-          placeholder="Max Price"
+          placeholder={t('maxPrice')}
           onChange={handleChange}
           className="px-3 py-2 rounded border border-purple-800 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-800 bg-white"
         />
@@ -97,7 +98,7 @@ const Product = () => {
                   onClick={() => handleAddToCart(product)}
                   className="mt-2 w-full bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded-lg transition"
                 >
-                  Add to Cart
+                  {t('addToCart')}
                 </button>
               </div>
             ))}
