@@ -126,7 +126,7 @@ const Register = () => {
                         </Link>
                     </div>
 
-                    <p className="text-center text-xs text-gray-400 mt-6">© 2025 Luxe Beauty</p>
+                    <p className="text-center text-xs text-gray-400 mt-6">© 2025 Afrique Beauty</p>
                 </div>
             </div>
         </div>
