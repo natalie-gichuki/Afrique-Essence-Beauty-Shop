@@ -40,14 +40,14 @@ export default function AdminLayout() {
           >
             {t('orders')}
           </NavLink>
-          <NavLink 
+          {/* <NavLink 
             to="/admin/analytics"
             className={({ isActive }) => 
               `block px-4 py-2 rounded-md ${isActive ? 'bg-gray-900 text-yellow-400 font-medium' : 'hover:bg-gray-700 hover:text-yellow-300'}`
             }
           >
             Analytics
-          </NavLink>
+          </NavLink> */}
         </nav>
       </aside>
 

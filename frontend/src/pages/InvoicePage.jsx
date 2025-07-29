@@ -76,6 +76,7 @@ import React, { useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import html2pdf from 'html2pdf.js';
 import Logo from '../assets/images/logo.jpg'
+import { t } from 'i18next';
 
 const InvoicePage = () => {
   const { state } = useLocation();
@@ -114,8 +115,8 @@ const InvoicePage = () => {
         <div className="flex justify-between items-center border-b border-purple-200 pb-4 mb-6">
           <div>
             <img src={Logo} alt="Logo" className="h-12" />
-            <h2 className="text-xl font-semibold text-purple-800">Tax Invoice</h2>
-            <p className="text-xs text-gray-500">ETR is available on physical invoice</p>
+            <h2 className="text-xl font-semibold text-purple-800">{t('taxInvoice')}</h2>
+            
           </div>
           <div className="text-right text-sm">
             <p>AFRIQUE ESSENCE BEAUTY SHOP</p>
@@ -128,13 +129,13 @@ const InvoicePage = () => {
         {/* Invoice Details */}
         <div className="flex justify-between mb-6 text-sm">
           <div>
-            <p><strong>Order No:</strong> {orderNumber}</p>
-            <p><strong>Invoice No:</strong> {invoiceNumber}</p>
-            <p><strong>Invoice Date:</strong> {today}</p>
-            <p><strong>Exp. Del. Date:</strong> {today} (1 PM to 2 PM)</p>
+            <p><strong>{t('orderNo')}:</strong> {orderNumber}</p>
+            <p><strong>{t('invoiceNo')}:</strong> {invoiceNumber}</p>
+            <p><strong>{t('invoiceDate')}:</strong> {today}</p>
+            <p><strong>{t('expDate')}:</strong> {today} (1 PM to 2 PM)</p>
           </div>
           <div className="text-right">
-            <p><strong>Store Information</strong></p>
+            <p><strong>{t('storeInfo')}</strong></p>
             <p>Thika Road Mall</p>
             <p>Nairobi, Kenya</p>
             <p>0800 221322</p>
@@ -144,13 +145,13 @@ const InvoicePage = () => {
         {/* Customer Info */}
         <div className="grid grid-cols-2 gap-4 border-b border-purple-200 pb-4 mb-6 text-sm">
           <div>
-            <p className="text-purple-800 font-bold">CUSTOMER INFORMATION</p>
+            <p className="text-purple-800 font-bold">{t('customer')}</p>
             <p>{customer.name}</p>
             <p>{customer.address}</p>
             <p>{customer.phone}</p>
           </div>
           <div className="text-right">
-            <p className="text-purple-800 font-bold">Delivery Email</p>
+            <p className="text-purple-800 font-bold">{t('deliveryEmail')}</p>
             <p>{customer.email || 'n/a'}</p>
           </div>
         </div>
@@ -160,11 +161,11 @@ const InvoicePage = () => {
           <table className="w-full text-left text-sm border mb-4 border-purple-200">
             <thead className="bg-purple-200 text-gray-700">
               <tr>
-                <th className="border border-purple-200 p-2">Description</th>
-                <th className="border border-purple-200 p-2 text-center">Ordered Qty</th>
-                <th className="border border-purple-200 p-2 text-center">Delivered Qty</th>
-                <th className="border border-purple-200 p-2 text-right">Unit Price</th>
-                <th className="border border-purple-200 p-2 text-right">Total Price</th>
+                <th className="border border-purple-200 p-2">{t('description')}</th>
+                <th className="border border-purple-200 p-2 text-center">{t('orderQtn')}</th>
+                <th className="border border-purple-200 p-2 text-center">{t('deliveredQtn')}</th>
+                <th className="border border-purple-200 p-2 text-right">{t('unitPrice')}</th>
+                <th className="border border-purple-200 p-2 text-right">{t('totalPrice')}</th>
               </tr>
             </thead>
             <tbody>
@@ -181,34 +182,34 @@ const InvoicePage = () => {
           </table>
 
           <div className="flex justify-between text-sm font-bold text-purple-800">
-            <span>Total Amount Incl. VAT:</span>
+            <span>{t('totalAmount')} :</span>
             <span>KES {parseFloat(total).toFixed(2)}</span>
           </div>
         </div>
 
         {/* VAT */}
         <div className="border-t border-purple-200 mt-4 pt-4 text-sm">
-          <p><strong>VAT %:</strong> 0.00%</p>
-          <p><strong>Amount Excl. VAT:</strong> KES {parseFloat(total).toFixed(2)}</p>
-          <p><strong>VAT Amount:</strong> 0.00</p>
+          
+          <p><strong>{t('amount')} :</strong> KES {parseFloat(total).toFixed(2)}</p>
+          
         </div>
 
         {/* Footer */}
         <div className="border-t border-purple-200 mt-6 pt-4 text-sm flex justify-between">
           <div>
-            <p><strong>Payment Type:</strong> Cash on Delivery</p>
-            <p><strong>Amount:</strong> KES {parseFloat(total).toFixed(2)}</p>
+            <p><strong>{t('paymentType')}:</strong> {t('cash')}</p>
+            <p><strong>{t('amount')}:</strong> KES {parseFloat(total).toFixed(2)}</p>
           </div>
           <div className="text-right">
-            <p><strong>MyClub Card:</strong> ********80830</p>
-            <p><strong>Name:</strong> {customer.name}</p>
+            <p><strong>{t('card')}:</strong> ********80830</p>
+            <p><strong>{t('name')}:</strong> {customer.name}</p>
             
           </div>
         </div>
 
         <div className="text-center mt-8 text-xs text-gray-500">
-          Thank you for shopping at Afrique Essence<br />
-          14 days exchange / Refund upon approval
+          {t('thankYouShop')}<br />
+         {t('refund')}
         </div>
       </div>
 
@@ -218,13 +219,13 @@ const InvoicePage = () => {
           onClick={handleDownloadPDF}
           className="bg-purple-800 hover:bg-violet-800 text-white px-6 py-2 rounded-lg"
         >
-          Download Invoice (PDF)
+          {t('download')}
         </button>
         <button
           onClick={() => navigate('/')}
           className="bg-purple-800 hover:bg-violet-800 text-white px-6 py-2 rounded-lg"
         >
-          Back to Home
+          {t('backToHome')}
         </button>
       </div>
     </div>
