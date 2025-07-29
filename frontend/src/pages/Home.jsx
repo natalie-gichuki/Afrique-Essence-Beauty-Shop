@@ -19,6 +19,10 @@ import VitaminCSerum from "../assets/images/VitaminCSerum.jpg"
 import NailPolish from "../assets/images/NailPolish.webp"
 import Perfume from "../assets/images/Perfumes.webp"
 import Nonnie from "../assets/images/Milka.jpg"
+import Ray from '../assets/images/Ray.jpg'
+import Elvis from '../assets/images/Elvis.jpg'
+import Nat from '../assets/images/Nat.jpg'
+import Natto from '../assets/images/Natto.jpg'
 import { useTranslation } from "react-i18next";
 
 const Home = () => {
@@ -62,7 +66,7 @@ const Home = () => {
                         {t('welcome')}
                     </h1>
                     <p className="mt-4 text-lg md:text-xl text-gray-200">
-                        Elevate your glow – where beauty meets luxury.
+                        {t('elevateGlow')}.
                     </p>
                     <button
                         onClick={handleExplore}
@@ -85,12 +89,10 @@ const Home = () => {
                     {/* Card 1 */}
                     <div className="flex flex-col items-center text-center max-w-sm px-4 w-[250px]">
                         <div className="w-[140px] h-[140px] rounded-full bg-purple-200 flex items-center justify-center">
-                            <svg className="w-12 h-12 text-purple-800" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M8 0a8 8 0 100 16A8 8 0 008 0z" />
-                            </svg>
+                            <img src={Ray} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Ray</h2>
-                        <p className="mt-2"><strong>Manager.</strong><br /> "Leading with style, managing with grace."</p>
+                        <p className="mt-2"><strong>{t('manager')}.</strong><br /> "Leading with style, managing with grace."</p>
 
                     </div>
 
@@ -100,31 +102,27 @@ const Home = () => {
                             <img src={Nonnie} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Nonnie</h2>
-                        <p className="mt-2"><strong>Beautician.</strong><br /> "Creating beauty, enhancing confidence."</p>
+                        <p className="mt-2"><strong>{t('beautician')}.</strong><br /> "Creating beauty, enhancing confidence."</p>
 
                     </div>
 
                     {/* Card 3 */}
                     <div className="flex flex-col items-center text-center max-w-sm px-4 w-[250px]">
                         <div className="w-[140px] h-[140px] rounded-full bg-purple-200 flex items-center justify-center">
-                            <svg className="w-12 h-12 text-purple-800" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M8 0a8 8 0 100 16A8 8 0 008 0z" />
-                            </svg>
+                            <img src={Elvis} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Elvis</h2>
-                        <p className="mt-2"><strong>Sales Associate.</strong><br />"Closing deals with charm and finesse."</p>
+                        <p className="mt-2"><strong>{t('salesAssociate')}.</strong><br />"Closing deals with charm and finesse."</p>
 
                     </div>
 
                     {/* Card 4 */}
                     <div className="flex flex-col items-center text-center max-w-sm px-4 w-[250px]">
                         <div className="w-[140px] h-[140px] rounded-full bg-purple-200 flex items-center justify-center">
-                            <svg className="w-12 h-12 text-purple-800" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M8 0a8 8 0 100 16A8 8 0 008 0z" />
-                            </svg>
+                            <img src={Nat} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Natalie</h2>
-                        <p className="mt-2"><strong>Front Desk Assistant.</strong><br /> "The face of our salon, welcoming all with a smile."</p>
+                        <p className="mt-2"><strong>{t('frontDesk')}.</strong><br /> "The face of our salon, welcoming all with a smile."</p>
 
                     </div>
                 </div>
@@ -151,7 +149,7 @@ const Home = () => {
                             />
                             <div className="absolute inset-0 bg-black/30"></div>
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <h2 className="text-white text-4xl font-serif">Skin Care</h2>
+                                <h2 className="text-white text-4xl font-serif">{t('skinCare')}</h2>
                             </div>
                         </div>
 
@@ -169,7 +167,7 @@ const Home = () => {
                             </div>
                         ) : (
                             <div className="p-6 space-y-4">
-                                <h2 className="text-2xl font-semibold text-purple-900">Offers:</h2>
+                                <h2 className="text-2xl font-semibold text-purple-900">{t('offers')}:</h2>
                                 <ul className="space-y-3 text-gray-700">
                                     <li className="flex justify-between">
                                         <span>Cerave Hydrating Cream</span>
@@ -213,7 +211,7 @@ const Home = () => {
                             />
                             <div className="absolute inset-0 bg-black/30"></div>
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <h2 className="text-white text-4xl font-serif">Hair Care</h2>
+                                <h2 className="text-white text-4xl font-serif">{t('hairCare')}</h2>
                             </div>
                         </div>
 
@@ -231,7 +229,7 @@ const Home = () => {
                             </div>
                         ) : (
                             <div className="p-6 space-y-4">
-                                <h2 className="text-2xl font-semibold text-purple-900">Offers:</h2>
+                                <h2 className="text-2xl font-semibold text-purple-900">{t('offers')}:</h2>
                                 <ul className="space-y-3 text-gray-700">
                                     <li className="flex justify-between">
                                         <span>Argan Hair Oil</span>
@@ -279,7 +277,7 @@ const Home = () => {
                             />
                             <div className="absolute inset-0 bg-black/30"></div>
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <h2 className="text-white text-4xl font-serif">Fragrance</h2>
+                                <h2 className="text-white text-4xl font-serif">{t('fragrance')}</h2>
                             </div>
                         </div>
 
@@ -297,7 +295,7 @@ const Home = () => {
                             </div>
                         ) : (
                             <div className="p-6 space-y-4">
-                                <h2 className="text-2xl font-semibold text-purple-900">Offers:</h2>
+                                <h2 className="text-2xl font-semibold text-purple-900">{t('offers')}:</h2>
                                 <ul className="space-y-3 text-gray-700">
                                     <li className="flex justify-between">
                                         <span>Midnight Fantasy</span>
@@ -340,7 +338,7 @@ const Home = () => {
             <div className="bg-white py-16">
                 <div className="text-center mb-12">
                     <h1 className="text-5xl font-serif text-purple-800 mb-4">{t('bestSellers')}</h1>
-                    <p className="text-gray-600">Explore our top-rated beauty products.</p>
+                    <p className="text-gray-600">{t('topRated')}.</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6 bg-white">
 
@@ -499,7 +497,7 @@ const Home = () => {
             <div className="bg-fuchsia-50 py-16 ">
                 <div className="text-center mb-12">
                     <h1 className="text-5xl font-serif text-purple-800 mb-4">{t('categories')}</h1>
-                    <p className="text-gray-600">Explore our top-rated beauty products.</p>
+                    {/* <p className="text-gray-600">Explore our top-rated beauty products.</p> */}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 bg-fuchsia-50">
                     {/* Card 1 */}
@@ -516,11 +514,11 @@ const Home = () => {
                             </video>
                         </div>
                         <div className="p-4 flex flex-col flex-grow">
-                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">Hair & Beard</h2>
-                            <p className="text-gray-700 text-sm mb-4 text-center">Nourishes and strengthens dry, frizzy hair.</p>
+                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">{t('hair')}</h2>
+                            <p className="text-gray-700 text-sm mb-4 text-center">{t('frizzyHair')}</p>
                             <div className="mt-auto flex justify-center items-center">
 
-                                <strong className="text-gray-500 text-xs text-center">Amazing strong and healthy hair</strong>
+                                <strong className="text-gray-500 text-xs text-center">{t('healthyHair')}</strong>
                             </div>
                         </div>
                     </div>
@@ -539,11 +537,11 @@ const Home = () => {
                             </video>
                         </div>
                         <div className="p-4 flex flex-col flex-grow">
-                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">Face</h2>
-                            <p className="text-gray-700 text-sm mb-4 text-center">Long-lasting, bold color for every occasion.</p>
+                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">{t('face')}</h2>
+                            <p className="text-gray-700 text-sm mb-4 text-center">{t('boldColor')}</p>
                             <div className="mt-auto flex justify-center items-center">
 
-                                <strong className="text-gray-500 text-xs">Amazing glow and radiance</strong>
+                                <strong className="text-gray-500 text-xs">{t('radiance')}</strong>
                             </div>
                         </div>
                     </div>
@@ -562,11 +560,11 @@ const Home = () => {
                             </video>
                         </div>
                         <div className="p-4 flex flex-col flex-grow">
-                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">Body</h2>
-                            <p className="text-gray-700 text-sm mb-4 text-center">Deep moisture for radiant, glowing skin.</p>
+                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">{t('body')}</h2>
+                            <p className="text-gray-700 text-sm mb-4 text-center">{t('glowingSkin')}</p>
                             <div className="mt-auto flex justify-center items-center">
 
-                                <strong className="text-gray-500 text-xs">Amazing hydration and nourishment</strong>
+                                <strong className="text-gray-500 text-xs">{t('hydrating')}</strong>
                             </div>
                         </div>
                     </div>
@@ -585,11 +583,11 @@ const Home = () => {
                             </video>
                         </div>
                         <div className="p-4 flex flex-col flex-grow">
-                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">Fragrance</h2>
-                            <p className="text-gray-700 text-sm mb-4 text-center">Luxury fragrance with hints of jasmine & rose.</p>
+                            <h2 className="text-2xl font-garamond font-semibold text-purple-800 mb-2 text-center">{t('fragrance')}</h2>
+                            <p className="text-gray-700 text-sm mb-4 text-center">{t('luxuryFragrance')}</p>
                             <div className="mt-auto flex justify-center items-center">
 
-                                <strong className="text-gray-500 text-xs">Amazing scent and radiance</strong>
+                                <strong className="text-gray-500 text-xs">{t('scent')}</strong>
                             </div>
                         </div>
                     </div>
@@ -612,7 +610,7 @@ const Home = () => {
                                     <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5" />
                                 </svg>
                             </div>
-                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">Years in Business</h4>
+                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">{t('years')}</h4>
                             <p className="text-2xl text-black font-bold">10+</p>
                         </div>
 
@@ -624,7 +622,7 @@ const Home = () => {
                                     <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
                                 </svg>
                             </div>
-                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">Positive Reviews</h4>
+                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">{t('positive')}</h4>
                             <p className="text-2xl text-black font-bold">50k+</p>
                         </div>
 
@@ -636,7 +634,7 @@ const Home = () => {
                                     <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zM1 4v2h6V4zm8 0v2h6V4zm5 3H9v8h4.5a.5.5 0 0 0 .5-.5zm-7 8V7H2v7.5a.5.5 0 0 0 .5.5z" />
                                 </svg>
                             </div>
-                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">Awards Won</h4>
+                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">{t('awards')}</h4>
                             <p className="text-2xl text-black font-bold">5</p>
                         </div>
 
@@ -649,7 +647,7 @@ const Home = () => {
                                     <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5" />
                                 </svg>
                             </div>
-                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">Happy Clients</h4>
+                            <h4 className="text-black text-sm uppercase tracking-widest mb-1">{t('happyClients')}</h4>
                             <p className="text-2xl text-black font-bold">10k+</p>
                         </div>
                     </div>
@@ -672,7 +670,7 @@ const Home = () => {
                                 className="w-full h-full rounded-full object-cover" />
                         </div>
                         <h2 className="text-xl font-semibold mt-4 text-purple-800">Winston</h2>
-                        <p className="mt-2"><strong>"Absolutely love it!"</strong> <br />
+                        <p className="mt-2"><strong>"{t('absolutelyLoveIt')}"</strong> <br />
                             The Argan Hair Oil has completely transformed my hair—it's softer, shinier, and smells amazing. I'll definitely be reordering!
                             <br />— Winston M."</p>
 
@@ -686,7 +684,7 @@ const Home = () => {
                                 className="w-full h-full rounded-full object-cover" />
                         </div>
                         <h2 className="text-xl font-semibold mt-4 text-purple-800">Linda</h2>
-                        <p className="mt-2"><strong>"Great but a bit pricey"</strong><br />
+                        <p className="mt-2"><strong>"{t('greatButPricey')}"</strong><br />
                             I adore the Velvet Rose perfume. It lasts all day and I always get compliments. Just wish it was a little more affordable.<br />
                             — Linda K.</p>
 
@@ -700,7 +698,7 @@ const Home = () => {
                                 className="w-full h-full rounded-full object-cover" />
                         </div>
                         <h2 className="text-xl font-semibold mt-4 text-purple-800">Nina</h2>
-                        <p className="mt-2"><strong>"Perfect matte finish!"</strong><br />
+                        <p className="mt-2"><strong>"{t('perfectMatte')}"</strong><br />
                             The Matte Lipstick glides on smoothly and stays put all day without drying out my lips. Highly recommend!<br />
                             — Nina N.</p>
 
@@ -714,7 +712,7 @@ const Home = () => {
                                 className="w-full h-full rounded-full object-cover" />
                         </div>
                         <h2 className="text-xl font-semibold mt-4 text-purple-800">Tyrone</h2>
-                        <p className="mt-2"><strong>"My skin has never felt better"</strong><br />
+                        <p className="mt-2"><strong>"{t('betterSkin')}"</strong><br />
                             The Hydrating Cream is my holy grail! I've struggled with dry patches for years, and this gave me glowing skin in just a week.<br />
                             — Tyrone W.</p>
 
@@ -743,23 +741,23 @@ const Home = () => {
 
                         {/* Contact Info */}
                         <div className="flex-1 bg-purple-50 p-8 rounded-xl shadow-lg space-y-5 ">
-                            <h3 className="text-2xl font-semibold text-purple-800">Visit or Contact Us</h3>
+                            <h3 className="text-2xl font-semibold text-purple-800">{t('visit')}</h3>
                             <p className="text-gray-700">
-                                <strong>Address:</strong><br />
+                                <strong>{t('address')}:</strong><br />
                                 Afrique Essence Store, Kimathi Street, Nairobi, Kenya
                             </p>
                             <p className="text-gray-700">
-                                <strong>Phone:</strong><br />
+                                <strong>{t('phone')}:</strong><br />
                                 +254 789 767 893
                             </p>
                             <p className="text-gray-700">
-                                <strong>Email:</strong><br />
+                                <strong>{t('email')}:</strong><br />
                                 contact@afriqueessence.co.ke
                             </p>
                             <p className="text-gray-700">
-                                <strong>Opening Hours:</strong><br />
+                                <strong>{t('opening')}:</strong><br />
                                 Mon – Sat: 9:00 AM – 7:00 PM<br />
-                                Sun: Closed
+                                Sun: {t('closed')}
                             </p>
                         </div>
                     </div>

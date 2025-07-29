@@ -23,7 +23,7 @@ const Footer = () => {
           {/* Left: Brand & Social */}
           <div className="flex flex-col items-start space-y-4">
             <h2 className="text-xl font-bold tracking-wide">Afrique Essence</h2>
-            <p className="text-[#5A3D3D]">Unveiling luxury through beauty.</p>
+            <p className="text-[#5A3D3D]">{t('unveilLuxury')}</p>
             <div className="flex space-x-3">
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                 <Twitter className="h-5 w-5 hover:text-[#B88BA4]" />
@@ -42,8 +42,8 @@ const Footer = () => {
 
           {/* Middle: Newsletter Signup */}
           <div className="flex flex-col space-y-4">
-            <h3 className="font-semibold text-[#4B2E2E]">Join Our Newsletter</h3>
-            <p className="text-[#5A3D3D]">Get exclusive deals and the latest updates straight to your inbox.</p>
+            <h3 className="font-semibold text-[#4B2E2E]">{t('joinNewsletter')}</h3>
+            <p className="text-[#5A3D3D]">{t('getDeals')}</p>
             <form className="flex w-full max-w-sm">
               <input
                 type="email"
@@ -54,14 +54,14 @@ const Footer = () => {
                 type="submit"
                 className="bg-[#B88BA4] text-white px-4 py-2 rounded-r-lg hover:bg-[#A87592]"
               >
-                Subscribe
+                {t('subscribe')}
               </button>
             </form>
           </div>
 
           {/* Right: Settings */}
           <div className="flex flex-col space-y-4">
-            <h3 className="font-semibold text-[#4B2E2E]">Settings</h3>
+            <h3 className="font-semibold text-[#4B2E2E]">{t('settings')}</h3>
             <label className="flex flex-col">
               <span className="mb-1 text-[#5A3D3D]">{t('language')}</span>
               <select className="p-2 border border-[#E3C9D9] rounded"
@@ -69,10 +69,12 @@ const Footer = () => {
                 value={i18n.language}>
                 <option value='en'>English</option>
                 <option value='fr'>Français</option>
+                <option value='kw'>Swahili</option>
+                <option value='cn'>Chinese</option>
               </select>
             </label>
             <label className="flex flex-col">
-              <span className="mb-1 text-[#5A3D3D]">Currency</span>
+              <span className="mb-1 text-[#5A3D3D]">{t('currency')}</span>
               <select className="p-2 border border-[#E3C9D9] rounded">
                 <option>USD</option>
                 <option>KES</option>
@@ -84,7 +86,7 @@ const Footer = () => {
 
         {/* Bottom copyright */}
         <div className="text-center text-xs mt-8 text-[#7D5E5E]">
-          &copy; {new Date().getFullYear()} Afrique Essence. All rights reserved.
+          &copy; {new Date().getFullYear()} Afrique Essence. {t('allRights')}.
         </div>
       </footer>
     );
