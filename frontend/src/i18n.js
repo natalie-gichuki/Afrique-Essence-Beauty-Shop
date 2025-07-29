@@ -7,6 +7,10 @@ import translationEN from '../src/locales/en/translation.json';
 import translationFR from '../src/locales/fr/translation.json';
 import translationKW from '../src/locales/kw/translation.json';
 import translationCN from '../src/locales/cn/translation.json';
+import translationSP from '../src/locales/sp/translation.json';
+import translationGN from '../src/locales/gn/translation.json';
+import translationJP from '../src/locales/jp/translation.json';
+
 
 const resources = {
   en: {
@@ -20,7 +24,16 @@ const resources = {
   },
   cn: {
     translation: translationCN
-  }
+  },
+  gn: {
+    translation: translationGN,
+  },
+  sp: {
+    translation: translationSP
+  },
+  jp: {
+    translation: translationJP
+  },
 };
 
 i18n

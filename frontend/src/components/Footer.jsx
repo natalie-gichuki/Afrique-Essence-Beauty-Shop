@@ -71,6 +71,9 @@ const Footer = () => {
                 <option value='fr'>Français</option>
                 <option value='kw'>Swahili</option>
                 <option value='cn'>Chinese</option>
+                <option value='jp'>Japanese</option>
+                <option value='gn'>German</option>
+                <option value='sp'>Spanish</option>
               </select>
             </label>
             <label className="flex flex-col">

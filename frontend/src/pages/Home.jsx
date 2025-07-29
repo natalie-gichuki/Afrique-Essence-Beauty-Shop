@@ -92,7 +92,7 @@ const Home = () => {
                             <img src={Ray} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Ray</h2>
-                        <p className="mt-2"><strong>{t('manager')}.</strong><br /> "Leading with style, managing with grace."</p>
+                        <p className="mt-2"><strong>{t('manager')}.</strong><br /> "{t('leading')}"</p>
 
                     </div>
 
@@ -102,7 +102,7 @@ const Home = () => {
                             <img src={Nonnie} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Nonnie</h2>
-                        <p className="mt-2"><strong>{t('beautician')}.</strong><br /> "Creating beauty, enhancing confidence."</p>
+                        <p className="mt-2"><strong>{t('beautician')}.</strong><br /> "{t('creating')}"</p>
 
                     </div>
 
@@ -112,7 +112,7 @@ const Home = () => {
                             <img src={Elvis} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Elvis</h2>
-                        <p className="mt-2"><strong>{t('salesAssociate')}.</strong><br />"Closing deals with charm and finesse."</p>
+                        <p className="mt-2"><strong>{t('salesAssociate')}.</strong><br />"{t('closingDeals')}"</p>
 
                     </div>
 
@@ -122,7 +122,7 @@ const Home = () => {
                             <img src={Nat} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Natalie</h2>
-                        <p className="mt-2"><strong>{t('frontDesk')}.</strong><br /> "The face of our salon, welcoming all with a smile."</p>
+                        <p className="mt-2"><strong>{t('frontDesk')}.</strong><br /> "{t('salonFace')}"</p>
 
                     </div>
                 </div>
@@ -671,7 +671,7 @@ const Home = () => {
                         </div>
                         <h2 className="text-xl font-semibold mt-4 text-purple-800">Winston</h2>
                         <p className="mt-2"><strong>"{t('absolutelyLoveIt')}"</strong> <br />
-                            The Argan Hair Oil has completely transformed my hair—it's softer, shinier, and smells amazing. I'll definitely be reordering!
+                            {t('winston')}
                             <br />— Winston M."</p>
 
                     </div>
@@ -685,7 +685,7 @@ const Home = () => {
                         </div>
                         <h2 className="text-xl font-semibold mt-4 text-purple-800">Linda</h2>
                         <p className="mt-2"><strong>"{t('greatButPricey')}"</strong><br />
-                            I adore the Velvet Rose perfume. It lasts all day and I always get compliments. Just wish it was a little more affordable.<br />
+                            {t('linda')}<br />
                             — Linda K.</p>
 
                     </div>
@@ -699,7 +699,7 @@ const Home = () => {
                         </div>
                         <h2 className="text-xl font-semibold mt-4 text-purple-800">Nina</h2>
                         <p className="mt-2"><strong>"{t('perfectMatte')}"</strong><br />
-                            The Matte Lipstick glides on smoothly and stays put all day without drying out my lips. Highly recommend!<br />
+                            {t('nina')}<br />
                             — Nina N.</p>
 
                     </div>
@@ -711,10 +711,10 @@ const Home = () => {
                                 alt="Natalie"
                                 className="w-full h-full rounded-full object-cover" />
                         </div>
-                        <h2 className="text-xl font-semibold mt-4 text-purple-800">Tyrone</h2>
+                        <h2 className="text-xl font-semibold mt-4 text-purple-800">Brick</h2>
                         <p className="mt-2"><strong>"{t('betterSkin')}"</strong><br />
-                            The Hydrating Cream is my holy grail! I've struggled with dry patches for years, and this gave me glowing skin in just a week.<br />
-                            — Tyrone W.</p>
+                            {t('brick')}<br />
+                            — Brick A.</p>
 
                     </div>
                 </div>
