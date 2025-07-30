@@ -212,12 +212,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchMyCart } from '../redux/slices/cartSlice';
 import { createOrder } from '../redux/orderSlice';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 import { t } from 'i18next';
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cart, status } = useSelector((state) => state.cart);
+  const [statusMessage, setStatus] = useState('');
+
 
   const [form, setForm] = useState({
     name: '',
@@ -239,32 +242,60 @@ const CheckoutPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const orderPayload = {
-      phone: form.phone,
-      address: form.address,
-      cart_items: cart.items.map((item) => ({
-        product_id: item.product.id,
-        quantity: item.quantity,
-      }))
-    };
+  e.preventDefault();
 
-    try {
-      const resultAction = await dispatch(createOrder(orderPayload));
-      if (createOrder.fulfilled.match(resultAction)) {
-       navigate('/invoice', {
-      state: {
-        customer: form,
-        items: cart.items,
-        total: calculateTotal()
-      }});
-      } else {
-        console.error('Order creation failed:', resultAction.error);
-      }
-    } catch (err) {
-      console.error('Failed to create order:', err);
-    }
+  const orderPayload = {
+    phone: form.phone,
+    address: form.address,
+    cart_items: cart.items.map((item) => ({
+      product_id: item.product.id,
+      quantity: item.quantity,
+    }))
   };
+
+  try {
+    const resultAction = await dispatch(createOrder(orderPayload));
+    if (createOrder.fulfilled.match(resultAction)) {
+      const response = await fetch(`${API_URL}/mpesa/stk`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: form.phone,
+          amount: calculateTotal(),
+        }),
+      });
+
+      const mpesaResult = await response.json();
+      if (mpesaResult.ResponseCode === "0") {
+        setStatus("Waiting for payment confirmation...");
+
+        // Start polling for payment
+        const pollInterval = setInterval(async () => {
+          const checkRes = await fetch(`${API_URL}/payment/status/${form.phone}`);
+          const checkData = await checkRes.json();
+
+          if (checkData.status === "paid") {
+            clearInterval(pollInterval);
+            console.log("Payment successful");
+
+            // Show invoice only after payment confirmed
+            navigate('/invoice', {
+              state: {
+                customer: form,
+                items: cart.items,
+                total: calculateTotal(),
+              },
+            });
+          }
+        }, 4000); // poll every 4 seconds
+      } else {
+        alert("Failed to initiate M-Pesa STK push. Please try again.");
+      }
+    }
+  } catch (err) {
+    console.error("Error:", err);
+  }
+};
 
   if (status === 'loading') {
     return <p className="text-center mt-10 text-gray-500">Loading...</p>;

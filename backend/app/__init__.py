@@ -1,5 +1,6 @@
 from flask import Flask
-
+from dotenv import load_dotenv
+load_dotenv()
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -8,12 +9,14 @@ from flask_jwt_extended import JWTManager
 from app.config import config_by_name
 from flasgger import Swagger
 
+
 # Initialize extensions
 # These create instances of Flask extensions without tying them to the app yet.
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
 cors = CORS()
+
 
 swagger = Swagger()
 
@@ -69,7 +72,8 @@ def create_app(config_name = "development"):
                                order_routes, 
                                invoice_routes, 
                                category_routes, 
-                               product_routes
+                               product_routes,
+                               payment_routes
                                )
     from app import models
        
@@ -85,6 +89,7 @@ def create_app(config_name = "development"):
     app.register_blueprint(category_routes.category_bp, url_prefix='/categories')
     app.register_blueprint(product_routes.product_bp, url_prefix='/products')
     app.register_blueprint(order_routes.order_bp, url_prefix='/orders')
+    app.register_blueprint(payment_routes.payment_bp)
 
 
     @app.after_request
