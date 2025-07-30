@@ -58,7 +58,7 @@ def mpesa_stk():
         "PartyA": phone,
         "PartyB": shortcode,
         "PhoneNumber": phone,
-        "CallBackURL": "https://natalie.requestcatcher.com/",  # your callback URL
+        "CallBackURL": "https://966d274f4fe8.ngrok-free.app/mpesa/callback",  # your callback URL
         "AccountReference": "AfriqueEssence",
         "TransactionDesc": "Payment for order"
     }
@@ -82,6 +82,7 @@ def mpesa_stk():
 @payment_bp.route('/mpesa/callback', methods=['POST'])
 def mpesa_callback():
     data = request.get_json()
+    print("📥 CALLBACK RECEIVED:", data)
     
     if not data:
         return jsonify({"error": "No data received"}), 400
