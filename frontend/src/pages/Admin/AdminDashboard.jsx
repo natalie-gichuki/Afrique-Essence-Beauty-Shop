@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Bar, Pie } from 'react-chartjs-2';
+import { Bar, Pie, Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -43,6 +43,11 @@ export default function AdminDashboard() {
     }]
   });
 
+  const [dailyTrendsData, setDailyTrendsData] = useState({
+    labels: [],
+    datasets: []
+  });
+
   useEffect(() => {
     dispatch(fetchOrders());
     dispatch(fetchProducts({ page: 1, per_page: 100 }));
@@ -66,12 +71,21 @@ export default function AdminDashboard() {
         }
       });
     });
-
-    const salesLabels = Object.keys(salesMap);
-    const salesCounts = Object.values(salesMap);
-
     const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#F67019'];
+    // Convert salesMap to array of [productName, quantity]
+    const salesArray = Object.entries(salesMap);
 
+    // Sort by quantity sold in descending order
+    const sortedSales = salesArray.sort((a, b) => b[1] - a[1]);
+
+    // Get top 5 products
+    const top5Sales = sortedSales.slice(0, 5);
+
+    // Separate into labels and counts
+    const salesLabels = top5Sales.map(([product, _]) => product);
+    const salesCounts = top5Sales.map(([_, count]) => count);
+
+    // Set the stats and chart data
     setStats({ totalProducts, activeUsers, totalOrders, totalRevenue });
 
     setSalesData({
@@ -102,7 +116,51 @@ export default function AdminDashboard() {
         backgroundColor: 'rgba(59, 130, 246, 0.5)'
       }]
     });
+    // Daily trends data
+    const dailySalesMap = {};
+    const dailyRevenueMap = {};
+
+    orders.forEach(order => {
+      const date = new Date(order.created_at);
+      const day = date.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+
+      if (!dailySalesMap[day]) dailySalesMap[day] = 0;
+      if (!dailyRevenueMap[day]) dailyRevenueMap[day] = 0;
+
+      order.order_items?.forEach(item => {
+        dailySalesMap[day] += item.quantity || 0;
+      });
+
+      dailyRevenueMap[day] += parseFloat(order.total_amount || 0);
+    });
+
+    const sortedDays = Object.keys(dailySalesMap).sort();
+
+    setDailyTrendsData({
+      labels: sortedDays,
+      datasets: [
+        {
+          label: 'Quantity Sold',
+          data: sortedDays.map(day => dailySalesMap[day]),
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: 'Revenue (Ksh)',
+          data: sortedDays.map(day => dailyRevenueMap[day]),
+          borderColor: 'rgba(255, 99, 132, 1)',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          tension: 0.4,
+          fill: true,
+          yAxisID: 'revenue-axis'
+        }
+      ]
+    });
   }, [products, users, orders]);
+
+
 
   const handleExport = () => {
     const data = [
@@ -156,7 +214,7 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-semibold mb-4">{t('salesByProduct')}</h2>
-          <div className="h-64">
+          <div className="h-64 ">
             <Pie data={salesData} />
           </div>
         </div>
@@ -165,6 +223,39 @@ export default function AdminDashboard() {
           <div className="h-64">
             <Bar data={ordersData} />
           </div>
+        </div>
+      </div>
+
+      {/* Daily Trends Line Chart */}
+      <div className="bg-white p-6 rounded-lg shadow mt-10">
+        <h2 className="text-xl font-semibold mb-4">{t('dailyTrends')}</h2>
+        <div className="h-96">
+          <Line
+            data={dailyTrendsData}
+            options={{
+              responsive: true,
+              interaction: { mode: 'index', intersect: false },
+              stacked: false,
+              scales: {
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Quantity Sold'
+                  }
+                },
+                'revenue-axis': {
+                  position: 'right',
+                  title: {
+                    display: true,
+                    text: 'Revenue (Ksh)'
+                  },
+                  grid: {
+                    drawOnChartArea: false,
+                  }
+                }
+              }
+            }}
+          />
         </div>
       </div>
     </div>
