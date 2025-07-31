@@ -141,5 +141,6 @@
   "download": "Descargar factura (PDF)",
   "taxInvoice": "Factura fiscal",
   "backToHome": "Volver al inicio",
-  "totalRevenue": "Ingresos Totales"
+  "totalRevenue": "Ingresos Totales",
+  "dailyTrends": "Tendencias diarias"
 }

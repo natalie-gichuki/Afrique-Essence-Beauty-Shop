@@ -141,5 +141,6 @@
   "download": "請求書（PDF）をダウンロード",
   "taxInvoice": " 税務請求書",
   "backToHome": "ホームに戻る",
-  "totalRevenue": "総収益"
+  "totalRevenue": "総収益",
+  "dailyTrends": "毎日の傾向"
 }

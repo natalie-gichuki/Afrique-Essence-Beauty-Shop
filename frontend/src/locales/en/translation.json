@@ -141,5 +141,6 @@
   "refund": "14 days exchange / Refund upon approval",
   "download": "Download Invoice (PDF)",
   "backToHome": "Back to Home",
-  "totalRevenue": "Total Revenue"
+  "totalRevenue": "Total Revenue",
+  "dailyTrends": "Daily Trends"
 }

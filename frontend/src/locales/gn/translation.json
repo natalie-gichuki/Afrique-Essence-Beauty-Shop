@@ -141,5 +141,6 @@
   "download": "Rechnung herunterladen (PDF)",
   "taxInvoice": "Steuerrechnung",
   "backToHome": "Zurück zur Startseite",
-  "totalRevenue": "Gesamteinnahmen"
+  "totalRevenue": "Gesamteinnahmen",
+  "dailyTrends": "Tägliche Trends"
 }
