@@ -61,10 +61,23 @@ export const disableUser = createAsyncThunk(
   }
 );
 
+export const fetchDisabledUsers = createAsyncThunk(
+  'users/fetchDisabled',
+  async (_, thunkAPI) => {
+    try {
+      return await userService.getDisabledUsers();
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data?.msg || 'Failed to fetch disabled users');
+    }
+  }
+);
+
+
 const userSlice = createSlice({
   name: 'users',
   initialState: {
     users: [],
+    disabledUsers: [],
     status: 'idle',
     error: null,
   },
@@ -87,6 +100,9 @@ const userSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
+      })
+      .addCase(fetchDisabledUsers.fulfilled, (state, action) => {
+        state.disabledUsers = action.payload;
       })
       .addCase(disableUser.fulfilled, (state, action) => {
         state.users = state.users.filter((user) => user.id !== action.payload);

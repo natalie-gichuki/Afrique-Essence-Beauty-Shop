@@ -102,9 +102,15 @@ const disableUser = async (userId) => {
   return res.data;
 };
 
+const getDisabledUsers = async () => {
+  const res = await axios.get('http://localhost:5555/users/users/disabled', authHeaders());
+  return res.data;
+};
+
 const userService = {
   getAllUsers,
   disableUser,
+  getDisabledUsers
 };
 
 export default userService;

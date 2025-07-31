@@ -58,7 +58,7 @@ def mpesa_stk():
         "PartyA": phone,
         "PartyB": shortcode,
         "PhoneNumber": phone,
-        "CallBackURL": "https://966d274f4fe8.ngrok-free.app/mpesa/callback",  # your callback URL
+        "CallBackURL": "https://5741b23578c1.ngrok-free.app/mpesa/callback",  # your callback URL
         "AccountReference": "AfriqueEssence",
         "TransactionDesc": "Payment for order"
     }

@@ -93,3 +93,40 @@ def disable_user(user_id):
     user.role = 'disabled'
     db.session.commit()
     return jsonify({"msg": f"User {user.username} disabled"}), 200
+
+
+@bp.route('/users/disabled', methods=['GET'])
+@jwt_required()
+@role_required('admin')
+@swag_from({
+    'tags': ['User'],
+    'description': 'Get all disabled user accounts',
+    'security': [{'Bearer': []}],
+    'responses': {
+        200: {
+            'description': 'List of disabled users',
+            'examples': {
+                'application/json': [
+                    {
+                        "id": 3,
+                        "username": "johndoe",
+                        "email": "john@example.com",
+                        "role": "disabled"
+                    }
+                ]
+            }
+        }
+    }
+})
+def get_disabled_users():
+    disabled_users = User.query.filter_by(role='disabled').all()
+    result = [
+        {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "role": user.role
+        }
+        for user in disabled_users
+    ]
+    return jsonify(result), 200
