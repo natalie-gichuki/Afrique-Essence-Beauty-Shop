@@ -1,125 +1,97 @@
- ##  Beauty Products App – Backend (Flask API)
-This is the backend API for the Beauty Products Admin Dashboard, built with Flask, SQLAlchemy, and PostgreSQL. It supports features such as product management, order creation, and admin analytics for reporting.
+ 🛍️ Beauty Shop – Full Stack Web Application
 
-## Team Roles
-Team Member	Responsibilities
-Natalie	Authentication & User Management
-Ray	Product & Category CRUD
-Milka	Cart, Orders & Invoice
-Elvis	Admin Dashboard Features & Analytics (Backend & Frontend)
+Beauty Shop is a full-stack e-commerce platform for browsing and managing beauty products. It includes a customer-facing storefront and a secure admin dashboard for managing products, viewing analytics, and generating invoices.
 
-## Backend Folder Structure
-Phase-5-project/
+## 🚀 Tech Stack
+
+- **Frontend**: React, Vite, Tailwind CSS, Redux Toolkit, i18next
+- **Backend**: Flask, SQLAlchemy, Marshmallow, Alembic, JWT Auth
+- **Database**: PostgreSQL
+- **Deployment**: Render for backend and netlify for frontend
+
+## 📦 Features
+
+### 🧑 Customer Side
+- View beauty products
+- Search, filter, and sort
+- Add to cart and checkout
+- Invoice generation
+- Multi-language support (i18next)
+
+### 👩‍💼 Admin Dashboard
+- Login & protected routes
+- Add, edit, delete products
+- View all orders and invoices
+- Sales analytics and reporting
+- Filter data by date
+
+
+## 🗂️ Folder Structure
+
+phase-5-project/
 ├── backend/
-│   ├── .env
-│   ├── .gitignore
-│   ├── Dockerfile
-│   ├── Pipfile
-│   ├── Pipfile.lock
-│   ├── requirements.txt
-│   ├── run.py
-│   ├── gunicorn_config.py
-│   ├── migrations/
-│   ├── instance/
-│   │   └── dev.db
-│   ├── .github/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── config.py
-│   │   ├── swagger.json
-│   │   ├── models/
-│   │   │   ├── __init__.py
-│   │   │   ├── cart.py
-│   │   │   ├── category.py
-│   │   │   ├── invoice.py
-│   │   │   ├── order.py
-│   │   │   ├── product.py
-│   │   │   └── user.py
-│   │   ├── routes/
-│   │   │   ├── __init__.py
-│   │   │   ├── analytics_routes.py
-│   │   │   ├── auth_routes.py
-│   │   │   ├── cart_routes.py
-│   │   │   ├── category_routes.py
-│   │   │   ├── export_routes.py
-│   │   │   ├── invoice_routes.py
-│   │   │   ├── order_routes.py
-│   │   │   ├── product_routes.py
-│   │   │   └── user_routes.py
-│   │   ├── schemas/
-│   │   ├── templates/
-│   │   ├── tests/
-│   │   └── utils/
-|──.gitignore
-├── README.MD
+│ ├── app/
+│ │ ├── models/ # SQLAlchemy models
+│ │ ├── routes/ # Flask API routes
+│ │ ├── schemas/ # Marshmallow schemas
+│ │ ├── templates/ # Jinja2 templates (e.g., invoice)
+│ │ ├── tests/ # Unit and integration tests
+│ │ ├── utils/ # Utility functions
+│ │ ├── init.py # App factory and setup
+│ │ ├── config.py # App config (env, DB, etc.)
+│ │ └── swagger.json # Optional: API documentation schema
+│ ├── instance/ # Local config instance
+│ ├── migrations/ # Alembic DB migrations
+│ ├── .env # Flask environment variables
+│ ├── run.py # Flask app entry point
+│ ├── Dockerfile # Container setup
+│ ├── Pipfile # Pipenv dependencies
+│ ├── requirements.txt # (Optional) pip install fallback
+│ └── gunicorn_config.py # Gunicorn server config (for prod)
+│
+├── frontend/
+│ ├── public/ # Static files (favicon, etc.)
+│ ├── src/
+│ │ ├── components/ # Reusable UI components
+│ │ ├── pages/ # Views (Home, Admin, Product, Cart, etc.)
+│ │ ├── services/ # Axios API calls
+│ │ ├── slices/ # Redux Toolkit slices
+│ │ ├── i18n.js # Localization config
+│ │ └── main.jsx # App entry point
+│ ├── .env # Frontend environment variables
+│ ├── index.html # App HTML template
+│ ├── package.json # Project metadata and dependencies
+│ ├── tailwind.config.js # Tailwind config
+│ ├── vite.config.js # Vite bundler config
+│ └── postcss.config.js # PostCSS plugins
 
-# Setup Instructions
-1. Clone and navigate to the project
+## ⚙️ Getting Started
 
-git clone  https://github.com/Elvis108-coder/Phase-5-project.git
-cd Phase-5-project/backend
-2. Install dependencies
-
+### Backend
+cd backend
 pipenv install
 pipenv shell
-3. Set environment variables (via .env or terminal)
-
-FLASK_ENV=development
-DATABASE_URL=postgresql://your_user:your_password@localhost:5432/beauty_db
-4. Run database migrations
-
-flask db init       # Run only once
-flask db migrate -m "Initial migration"
 flask db upgrade
-5. Start the Flask server
-
 flask run
-# API Endpoints Overview
-## Authentication (Natalie)
-POST /register
+🔐 Authentication
+JWT-based admin login
 
-POST /login
+Token stored in localStorage and sent with API requests
 
-GET /me
+📊 Analytics
+View total revenue, top-selling products
 
-## Products & Categories (Ray)
-GET /products
+Filter reports by date or category
 
-POST /products
-
-PATCH /products/<id>
-
-DELETE /products/<id>
-
-GET /categories
-
-## Orders, Cart & Invoices (Milka)
-POST /orders
-
-GET /orders
-
-GET /invoices/<order_id>
-
-#  Admin Analytics & Dashboard (Elvis)
-GET /admin/orders
-View all customer orders with details.
-
-GET /analytics?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD
-View summarized sales analytics within a date range.
-
-# Testing the API
-Use Postman or cURL to interact with endpoints. Add Authorization headers as required.
-We used  Swagger UI for interactive API documentation
-# Tech Stack
-Python (Flask)
-
-PostgreSQL
-
-SQLAlchemy
-
-Flask-Migrate
-
-Flask-CORS
-
-👨‍💻 Developer Note
-This backend is part of the final group project at Moringa School (Phase 5). The API will power the admin dashboard and e-commerce frontend.
+Dashboard charts and data visualizations
+👥 Team
+Elvis – Admin features & dashboard
+  	GitHub:https://github.com/Elvis108-coder
+Natalie – Auth & login integration
+    GitHub:https://github.com/natalie-gichuki 
+Ray – Products & category management
+    GitHub:https://github.com/Raymori254 
+Milka – Cart, orders & invoice handling
+    GitHub:https://github.com/Nonniesankara
+📜 License
+MIT License
