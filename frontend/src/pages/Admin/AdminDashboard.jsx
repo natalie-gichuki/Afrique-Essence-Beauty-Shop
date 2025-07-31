@@ -167,7 +167,7 @@ export default function AdminDashboard() {
       ['Metric', 'Value'],
       ['Total Products', stats.totalProducts],
       ['Active Users', stats.activeUsers],
-      ['Pending Orders', stats.totalOrders],
+      ['Orders', stats.totalOrders],
       ['Total Revenue', `Ksh ${Number(stats.totalRevenue).toLocaleString()}`],
       ...salesData.labels.map((label, i) => [label, salesData.datasets[0].data[i]])
     ];
