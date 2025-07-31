@@ -203,7 +203,7 @@ const InvoicePage = () => {
           <div className="text-right">
             <p><strong>{t('card')}:</strong> ********80830</p>
             <p><strong>{t('name')}:</strong> {customer.name}</p>
-            
+            <p><strong>{t('pickUp')}</strong></p>
           </div>
         </div>
 
