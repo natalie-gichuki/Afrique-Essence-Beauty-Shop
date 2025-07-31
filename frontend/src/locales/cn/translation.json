@@ -138,9 +138,10 @@
   "card": "MyClub卡",
   "thankYouShop": "感谢您在Afrique Essence购物",
   "refund": "14天内换货/退款需经批准",
-  "download": "下载发票（PDF）",
+  "download": "下载发票(PDF)",
   "backToHome": "返回主页",
   "taxInvoice": "税务发票",
   "totalRevenue": "总收入",
-  "dailyTrends": "每日趋势"
+  "dailyTrends": "每日趋势",
+  "pickUp": "在Thika Road Mall取货(请携带已下载的发票)"
 }
