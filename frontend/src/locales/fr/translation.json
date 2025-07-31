@@ -140,5 +140,6 @@
   "refund": "Échange ou remboursement sous 14 jours après approbation",
   "download": "Télécharger la facture (PDF)",
   "taxInvoice": "Facture fiscale",
-  "backToHome": "Retour à l'accueil"
+  "backToHome": "Retour à l'accueil",
+  "totalRevenue": "Revenu Total"
 }

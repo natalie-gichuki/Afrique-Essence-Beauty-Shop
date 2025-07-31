@@ -22,7 +22,8 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState({
     totalProducts: 0,
     activeUsers: 0,
-    pendingOrders: 0
+    pendingOrders: 0,
+    totalRevenue: 0
   });
 
   const [salesData, setSalesData] = useState({
@@ -53,6 +54,8 @@ export default function AdminDashboard() {
     // If you want to count only customer users
     const activeUsers = users.filter(user => user.role === 'customer').length;
     const totalOrders = orders.length;
+    const totalRevenue = orders.reduce((sum, order) => sum + parseFloat(order.total_amount || 0), 0);
+
 
     const salesMap = {};
     orders.forEach(order => {
@@ -69,7 +72,7 @@ export default function AdminDashboard() {
 
     const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#F67019'];
 
-    setStats({ totalProducts, activeUsers, totalOrders });
+    setStats({ totalProducts, activeUsers, totalOrders, totalRevenue });
 
     setSalesData({
       labels: salesLabels,
@@ -107,6 +110,7 @@ export default function AdminDashboard() {
       ['Total Products', stats.totalProducts],
       ['Active Users', stats.activeUsers],
       ['Pending Orders', stats.totalOrders],
+      ['Total Revenue', `Ksh ${Number(stats.totalRevenue).toLocaleString()}`],
       ...salesData.labels.map((label, i) => [label, salesData.datasets[0].data[i]])
     ];
     exportToCSV(data, 'dashboard_metrics');
@@ -116,7 +120,7 @@ export default function AdminDashboard() {
     <div className="p-6 bg-fuchsia-50 min-h-screen">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-gray-700">📊 {t('adminDashboard')}</h1>
-        <button 
+        <button
           onClick={handleExport}
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex items-center gap-2"
         >
@@ -141,6 +145,11 @@ export default function AdminDashboard() {
           <h3 className="text-gray-500">{t('totalOrders')}</h3>
           <p className="text-3xl font-bold">{stats.totalOrders}</p>
         </div>
+        <div className="bg-white p-6 rounded-lg shadow">
+          <h3 className="text-gray-500">{t('totalRevenue')}</h3>
+          <p className="text-3xl font-bold">Ksh {stats.totalRevenue.toLocaleString()}</p>
+        </div>
+
       </div>
 
       {/* Charts */}

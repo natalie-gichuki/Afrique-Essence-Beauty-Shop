@@ -140,5 +140,6 @@
   "refund": "14天内换货/退款需经批准",
   "download": "下载发票（PDF）",
   "backToHome": "返回主页",
-  "taxInvoice": "税务发票"
+  "taxInvoice": "税务发票",
+  "totalRevenue": "总收入"
 }

@@ -140,5 +140,6 @@
   "refund": "承認された場合、14日以内の交換／返金可",
   "download": "請求書（PDF）をダウンロード",
   "taxInvoice": " 税務請求書",
-  "backToHome": "ホームに戻る"
+  "backToHome": "ホームに戻る",
+  "totalRevenue": "総収益"
 }

@@ -140,5 +140,6 @@
   "refund": "Cambio/reembolso en 14 días previa aprobación",
   "download": "Descargar factura (PDF)",
   "taxInvoice": "Factura fiscal",
-  "backToHome": "Volver al inicio"
+  "backToHome": "Volver al inicio",
+  "totalRevenue": "Ingresos Totales"
 }

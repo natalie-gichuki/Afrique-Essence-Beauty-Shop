@@ -40,7 +40,7 @@
   "totalProducts": "Total Products",
   "activeUsers": "Active Users",
   "totalOrders": "Total Orders",
-  "salesByProduct": "sales By Product",
+  "salesByProduct": "Sales By Product",
   "ordersThisWeek": "Orders This Week",
   "allProducts": "All Products",
   "price": "Price",
@@ -140,5 +140,6 @@
   "thankYouShop": "Thank you for shopping at Afrique Essence",
   "refund": "14 days exchange / Refund upon approval",
   "download": "Download Invoice (PDF)",
-  "backToHome": "Back to Home"
+  "backToHome": "Back to Home",
+  "totalRevenue": "Total Revenue"
 }

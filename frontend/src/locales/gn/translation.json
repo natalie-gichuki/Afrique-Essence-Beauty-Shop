@@ -140,5 +140,6 @@
   "refund": "14 Tage Umtausch / Rückerstattung nach Genehmigung",
   "download": "Rechnung herunterladen (PDF)",
   "taxInvoice": "Steuerrechnung",
-  "backToHome": "Zurück zur Startseite"
+  "backToHome": "Zurück zur Startseite",
+  "totalRevenue": "Gesamteinnahmen"
 }
