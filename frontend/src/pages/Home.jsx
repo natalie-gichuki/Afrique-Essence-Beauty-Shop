@@ -744,7 +744,7 @@ const Home = () => {
                             <h3 className="text-2xl font-semibold text-purple-800">{t('visit')}</h3>
                             <p className="text-gray-700">
                                 <strong>{t('address')}:</strong><br />
-                                Afrique Essence Store, Kimathi Street, Nairobi, Kenya
+                                Afrique Essence Store, Thika Road Mall, Nairobi, Kenya
                             </p>
                             <p className="text-gray-700">
                                 <strong>{t('phone')}:</strong><br />
