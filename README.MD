@@ -21,7 +21,7 @@ Beauty Shop is a full-stack e-commerce platform for browsing and managing beauty
 ### 👩‍💼 Admin Dashboard
 - Login & protected routes
 - Add, edit, delete products
-- View all orders and invoices
+- View all orders
 - Sales analytics and reporting
 - Filter data by date
 
