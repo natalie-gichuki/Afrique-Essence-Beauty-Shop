@@ -74,7 +74,18 @@ def mpesa_stk():
         json=stk_payload
     )
 
-    return jsonify(stk_response.json()), stk_response.status_code
+    if stk_response.status_code == 200:
+        res_data = stk_response.json()
+        # Return CheckoutRequestID back to frontend
+        return jsonify({
+            "ResponseCode": res_data.get("ResponseCode"),
+            "CheckoutRequestID": res_data.get("CheckoutRequestID"),
+            "MerchantRequestID": res_data.get("MerchantRequestID")
+        }), 200
+    else:
+        return jsonify({"error": "STK push failed"}), stk_response.status_code
+
+        # return jsonify(stk_response.json()), stk_response.status_code
 
 
 # routes/payment.py
@@ -113,7 +124,8 @@ def mpesa_callback():
             amount=amount,
             phone=phone,
             transaction_date=str(transaction_date),
-            status='Success'
+            status='Success',
+            checkout_request_id=checkout_request_id
         )
         db.session.add(new_payment)
         db.session.commit()
@@ -138,3 +150,10 @@ def check_payment_status(phone):
         })
     else:
         return jsonify({"status": "pending"})
+
+@payment_bp.route('/payment/status/id/<checkout_id>', methods=['GET'])
+def check_payment_by_checkout_id(checkout_id):
+    payment = Payment.query.filter_by(checkout_request_id=checkout_id).first()
+    if payment and payment.status == 'Success':
+        return jsonify({"status": "paid"})
+    return jsonify({"status": "pending"})

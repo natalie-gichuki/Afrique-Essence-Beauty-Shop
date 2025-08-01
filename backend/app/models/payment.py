@@ -9,3 +9,4 @@ class Payment(db.Model):
     transaction_date = db.Column(db.String(20), nullable=False)
     status = db.Column(db.String(20), default='Success')  # or 'Failed'
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    checkout_request_id = db.Column(db.String, unique=True)

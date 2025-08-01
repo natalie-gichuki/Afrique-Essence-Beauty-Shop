@@ -266,12 +266,13 @@ const CheckoutPage = () => {
       });
 
       const mpesaResult = await response.json();
+       const checkoutId = mpesaResult.CheckoutRequestID;
       if (mpesaResult.ResponseCode === "0") {
         setStatus("Waiting for payment confirmation...");
 
         // Start polling for payment
         const pollInterval = setInterval(async () => {
-          const checkRes = await fetch(`${API_URL}/payment/status/${form.phone}`);
+          const checkRes = await fetch(`${API_URL}/payment/status/id/${checkoutId}`);
           const checkData = await checkRes.json();
 
           if (checkData.status === "paid") {
