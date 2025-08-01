@@ -197,13 +197,14 @@ const InvoicePage = () => {
         {/* Footer */}
         <div className="border-t border-purple-200 mt-6 pt-4 text-sm flex justify-between">
           <div>
-            <p><strong>{t('paymentType')}:</strong> {t('cash')}</p>
+            <p><strong>{t('paymentType')}:</strong> Mpesa</p>
             <p><strong>{t('amount')}:</strong> KES {parseFloat(total).toFixed(2)}</p>
+            <p><strong>{t('pickUp')}</strong></p>
           </div>
           <div className="text-right">
             <p><strong>{t('card')}:</strong> ********80830</p>
             <p><strong>{t('name')}:</strong> {customer.name}</p>
-            <p><strong>{t('pickUp')}</strong></p>
+            
           </div>
         </div>
 
