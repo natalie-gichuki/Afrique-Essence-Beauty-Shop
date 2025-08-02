@@ -84,7 +84,7 @@
 import axios from 'axios';
 import authService  from './authService';
 
-const API_URL = 'http://localhost:5555/users/user';
+const API_URL = 'https://afrique-essence-beauty-shop.onrender.com/users/user';
 
 const authHeaders = () => ({
   headers: {
@@ -103,7 +103,7 @@ const disableUser = async (userId) => {
 };
 
 const getDisabledUsers = async () => {
-  const res = await axios.get('http://localhost:5555/users/users/disabled', authHeaders());
+  const res = await axios.get('https://afrique-essence-beauty-shop.onrender.com/users/users/disabled', authHeaders());
   return res.data;
 };
 

@@ -3,7 +3,7 @@ import cartService from '../../services/cartService';
 import axios from 'axios';
 import {authHeaders} from '../../services/cartService'
 
-const CART_URL = 'http://localhost:5555/cart';
+const CART_URL = 'https://afrique-essence-beauty-shop.onrender.com/cart';
 
 
 const initialState = {

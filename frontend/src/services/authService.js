@@ -3,7 +3,7 @@ import { API_URL } from "../config";
 // Sends a POST request to /auth/login with JSON data.
 // credentials should be an object like { email: '...', password: '...' }.
 const login = async (credentials) => {
-    const response = await fetch(`http://localhost:5555/auth/login`, {
+    const response = await fetch(`https://afrique-essence-beauty-shop.onrender.com/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ const login = async (credentials) => {
 
 // Used to register a new user by sending a POST request to /auth/register.
 const register = async (userData) => {
-    const response = await fetch(`http://localhost:5555/auth/register`, {
+    const response = await fetch(`https://afrique-essence-beauty-shop.onrender.com/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
