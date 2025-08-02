@@ -20,33 +20,33 @@ const Navbar = () => {
     <nav className="bg-fuchsia-200 shadow-md text-gray-700">
       <div className="flex justify-between items-center px-6 py-4">
         {/* Logo & Hamburger */}
-        <div className="flex items-center gap-6 text-lg font-medium">
+        <div className="flex items-center gap-4">
           <Link
             to="/"
-            className="text-2xl font-bold text-gray-800 hover:text-violet-800 transition duration-300 mr-4"
+            className="text-2xl font-bold text-gray-800 hover:text-violet-800 transition duration-300"
           >
             Afrique Essence
           </Link>
-          <Link
-            to="/"
-            className="text-purple-800 hover:text-violet-800 hover:text-xl transition-all duration-200"
+          <button
+            className="md:hidden text-3xl text-purple-800"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
+            ☰
+          </button>
+        </div>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex gap-6 text-lg font-medium">
+          <Link to="/" className="text-purple-800 text-2xl hover:underline hover:text-violet-800 hover:text-3xl transition-all duration-200">
             {t("home")}
           </Link>
-          <Link
-            to="/products"
-            className="text-purple-700 hover:text-violet-800 hover:text-xl transition-all duration-200"
-          >
+          <Link to="/products" className="text-purple-700 text-2xl hover:underline hover:text-violet-800 hover:text-3xl transition-all duration-200">
             {t("products")}
           </Link>
-          <Link
-            to="/products-details"
-            className="text-purple-700 hover:text-violet-800 hover:text-xl transition-all duration-200"
-          >
+          <Link to="/products-details" className="text-purple-700 text-2xl hover:underline hover:text-violet-800 hover:text-3xl transition-all duration-200">
             {t("productDetails")}
           </Link>
         </div>
-
 
         {/* Desktop Right Section */}
         <div className="hidden md:flex items-center gap-6 text-lg font-medium">
@@ -105,21 +105,21 @@ const Navbar = () => {
           )}
 
           {user?.role === "admin" && (
-            <Link to="/admin/dashboard" onClick={() => setMenuOpen(false)}>{t("adminPanel")}</Link>
+            <Link to="/admin/dashboard" className="bg-purple-100 text-purple-800 px-3 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md" onClick={() => setMenuOpen(false)}>{t("adminPanel")}</Link>
           )}
 
           {user ? (
             <>
               <span>{user.username}</span>
-              <Link to="/profile" onClick={() => setMenuOpen(false)}>👤</Link>
+              <Link to="/profile" onClick={() => setMenuOpen(false)} className="bg-slate-400 border-black rounded-xl w-10 text-center text-xl">👤</Link>
               <button onClick={handleLogout} className="bg-purple-800 text-white px-4 py-1.5 rounded hover:bg-violet-800">
                 {t("logout")}
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" onClick={() => setMenuOpen(false)}>{t("login")}</Link>
-              <Link to="/register" onClick={() => setMenuOpen(false)}>{t("signUp")}</Link>
+              <Link to="/login" className="bg-purple-200 w-15 text-gray-700 px-4 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md" onClick={() => setMenuOpen(false)}>{t("login")}</Link>
+              <Link to="/register" className="bg-purple-300 w-15 text-gray-700 px-4 py-1.5 rounded hover:bg-violet-800 hover:text-white transition shadow-md" onClick={() => setMenuOpen(false)}>{t("signUp")}</Link>
             </>
           )}
         </div>
@@ -129,5 +129,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
 

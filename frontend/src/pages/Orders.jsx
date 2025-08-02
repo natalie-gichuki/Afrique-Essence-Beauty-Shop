@@ -42,7 +42,8 @@ function Order() {
               key={order.id}
               className="bg-[#f6f0ee] rounded-xl shadow p-5 transition hover:shadow-lg"
             >
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+
                 <div>
                   <p className="font-semibold">Order #{order.id}</p>
                   <p className="text-sm text-gray-500">

@@ -40,23 +40,26 @@ const CartPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-fuchsia-50 to-fuchsia-200 px-4 py-10">
-      <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6 border border-purple-200">
+      <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-4 sm:p-6 border border-purple-200">
+
         <h2 className="text-2xl font-bold text-purple-800 mb-6">🛒 {t('yourCart')}t</h2>
 
         {cart.items.map((item) => (
-          <div key={item.id} className="flex items-center justify-between border-b border-purple-100 py-4">
+          <div key={item.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-purple-100 py-4">
+
             <div className="flex items-center gap-4">
               <img
                 src={item.product.image_url}
                 alt={item.product.name}
-                className="w-20 h-20 object-cover rounded-xl shadow-sm"
+                className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-xl shadow-sm"
               />
               <div>
                 <h3 className="font-semibold text-gray-700">{item.product.name}</h3>
                 <p className="text-gray-600">Ksh {item.product.price}</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-4">
+
               <button
                 onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
                 className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition"
@@ -80,7 +83,8 @@ const CartPage = () => {
           </div>
         ))}
 
-        <div className="mt-6 flex justify-between items-center">
+        <div className="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+
           <h3 className="text-xl font-semibold text-gray-800">{t('total')}:</h3>
           <p className="text-xl font-bold text-purple-800">Ksh {calculateTotal()}</p>
         </div>
