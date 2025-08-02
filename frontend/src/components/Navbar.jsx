@@ -52,11 +52,11 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-6 text-lg font-medium">
           {user?.role === "customer" && (
             <>
-              <Link to="/cart" className="text-2xl">🛒</Link>
-              <Link to="/checkout" className="text-purple-700 hover:underline hover:text-violet-800">
+              <Link to="/cart" className="text-2xl hover:text-3xl">🛒</Link>
+              <Link to="/checkout" className="text-purple-700 text-2xl hover:text-3xl hover:underline hover:text-violet-800">
                 {t("checkout")}
               </Link>
-              <Link to="/invoice" className="text-purple-700 hover:underline hover:text-violet-800">
+              <Link to="/invoice" className="text-purple-700 text-2xl hover:text-3xl hover:underline hover:text-violet-800">
                 {t("invoice")}
               </Link>
             </>
