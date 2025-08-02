@@ -52,7 +52,7 @@ def create_app(config_name = "development"):
     jwt.init_app(app)
     # Initializes Flask-CORS to handle Cross-Origin Resource Sharing, allowing the app to accept requests from different origins.
     cors.init_app(app, resources={r"/*": {"origins": [
-    "https://688df736202cdcdb4a5968e8--afrique-essence-beauty-shop.netlify.app", 
+    "https://afrique-essence-beauty-shop.netlify.app/", 
     "http://localhost:5173"
     ]}}, supports_credentials=True)
 
