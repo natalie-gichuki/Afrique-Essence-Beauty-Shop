@@ -133,7 +133,7 @@ const CheckoutPage = () => {
           <input
             type="text"
             name="phone"
-            placeholder="Phone Number"
+            placeholder="Phone Number (Format: 2547XXXXXXXX)"
             value={form.phone}
             onChange={handleChange}
             required

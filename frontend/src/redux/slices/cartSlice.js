@@ -91,6 +91,13 @@ export const deleteCartItem = createAsyncThunk('cart/deleteCartItem', async (ite
   }
 });
 
+// Selector: Get total quantity of all items in the cart
+export const selectCartTotalQuantity = (state) => {
+  if (!state.cart.cart?.items) return 0;
+  return state.cart.cart.items.reduce((total, item) => total + (item.quantity || 1), 0);
+};
+
+
 // Slice
 const cartSlice = createSlice({
   name: 'cart',
