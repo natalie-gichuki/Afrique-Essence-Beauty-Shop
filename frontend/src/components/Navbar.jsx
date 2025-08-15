@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
 import { t } from "i18next";
+import { selectCartTotalQuantity } from "../redux/slices/cartSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartQuantity = useSelector(selectCartTotalQuantity);
   const { user } = useSelector((state) => state.auth);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -52,7 +54,14 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-6 text-lg font-medium">
           {user?.role === "customer" && (
             <>
-              <Link to="/cart" className="text-2xl hover:text-3xl">🛒</Link>
+              <Link to="/cart" className="relative">
+                🛒
+                {cartQuantity > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                    {cartQuantity}
+                  </span>
+                )}
+              </Link>
               <Link to="/checkout" className="text-purple-700 text-2xl hover:text-3xl hover:underline hover:text-violet-800">
                 {t("checkout")}
               </Link>
@@ -91,16 +100,23 @@ const Navbar = () => {
 
       {/* Mobile Dropdown */}
       {menuOpen && (
-        <div className="md:hidden flex flex-col gap-4 px-6 pb-4 text-lg font-medium">
-          <Link to="/" onClick={() => setMenuOpen(false)}>{t("home")}</Link>
-          <Link to="/products" onClick={() => setMenuOpen(false)}>{t("products")}</Link>
-          <Link to="/products-details" onClick={() => setMenuOpen(false)}>{t("productDetails")}</Link>
+        <div className="md:hidden flex flex-col gap-4 px-6 pb-4 text-lg font-medium text-center">
+          <Link to="/" className="underline" onClick={() => setMenuOpen(false)}>{t("home")}</Link>
+          <Link to="/products" className="underline" onClick={() => setMenuOpen(false)}>{t("products")}</Link>
+          <Link to="/products-details" className="underline" onClick={() => setMenuOpen(false)}>{t("productDetails")}</Link>
 
           {user?.role === "customer" && (
             <>
-              <Link to="/cart" onClick={() => setMenuOpen(false)}>🛒</Link>
-              <Link to="/checkout" onClick={() => setMenuOpen(false)}>{t("checkout")}</Link>
-              <Link to="/invoice" onClick={() => setMenuOpen(false)}>{t("invoice")}</Link>
+              <Link to="/cart" className="relative hover:text-violet-800" onClick={() => setMenuOpen(false)}>
+                🛒
+                {cartQuantity > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                    {cartQuantity}
+                  </span>
+                )}
+              </Link>
+              <Link to="/checkout" className="underline" onClick={() => setMenuOpen(false)}>{t("checkout")}</Link>
+              <Link to="/invoice" className="underline" onClick={() => setMenuOpen(false)}>{t("invoice")}</Link>
             </>
           )}
 
@@ -111,7 +127,7 @@ const Navbar = () => {
           {user ? (
             <>
               <span>{user.username}</span>
-              <Link to="/profile" onClick={() => setMenuOpen(false)} className="bg-slate-400 border-black rounded-xl w-10 text-center text-xl">👤</Link>
+              <Link to="/profile" onClick={() => setMenuOpen(false)} className="border-black rounded-xl w-10 text-center text-2xl">👤</Link>
               <button onClick={handleLogout} className="bg-purple-800 text-white px-4 py-1.5 rounded hover:bg-violet-800">
                 {t("logout")}
               </button>
