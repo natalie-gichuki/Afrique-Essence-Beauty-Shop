@@ -23,6 +23,7 @@ class Product(db.Model):
             'name': self.name,
             'price': self.price,
             'image_url': self.image_url,
+            'stock': self.stock,
             'category': self.category.to_dict() if self.category else None,
         # any other fields you want exposed
     }

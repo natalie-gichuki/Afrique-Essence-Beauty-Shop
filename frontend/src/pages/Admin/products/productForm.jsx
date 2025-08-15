@@ -20,7 +20,8 @@ const ProductForm = () => {
     description: '',
     price: '',
     image_url: '',
-    category_id: ''
+    category_id: '',
+    stock: 0,
   });
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const ProductForm = () => {
         price: product.price,
         image_url: product.image_url,
         category_id: product.category_id,
+        stock: product.stock || 0,
       });
     }
   }, [product]);
@@ -46,8 +48,15 @@ const ProductForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const payload = {
+      ...formData,
+      price: Number(formData.price),
+      stock: Number(formData.stock)
+    };
+
     if (isEdit) {
-      dispatch(updateProduct({ id, productData: formData }));
+      dispatch(updateProduct({ id, productData: payload }));
       Swal.fire({
         icon: 'success',
         title: 'Product Updated!',
@@ -58,7 +67,7 @@ const ProductForm = () => {
         showConfirmButton: false,
       });
     } else {
-      dispatch(createProduct(formData));
+      dispatch(createProduct(payload));
       Swal.fire({
         icon: 'success',
         title: 'Product Created!',
@@ -145,6 +154,19 @@ const ProductForm = () => {
               </option>
             ))}
           </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t('stock')}</label>
+          <input
+            type="number"
+            name="stock"
+            placeholder="e.g. 50"
+            value={formData.stock}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+          />
         </div>
 
         <div className="pt-4">

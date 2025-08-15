@@ -67,6 +67,7 @@ const ProductList = () => {
                   <th className="py-3 px-4">{t('name')}</th>
                   <th className="py-3 px-4">{t('price')}</th>
                   <th className="py-3 px-4">{t('category')}</th>
+                  <th className="py-3 px-4">{t('stock')}</th>
                   <th className="py-3 px-4 text-center">{t('actions')}</th>
                 </tr>
               </thead>
@@ -76,6 +77,7 @@ const ProductList = () => {
                     <td className="py-3 px-4">{prod.name}</td>
                     <td className="py-3 px-4">KES {prod.price}</td>
                     <td className="py-3 px-4">{prod.category}</td>
+                    <td className="py-3 px-4">{prod.stock}</td>
                     <td className="py-3 px-4 text-center">
                       <Link
                         to={`/admin/products/edit/${prod.id}`}

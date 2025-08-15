@@ -56,6 +56,7 @@ def list_products():
     category_name = request.args.get('category')
     name = request.args.get('name')
     price = request.args.get('price', type=float)
+    stock = request.args.get('stock', type=int)
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
 
@@ -80,7 +81,9 @@ def list_products():
         "description": prod.description,
         "price": prod.price,
         "image_url": prod.image_url,
-        "category": prod.category.name if prod.category else None
+        "category": prod.category.name if prod.category else None,
+        "category_id": prod.category_id,
+        "stock": prod.stock,
     } for prod in pagination.items]
 
     return jsonify({
@@ -118,7 +121,8 @@ def list_products():
                     'description': {'type': 'string'},
                     'price': {'type': 'number'},
                     'image_url': {'type': 'string'},
-                    'category_id': {'type': 'integer'}
+                    'category_id': {'type': 'integer'},
+                    'stock': {'type': 'integer', 'default': 0}
                 },
                 'required': ['name', 'price']
             }
@@ -146,7 +150,8 @@ def manage_product(id):
             "description": product.description,
             "price": product.price,
             "image_url": product.image_url,
-            "category": product.category.name
+            "category": product.category.name,
+            "stock": product.stock
         }), 200
 
     elif request.method == 'PUT':
@@ -156,6 +161,7 @@ def manage_product(id):
         product.price = data.get('price', product.price)
         product.image_url = data.get('image_url', product.image_url)
         product.category_id = data.get('category_id', product.category_id)
+        product.stock = data.get('stock', product.stock)
         db.session.commit()
         return jsonify({
             "id": product.id,
@@ -163,7 +169,8 @@ def manage_product(id):
             "description": product.description,
             "price": product.price,
             "image_url": product.image_url,
-            "category": product.category.name
+            "category": product.category.name,
+            "stock": product.stock
         }), 200
 
     elif request.method == 'DELETE':
@@ -190,7 +197,8 @@ def manage_product(id):
                     'description': {'type': 'string'},
                     'price': {'type': 'number'},
                     'image_url': {'type': 'string'},
-                    'category_id': {'type': 'integer'}
+                    'category_id': {'type': 'integer'},
+                    'stock': {'type': 'integer', 'default': 0}
                 },
                 'required': ['name', 'price']
             }
@@ -220,7 +228,8 @@ def create_product():
         description=data.get('description', ''),
         price=data['price'],
         image_url=data.get('image_url', ''),
-        category_id=data.get('category_id')
+        category_id=data.get('category_id'),
+        stock=data.get('stock', 0)  # Default stock to 0 if not provided
     )
     
     db.session.add(new_product)
@@ -232,5 +241,6 @@ def create_product():
         "description": new_product.description,
         "price": new_product.price,
         "image_url": new_product.image_url,
-        "category": new_product.category.name
+        "category": new_product.category.name,
+        "stock": new_product.stock
     }), 201
