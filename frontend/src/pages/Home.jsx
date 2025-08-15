@@ -158,6 +158,7 @@ const Home = () => {
                                 <h1 className="text-4xl font-bold text-[#4B145B]">
                                     15% off <span className="text-gray-500 font-light text-2xl">(Jul-Sep)</span>
                                 </h1>
+                                <p className="mt-4 text-purple-800 text-3xl font-bold">Click Me!</p>
                                 <ul className="mt-6 mb-6 space-y-2 text-2xl text-[#333] font-extralight">
                                     <li>Cerave Hydrating Cream</li>
                                     <li>Garnier Vitamin C Serum</li>
@@ -220,6 +221,7 @@ const Home = () => {
                                 <h1 className="text-4xl font-bold text-[#4B145B]">
                                     25% off <span className="text-gray-500 font-light text-2xl">(Jul–Sep)</span>
                                 </h1>
+                                <p className="mt-4 text-purple-800 text-3xl font-bold">Click Me!</p>
                                 <ul className="mt-6 mb-6 space-y-2 text-2xl text-[#333] font-extralight">
                                     <li>Argan Hair Oil</li>
                                     <li>Hair Sprays</li>
@@ -286,6 +288,7 @@ const Home = () => {
                                 <h1 className="text-4xl font-bold text-[#4B145B]">
                                     5% off <span className="text-gray-500 font-light text-2xl">(Jul–Sep)</span>
                                 </h1>
+                                <p className="mt-4 text-purple-800 text-3xl font-bold">Click Me!</p>
                                 <ul className="mt-6 mb-6 space-y-2 text-2xl text-[#333] font-extralight">
                                     <li>Midnight Fantasy</li>
                                     <li>Side Effect</li>
