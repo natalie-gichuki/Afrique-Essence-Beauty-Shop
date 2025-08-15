@@ -45,6 +45,13 @@ const Home = () => {
         setShowOffers(!showOffers);
     };
 
+    const phoneNumber = "254704000933"; // Your business number
+    const message = "Hello, I want to inquire about a product";
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    const handleWhatsApp = () => {
+        window.open(url, "_blank");
+    };
 
     return (
         <div className=" w-full min-h-screen bg-fuchsia-50">
@@ -89,7 +96,7 @@ const Home = () => {
                     {/* Card 1 */}
                     <div className="flex flex-col items-center text-center max-w-sm px-4 w-[250px]">
                         <div className="w-[140px] h-[140px] rounded-full bg-purple-200 flex items-center justify-center">
-                            <img src={Ray} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
+                            <img src={Ray} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full" />
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Ray</h2>
                         <p className="mt-2"><strong>{t('manager')}.</strong><br /> "{t('leading')}"</p>
@@ -99,7 +106,7 @@ const Home = () => {
                     {/* Card 2 */}
                     <div className="flex flex-col items-center text-center max-w-sm px-4 w-[250px]">
                         <div className="w-[140px] h-[140px] rounded-full bg-purple-200 flex items-center justify-center">
-                            <img src={Nonnie} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
+                            <img src={Nonnie} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full" />
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Nonnie</h2>
                         <p className="mt-2"><strong>{t('beautician')}.</strong><br /> "{t('creating')}"</p>
@@ -109,7 +116,7 @@ const Home = () => {
                     {/* Card 3 */}
                     <div className="flex flex-col items-center text-center max-w-sm px-4 w-[250px]">
                         <div className="w-[140px] h-[140px] rounded-full bg-purple-200 flex items-center justify-center">
-                            <img src={Elvis} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
+                            <img src={Elvis} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full" />
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Elvis</h2>
                         <p className="mt-2"><strong>{t('salesAssociate')}.</strong><br />"{t('closingDeals')}"</p>
@@ -119,7 +126,7 @@ const Home = () => {
                     {/* Card 4 */}
                     <div className="flex flex-col items-center text-center max-w-sm px-4 w-[250px]">
                         <div className="w-[140px] h-[140px] rounded-full bg-purple-200 flex items-center justify-center">
-                            <img src={Nat} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full"/>
+                            <img src={Nat} alt="Nonnie's profile" className="w-full h-full object-cover rounded-full" />
                         </div>
                         <h2 className="text-xl font-garamond mt-4 text-purple-800">Natalie</h2>
                         <p className="mt-2"><strong>{t('frontDesk')}.</strong><br /> "{t('salonFace')}"</p>
@@ -751,11 +758,18 @@ const Home = () => {
                             </p>
                             <p className="text-gray-700">
                                 <strong>{t('phone')}:</strong><br />
-                                +254 789 767 893
+                                +254 704 000 933
                             </p>
                             <p className="text-gray-700">
                                 <strong>{t('email')}:</strong><br />
                                 contact@afriqueessence.co.ke
+                            </p>
+                            {/* WhatsApp Button */}
+                            <p className="text-gray-700">
+                                <strong>WhatsApp:</strong><br />
+                                <button onClick={handleWhatsApp} className="bg-purple-500 hover:text-xl text-white px-4 py-2 rounded">
+                                    💬 Chat on WhatsApp
+                                </button>
                             </p>
                             <p className="text-gray-700">
                                 <strong>{t('opening')}:</strong><br />
